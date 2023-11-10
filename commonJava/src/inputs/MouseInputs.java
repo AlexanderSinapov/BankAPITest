@@ -29,7 +29,7 @@ public class MouseInputs implements MouseInputListener, MouseMotionListener {
         int mouseX = e.getX();
         int mouseY = e.getY();
 
-        if ((mouseX >= 400 && mouseX <= 500) && (mouseY >= 400 && mouseY <= 440)) {
+        if ((mouseX >= 480 && mouseX <= 630) && (mouseY >= 320 && mouseY <= 380)) {
             window.getWindowFrame().removeMainPage();
             window.getWindowFrame().addLoginPage();
         }

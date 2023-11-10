@@ -30,11 +30,13 @@ public class WindowFrame extends JFrame {
     }
     public void addMainPage() {
         add(mainPage);
+        revalidate();
     }
 
 
     public void removeLoginPage() {
         remove(loginPage);
+        revalidate();
     }
     public void addLoginPage() {
         add(loginPage);

@@ -11,7 +11,6 @@ public class MainPage extends JPanel {
     private Window window;
 
     public MainPage(Window window) {
-
         this.window = window;
         this.mouseInputs = new MouseInputs(window);
         addMouseListener(mouseInputs);

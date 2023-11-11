@@ -6,6 +6,7 @@ import inputs.MouseInputs;
 import java.awt.*;
 
 public class RegisterPanel extends JPanel {
+    public boolean isCurrentPageRegister = false;
     private Window window;
     private MouseInputs mouseInputs;
 

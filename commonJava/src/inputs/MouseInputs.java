@@ -29,14 +29,27 @@ public class MouseInputs implements MouseInputListener, MouseMotionListener {
         int mouseX = e.getX();
         int mouseY = e.getY();
 
-        if ((mouseX >= 480 && mouseX <= 630) && (mouseY >= 320 && mouseY <= 380)) {
-            window.getWindowFrame().removeMainPage();
-            window.getWindowFrame().addLoginPage();
-        }
+        if (window.getMainPage() == Window.Page.MAIN) {
+            if ((mouseX >= 480 && mouseX <= 630) && (mouseY >= 320 && mouseY <= 380)) {
+                window.getWindowFrame().removeMainPage();
+                window.getWindowFrame().addLoginPage();
+                window.setCurrentPage(Window.Page.LOGIN);
+                System.out.println("Login");
+            }
 
-        if ((mouseX >= 650 && mouseX <= 800) && (mouseY >= 320 && mouseY <= 380)) {
-            window.getWindowFrame().removeMainPage();
-            window.getWindowFrame().addRegisterPage();
+            if ((mouseX >= 650 && mouseX <= 800) && (mouseY >= 320 && mouseY <= 380)) {
+                window.getWindowFrame().removeMainPage();
+                window.getWindowFrame().addRegisterPage();
+                System.out.println("Register");
+            }
+//        } else if (window.getMainPage() == Window.Page.LOGIN) {
+//            if ((mouseX >= 10 && MouseX <= 110) && (mouseY >= 10 && mouseY <= 70)) {
+//                window.getWindowFrame().
+//            }
+//
+//        } else if (window.getMainPage() == Window.Page.REGISTER) {
+//
+//        }
         }
     }
 

@@ -9,6 +9,7 @@ public class WindowFrame extends JFrame {
     private RegisterPanel registerPage;
     private ImageIcon image;
 
+
     public WindowFrame(MainPage panel, LoginPage loginPage, RegisterPanel registerPage)  {
 
         this.mainPage = panel;
@@ -54,4 +55,5 @@ public class WindowFrame extends JFrame {
         add(registerPage);
         revalidate();
     }
+
 }

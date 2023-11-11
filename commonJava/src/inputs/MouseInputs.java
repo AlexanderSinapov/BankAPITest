@@ -33,6 +33,11 @@ public class MouseInputs implements MouseInputListener, MouseMotionListener {
             window.getWindowFrame().removeMainPage();
             window.getWindowFrame().addLoginPage();
         }
+
+        if ((mouseX >= 650 && mouseX <= 800) && (mouseY >= 320 && mouseY <= 380)) {
+            window.getWindowFrame().removeMainPage();
+            window.getWindowFrame().addRegisterPage();
+        }
     }
 
     @Override

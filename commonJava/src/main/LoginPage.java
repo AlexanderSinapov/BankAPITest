@@ -1,6 +1,9 @@
 package main;
 
 import inputs.MouseInputs;
+import javax.swing.event.MouseInputListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +20,7 @@ public class LoginPage extends JPanel {
         this.window = window;
         this.mouseInputs = new MouseInputs(window);
         addMouseListener(mouseInputs);
+
         requestFocus();
 
         setSize(1280, 720);

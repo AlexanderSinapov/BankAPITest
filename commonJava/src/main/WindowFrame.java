@@ -6,12 +6,14 @@ public class WindowFrame extends JFrame {
 
     private MainPage mainPage;
     private LoginPage loginPage;
+    private RegisterPanel registerPage;
     private ImageIcon image;
 
-    public WindowFrame(MainPage panel, LoginPage loginPage)  {
+    public WindowFrame(MainPage panel, LoginPage loginPage, RegisterPanel registerPage)  {
 
         this.mainPage = panel;
         this.loginPage = loginPage;
+        this.registerPage = registerPage;
         image = new ImageIcon("commonJava/Resources/Images/VistaTrustBankLogo.png");
 
         setSize(1280, 720);
@@ -40,6 +42,16 @@ public class WindowFrame extends JFrame {
     }
     public void addLoginPage() {
         add(loginPage);
+        revalidate();
+    }
+
+
+    public void removeRegisterPage() {
+        remove(registerPage);
+        revalidate();
+    }
+    public void addRegisterPage() {
+        add(registerPage);
         revalidate();
     }
 }

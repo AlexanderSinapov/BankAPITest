@@ -1,10 +1,11 @@
 package main;
 import javax.swing.*;
-import java.awt.*;
+
 public class Window extends JPanel {
-    private MainPage mainPage;
+    private WelcomePage welcomePage;
     private LoginPage loginPage;
     private RegisterPanel registerPage;
+    private MainPage mainPage;
     private WindowFrame windowFrame;
 
     private Page currentPage;
@@ -12,18 +13,20 @@ public class Window extends JPanel {
     public enum Page {
         MAIN,
         LOGIN,
-        REGISTER
+        REGISTER,
+        WELCOME
     }
 
     public Window() {
-        this.mainPage = new MainPage(this);
+        this.welcomePage = new WelcomePage(this);
         this.loginPage = new LoginPage(this);
         this.registerPage = new RegisterPanel(this);
-        this.windowFrame = new WindowFrame(mainPage, loginPage, registerPage);
-        this.windowFrame.addMainPage();
+        this.mainPage = new MainPage(this);
+        this.windowFrame = new WindowFrame(welcomePage, loginPage, registerPage, mainPage);
+        this.windowFrame.addWelcomePage();
 
-        this.setCurrentPage(Page.MAIN);
-        this.windowFrame.addMainPage();
+        this.setCurrentPage(Page.WELCOME);
+        this.windowFrame.addWelcomePage();
     }
 
     public WindowFrame getWindowFrame() {

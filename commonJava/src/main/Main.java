@@ -13,5 +13,9 @@ public class Main {
 //        System.out.println(result.toString());
         //Output:
         //[{"password":"test123","phoneNumber":"0885414963","pin":1963,"dob":"Fri May 09 00:00:00 EEST 3890","name":"Simeon Petkov Petkov","id":1,"debit_cards":"","email":"spetkov273@gmail.com"}]
+
+        DBUtils.CreateDebitCard("Simeon Petkov Petkov", "spetkov273@gmail.com", DBUtils.DebitCard.MasterCard);
+
+        //DBUtils.InsertDataInDBWithDebitCard("Simeon Petkov Petkov", "test123", new Date(1990,04,9), 1963, "0885414963", "spetkov273@gmail.com", DBUtils.GenerateCardDetails(DBUtils.DebitCard.MasterCard));
     }
 }

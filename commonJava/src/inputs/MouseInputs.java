@@ -14,6 +14,9 @@ public class MouseInputs implements MouseInputListener, MouseMotionListener {
         this.window = window;
     }
 
+    private String Email = "sinapov.aleksander@gmail.com";
+    private String Password = "e3e13d22b16a";
+
     @Override
     public void mouseClicked(MouseEvent e) {
 
@@ -29,7 +32,7 @@ public class MouseInputs implements MouseInputListener, MouseMotionListener {
         int mouseX = e.getX();
         int mouseY = e.getY();
 
-        if (window.getMainPage() == Window.Page.WELCOME) {
+        if (window.getCurrentPage() == Window.Page.WELCOME) {
             if ((mouseX >= 480 && mouseX <= 630) && (mouseY >= 320 && mouseY <= 380)) {
                 window.getWindowFrame().removeWelcomePage();
                 window.getWindowFrame().addLoginPage();
@@ -40,19 +43,27 @@ public class MouseInputs implements MouseInputListener, MouseMotionListener {
             if ((mouseX >= 650 && mouseX <= 800) && (mouseY >= 320 && mouseY <= 380)) {
                 window.getWindowFrame().removeWelcomePage();
                 window.getWindowFrame().addRegisterPage();
+                window.setCurrentPage(Window.Page.REGISTER);
                 System.out.println("Register");
             }
-            else if (window.getMainPage() == Window.Page.LOGIN) {
-                if ((mouseX >= 10 && mouseX <= 110) && (mouseY >= 10 && mouseY <= 70)) {
-                    window.getWindowFrame().removeLoginPage();
-                    window.getWindowFrame().addWelcomePage();
-                    window.setCurrentPage(Window.Page.WELCOME);
-                }
 
             }
 //          else if (window.getMainPage() == Window.Page.REGISTER) {
 //
-//        }
+//          }
+        if (window.getCurrentPage() == Window.Page.LOGIN) {
+            if ((mouseX >= 10 && mouseX <= 110) && (mouseY >= 10 && mouseY <= 70)) {
+                window.getWindowFrame().removeLoginPage();
+                window.getWindowFrame().addWelcomePage();
+                window.setCurrentPage(Window.Page.WELCOME);
+                System.out.println("Back");
+            }
+            if ((mouseX >= 580 && mouseX <= 680) && (mouseY >= 320 && mouseY <= 380)) {
+                window.getWindowFrame().removeLoginPage();
+                window.getWindowFrame().addMainPage();
+                window.setCurrentPage(Window.Page.WELCOME);
+                System.out.println("Logged In");
+            }
         }
     }
 

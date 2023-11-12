@@ -59,7 +59,12 @@ public class WindowFrame extends JFrame {
     }
 
     public void addMainPage() {
-
+        add(mainPage);
+        revalidate();
+    }
+    public void removeMainPage() {
+        remove(mainPage);
+        revalidate();
     }
 
 }

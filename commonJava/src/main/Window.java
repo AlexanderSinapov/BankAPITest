@@ -33,7 +33,7 @@ public class Window extends JPanel {
         return windowFrame;
     }
 
-    public Page getMainPage() {
+    public Page getCurrentPage() {
         return currentPage;
     }
 

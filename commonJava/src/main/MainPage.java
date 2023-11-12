@@ -15,47 +15,36 @@ public class MainPage extends JPanel {
     private String Cards;
     private String Pin;
 
-    private JLabel EmailL;
-    private JLabel PasswordL;
-    private JLabel DOBL;
-    private JLabel FullNameL;
-    private JLabel CardsL;
-    private JLabel PinL;
-
     private Font font;
+
+    private JPanel accountServices;
+    private JLabel accServ;
 
     public MainPage(Window window) {
         this.window = window;
         this.mouseInputs = new MouseInputs(window);
-        this.EmailL = new JLabel();
-        this.PasswordL = new JLabel();
-        this.DOBL = new JLabel();
-        this.FullNameL = new JLabel();
-        this.CardsL = new JLabel();
-        this.PinL = new JLabel();
-        this.font = new Font("Arial", Font.BOLD, 16);
+        this.font = new Font("Arial", Font.BOLD, 30);;
+
+        this.accountServices = new JPanel();
+        this.accServ = new JLabel("Account Services");
 
         addMouseListener(mouseInputs);
 
         requestFocus();
 
         setLayout(null);
-        this.EmailL.setFont(font);
-        this.EmailL.setBounds(230, 10, 30, 30);
-        this.EmailL.setForeground(Color.WHITE);
 
-        add(this.EmailL);
+        this.accountServices.setBackground(new Color(13, 17, 37));
+        this.accountServices.setBounds(340, 0, 1280 - 340, 685);
+
+        this.accServ.setFont(font);
+        this.accServ.setForeground(Color.WHITE);
+
+        this.accountServices.add(accServ);
+        add(this.accountServices);
+
         setSize(1280, 720);
         setBackground(new Color(13, 17, 23));
 
-    }
-
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-
-//        Setting up the Account Services Panel
-        g.setColor(new Color(33, 38, 45));
-        g.fillRoundRect(220, 0, 1060, 685, 40, 40);
     }
 }

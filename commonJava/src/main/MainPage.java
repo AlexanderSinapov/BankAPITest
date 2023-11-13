@@ -17,16 +17,14 @@ public class MainPage extends JPanel {
 
     private Font font;
 
-    private JPanel accountServices;
+    private JPanel infoPanel;
     private JLabel accServ;
 
     public MainPage(Window window) {
         this.window = window;
         this.mouseInputs = new MouseInputs(window);
-        this.font = new Font("Arial", Font.BOLD, 30);;
 
-        this.accountServices = new JPanel();
-        this.accServ = new JLabel("Account Services");
+        this.infoPanel = new JPanel();
 
         addMouseListener(mouseInputs);
 
@@ -34,17 +32,62 @@ public class MainPage extends JPanel {
 
         setLayout(null);
 
-        this.accountServices.setBackground(new Color(13, 17, 37));
-        this.accountServices.setBounds(340, 0, 1280 - 340, 685);
+        this.infoPanel.setBackground(new Color(13, 17, 37));
+        this.infoPanel.setBounds(340, 0, 1280 - 340, 685);
 
-        this.accServ.setFont(font);
-        this.accServ.setForeground(Color.WHITE);
-
-        this.accountServices.add(accServ);
-        add(this.accountServices);
+        add(this.infoPanel);
 
         setSize(1280, 720);
         setBackground(new Color(13, 17, 23));
 
+        this.font = new Font("Arial", Font.BOLD, 30);;
+
+        this.accServ = new JLabel("Account Services");
+
+        this.accServ.setFont(font);
+        this.accServ.setForeground(Color.WHITE);
+
+        AccountServicesPanel();
+
+    }
+
+    public void AccountServicesPanel() {
+        this.infoPanel.add(accServ);
+    }
+
+    public void removeAccountServicesPanel() {
+        this.infoPanel.remove(accServ);
+    }
+
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        g.setFont(new Font("Arial", Font.BOLD, 16));
+
+//        Setting up the Account Services Btn
+        g.setColor(new Color(81, 200, 120));
+        g.fillRoundRect(20, 10, 200, 60, 40, 40);
+        g.setColor(Color.WHITE);
+        g.drawString("Account Services", 20 + (200 - g.getFontMetrics().stringWidth("Account Services")) / 2, 10 + (60 - g.getFontMetrics().getHeight()) / 2 + g.getFontMetrics().getAscent());
+
+//        Setting up the Cards Btn
+        g.setColor(new Color(81, 200, 120));
+        g.fillRoundRect(20, 80, 200, 60, 40, 40);
+        g.setColor(Color.WHITE);
+        g.drawString("Cards", 20 + (200 - g.getFontMetrics().stringWidth("Cards")) / 2, 80 + (60 - g.getFontMetrics().getHeight()) / 2 + g.getFontMetrics().getAscent());
+
+//        Setting up the Transactions Btn
+        g.setColor(new Color(81, 200, 120));
+        g.fillRoundRect(20, 150, 200, 60, 40, 40);
+        g.setColor(Color.WHITE);
+        g.drawString("Transactions", 20 + (200 - g.getFontMetrics().stringWidth("Transactions")) / 2, 150 + (60 - g.getFontMetrics().getHeight()) / 2 + g.getFontMetrics().getAscent());
+
+//        Setting up the Tax Payments Btn
+        g.setColor(new Color(81, 200, 120));
+        g.fillRoundRect(20, 220, 200, 60, 40, 40);
+        g.setColor(Color.WHITE);
+        g.drawString("Tax Payments", 20 + (200 - g.getFontMetrics().stringWidth("Tax Payments")) / 2, 220 + (60 - g.getFontMetrics().getHeight()) / 2 + g.getFontMetrics().getAscent());
     }
 }

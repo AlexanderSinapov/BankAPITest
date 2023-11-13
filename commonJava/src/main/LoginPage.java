@@ -71,6 +71,8 @@ public class LoginPage extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 window.getWindowFrame().removeLoginPage();
                 window.getWindowFrame().addMainPage();
+                String textFieldValue = email.getText();
+                System.out.println(textFieldValue);
             }
         });
 

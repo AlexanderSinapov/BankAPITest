@@ -1,59 +1,77 @@
 package utils;
 import java.sql.*;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Random;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class DBUtils {
 
-    private static String url = "jdbc:sqlite:commonJava/src/database.db";
-    private static PreparedStatement p = null;
-    private static ResultSet rs = null;
+    //Path to DB
+    private static final String url = "jdbc:sqlite:commonJava/src/database.db";
 
-    private static String bankIdentifier = "158";
+    //Unique bank identifier
+    private static final String bankIdentifier = "158";
 
+    //Holder for month and year data
     private static class DateHolder{
         int month;
         int year;
     }
 
-    private static class CardDetails{
-        String pin;
-        String cvc;
-        java.util.Date expDate;
+    //Card details class which holds the most used and needed data to process a request
+    //Also instead of having to send 4 variables you only need to send 1 variable
+    public static class CardDetails{
+        int pin;
+        int cvc;
+        int expMonth;
+        int expYear;
         String cardNumber;
-
     }
 
+    //The 2 different debit card types
     public enum DebitCard{
         Visa,
         MasterCard
     }
 
+    //Method to create and return the connection to the method caller
     private static Connection connectDB(){
         try {
             Class.forName("org.sqlite.JDBC");
 
-            Connection conn = DriverManager.getConnection(url);
-            return conn;
+            return DriverManager.getConnection(url);
         }
         catch (Exception e) {
             e.printStackTrace();
         }
-
         return null;
     }
 
+    //A method fir running SQL queries
+    //Example: Alter table, drop column, create table and etc.
+    public static boolean ExecuteSQL(String sql){
+        Connection conn = connectDB();
+
+        try {
+            assert conn != null;
+            Statement st = conn.createStatement();
+            st.execute(sql);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    //A method for getting and returning a ResultSet variable from DB
     private static ResultSet GetData(String sql){
         Connection conn = connectDB();
 
         try {
-            p = conn.prepareStatement(sql);
-            rs = p.executeQuery();
-            return  rs;
+            assert conn != null;
+            PreparedStatement p = conn.prepareStatement(sql);
+            return p.executeQuery();
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -61,6 +79,7 @@ public class DBUtils {
         return null;
     }
 
+    //A method for generating all the information for the debit card
     public static CardDetails GenerateCardDetails(DebitCard type){
         StringBuilder cardNumber = new StringBuilder();
         StringBuilder pin = new StringBuilder();
@@ -103,13 +122,17 @@ public class DBUtils {
         expDate = c.getTime();
 
         detail.cardNumber = cardNumber.toString();
-        detail.pin = pin.toString();
-        detail.cvc = cvc.toString();
-        detail.expDate = expDate;
+        detail.pin = Integer.parseInt(pin.toString());
+        detail.cvc = Integer.parseInt(cvc.toString());
+        detail.expMonth = expDate.getMonth()+1;
+        detail.expYear = expDate.getYear()+1900;
 
         return detail;
     }
 
+    //A method for checking if the card number is already in DB
+    //If there is one already one in DB returns true
+    //If not returns false
     private static boolean CheckCardInDB(CardDetails details) {
         String sql = String.format("SELECT * FROM debitCards WHERE debitCardNumber = '%s'", details.cardNumber);
         ResultSet rs = GetData(sql);
@@ -132,74 +155,29 @@ public class DBUtils {
         return false;
     }
 
+    //A method for getting and returning a JSONArray of all data with the same email
+    public static JSONArray GetDataByEmail(String inputEmail){
+        String sql = String.format("select * from users where email = %s", inputEmail);
 
-    public static JSONArray GetDataByName(String fullName){
-        String sql = String.format("select * from users where fullName = '%s'", fullName);
-
-        rs = GetData(sql);
+        ResultSet rs = GetData(sql);
         JSONArray array = new JSONArray();
 
         try{
             while (rs.next()){
-                JSONObject item = new JSONObject();  // Initialize the item here
-                item.clear();
-                int id = rs.getInt("id");
-                String name = rs.getString("fullName");
-                String password = rs.getString("password");
-                String dob = rs.getString("DOB");
-                int Pin = rs.getInt("PIN");
-                String phoneNumber = rs.getString("phoneNumber");
-                String email = rs.getString("email");
-                String debit_cards = rs.getString("debit_cards");
-
-                item.put("id", id);
-                item.put("name", name);
-                item.put("password", password);
-                item.put("dob", dob);
-                item.put("pin", Pin);
-                item.put("phoneNumber", phoneNumber);
-                item.put("email", email);
-                item.put("debit_cards", debit_cards);
-                array.put(item);
-            }
-            return array;
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-
-
-        return null;
-    }
-
-    public static JSONArray GetDataByEmail(String inputEmail){
-        String sql = String.format("select * from users where email = %s", inputEmail);
-
-        rs = GetData(sql);
-        JSONArray array = null;
-        JSONObject item;
-        List data;
-
-        try{
-            while (rs.next()){
-                item = null;
+                JSONObject item = new JSONObject();
                 int id = rs.getInt("id");
                 String name = rs.getString("fullName");
                 String password = rs.getString("password");
                 Date dob = rs.getDate("DOB");
-                int Pin = rs.getInt("PIN");
                 String phoneNumber = rs.getString("phoneNumber");
                 String email = rs.getString("email");
-                String debit_cards = rs.getString("debit_cards");
 
                 item.put("id", id);
                 item.put("name", name);
                 item.put("password", password);
                 item.put("dob", dob);
-                item.put("pin", Pin);
                 item.put("phoneNumber", phoneNumber);
                 item.put("email", email);
-                item.put("debit_cards", debit_cards);
                 array.put(item);
             }
             return array;
@@ -207,76 +185,41 @@ public class DBUtils {
         catch (Exception e){
             e.printStackTrace();
         }
-
-
         return null;
     }
 
-    public static void InsertDataInDB(String name, String password, java.util.Date dob, int pin, String phoneNumber, String email){
+    //A method for creating a user and inserting to DB
+    public static void InsertUserInDB(String name, String password, java.util.Date dob, String phoneNumber, String email){
         Connection conn = connectDB();
-        String sql = String.format("insert into users values(null, '%s', '%s', '%s', %d, '%s', '%s', '9999')", name, password, dob.toString(), pin, phoneNumber, email);
+        String sql = String.format("insert into users values(null, '%s', '%s', '%s', '%s', '%s')", name, password, dob.toString(), phoneNumber, email);
 
-        try{
-            Statement st = conn.createStatement();
-            st.execute(sql);
-            System.out.println("Inserted Successfully!");
-        }
-        catch (Exception e) {
-            e.printStackTrace();
+        if(ExecuteSQL(sql)){
+            System.out.println("User inserted successfully!");
+        } else {
+            System.out.println("User insertion failed!!");
         }
     }
 
-    public static void InsertDataInDBWithDebitCard(String name, String password, java.util.Date dob, int pin, String phoneNumber, String email, CardDetails details){
-        Connection conn = connectDB();
-        JSONArray array = new JSONArray();
-        JSONObject obj = new JSONObject();
-        obj.put("cardNumber", details.cardNumber);
-        obj.put("pin", details.pin);
-        obj.put("cvc", details.cvc);
-        obj.put("expDateYear", details.expDate.getYear()+1900);
-        obj.put("expDateMonth", details.expDate.getMonth());
+    //A method for inserting card into DB
+    public static void InsertDebitCard(String name, String email, CardDetails details){
+        String sql = String.format("INSERT INTO debitCards VALUES(NULL, '%s', '%s', '%s', %d, %d, %d, %d)", name, email,
+                details.cardNumber, details.cvc, details.pin, details.expMonth, details.expYear);
 
-        JSONObject obj2= new JSONObject();
-        obj2.put("cardNumber", details.cardNumber);
-        obj2.put("pin", details.pin);
-        obj2.put("cvc", details.cvc);
-        obj2.put("expDateYear", details.expDate.getYear()+1900);
-        obj2.put("expDateMonth", details.expDate.getMonth());
-
-        array.put("card1");
-
-        String sql = String.format("insert into users values(null, '%s', '%s', '%s', %d, '%s', '%s', '%s')", name, password, dob.toString(), pin, phoneNumber, email, array.toString());
-
-        try{
-            Statement st = conn.createStatement();
-            st.execute(sql);
-            System.out.println("Inserted Successfully!");
-        }
-        catch (Exception e) {
-            e.printStackTrace();
+        if(ExecuteSQL(sql)){
+            System.out.println("Card inserted successfully!");
+        } else {
+            System.out.println("Card insertion failed!!");
         }
     }
 
-    public static void InsertDebitCard(String name, String inputEmail){
-        String sql = String.format("select * from users where email = '%s' and fullName = '%s'" , inputEmail, name);
-        ResultSet rs = GetData(sql);
-        JSONArray array = new JSONArray();
-
-        try {
-            while (rs.next()){
-                JSONObject onj = new JSONObject();
-                String debit_card = rs.getString("debit_cards");
-                System.out.println(debit_card);
-            }
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
+    //If you want to create a card and insert it into DB run this
+    //How it runs:
+    //First it calls GenerateCardDetails() which generates card details based on if you want MasterCard or Visa type card
+    //After that is done it checks if another card with that card number already exists in DB
+    //If there isn't one in DB already it inserts the card into DB
+    //Else it generates new card details until one which doesn't already exist is created. Then it gets inserted in DB
     public static void CreateDebitCard(String name, String email, DebitCard type) {
         CardDetails cardDetails = GenerateCardDetails(type);
-        cardDetails.cardNumber = "5158397123815249";
 
         if(CheckCardInDB(cardDetails)){
             cardDetails = GenerateCardDetails(type);
@@ -284,20 +227,6 @@ public class DBUtils {
                 cardDetails = GenerateCardDetails(type);
             }
         }
-        InsertDebitCard(name, email);
-
+        InsertDebitCard(name, email, cardDetails);
     }
-
-    public static void ExecuteSQL(String sql){
-        Connection conn = connectDB();
-
-        try {
-            Statement st = conn.createStatement();
-            st.execute(sql);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
 }

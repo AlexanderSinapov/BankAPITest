@@ -1,12 +1,14 @@
 package inputs;
 
 import main.Window;
+import main.MainPage;
 
 import javax.swing.event.MouseInputListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import javax.swing.JPanel;
 
-public class MouseInputs implements MouseInputListener, MouseMotionListener {
+public class MouseInputs extends JPanel implements MouseInputListener, MouseMotionListener {
 
     private Window window;
 
@@ -61,9 +63,13 @@ public class MouseInputs implements MouseInputListener, MouseMotionListener {
             if ((mouseX >= 580 && mouseX <= 680) && (mouseY >= 320 && mouseY <= 380)) {
                 window.getWindowFrame().removeLoginPage();
                 window.getWindowFrame().addMainPage();
-                window.setCurrentPage(Window.Page.WELCOME);
+                window.setCurrentPage(Window.Page.MAIN);
                 System.out.println("Logged In");
             }
+        }
+
+        if (window.getCurrentPage() == Window.Page.MAIN) {
+
         }
     }
 

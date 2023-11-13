@@ -8,18 +8,11 @@ import java.awt.*;
 public class MainPage extends JPanel {
     private Window window;
     private MouseInputs mouseInputs;
-    private String Email;
-    private String Password;
-    private String DOB;
-    private String FullName;
-    private String Cards;
-    private String Pin;
-
     private Font font;
-
     private static JPanel infoPanel;
     private static JLabel accServ;
     private static JLabel CardsMenuLabel;
+    private JButton accServic;
 
     public MainPage(Window window) {
         this.window = window;

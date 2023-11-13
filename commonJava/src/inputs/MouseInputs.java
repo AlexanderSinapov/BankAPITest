@@ -35,57 +35,38 @@ public class MouseInputs extends JPanel implements MouseInputListener, MouseMoti
         int mouseX = e.getX();
         int mouseY = e.getY();
 
-        if (window.getCurrentPage() == Window.Page.WELCOME) {
-            if ((mouseX >= 480 && mouseX <= 630) && (mouseY >= 320 && mouseY <= 380)) {
-                window.getWindowFrame().removeWelcomePage();
-                window.getWindowFrame().addLoginPage();
-                window.setCurrentPage(Window.Page.LOGIN);
-                System.out.println("Login");
-            }
-
-            if ((mouseX >= 650 && mouseX <= 800) && (mouseY >= 320 && mouseY <= 380)) {
-                window.getWindowFrame().removeWelcomePage();
-                window.getWindowFrame().addRegisterPage();
-                window.setCurrentPage(Window.Page.REGISTER);
-                System.out.println("Register");
-            }
-
-            }
-//          else if (window.getMainPage() == Window.Page.REGISTER) {
+//        if (window.getCurrentPage() == Window.Page.LOGIN) {
+//            if ((mouseX >= 10 && mouseX <= 110) && (mouseY >= 10 && mouseY <= 70)) {
+//                window.getWindowFrame().removeLoginPage();
+//                window.getWindowFrame().addWelcomePage();
+//                window.setCurrentPage(Window.Page.WELCOME);
+//                System.out.println("Back");
+//            }
+//            if ((mouseX >= 580 && mouseX <= 680) && (mouseY >= 320 && mouseY <= 380)) {
+//                window.getWindowFrame().removeLoginPage();
+//                window.getWindowFrame().addMainPage();
+//                window.setCurrentPage(Window.Page.MAIN);
+//                System.out.println("Logged In");
+//            }
+//        }
 //
-//          }
-        if (window.getCurrentPage() == Window.Page.LOGIN) {
-            if ((mouseX >= 10 && mouseX <= 110) && (mouseY >= 10 && mouseY <= 70)) {
-                window.getWindowFrame().removeLoginPage();
-                window.getWindowFrame().addWelcomePage();
-                window.setCurrentPage(Window.Page.WELCOME);
-                System.out.println("Back");
-            }
-            if ((mouseX >= 580 && mouseX <= 680) && (mouseY >= 320 && mouseY <= 380)) {
-                window.getWindowFrame().removeLoginPage();
-                window.getWindowFrame().addMainPage();
-                window.setCurrentPage(Window.Page.MAIN);
-                System.out.println("Logged In");
-            }
-        }
-
-        if (window.getCurrentPage() == Window.Page.MAIN) {
-            if ((mouseX >= 20 && mouseX <= 220) && (mouseY >= 80 && mouseY <= 140)) {
-                try {
-                    MainPage.removeAccountServicesPanel();
-                    MainPage.addCardsMenuLabel();
-                }
-                catch(Exception error) {
-                    System.out.println("asd" + error);
-                }
-                System.out.println("Opened Cards Menu");
-            }
-
-            if ((mouseX >= 20 && mouseX <= 220) && (mouseY >= 10 && mouseY <= 70)) {
-                MainPage.AccountServicesPanel();
-                System.out.println("Opened Account Service Menu");
-            }
-        }
+//        if (window.getCurrentPage() == Window.Page.MAIN) {
+//            if ((mouseX >= 20 && mouseX <= 220) && (mouseY >= 80 && mouseY <= 140)) {
+//                try {
+//                    MainPage.removeAccountServicesPanel();
+//                    MainPage.addCardsMenuLabel();
+//                }
+//                catch(Exception error) {
+//                    System.out.println("asd" + error);
+//                }
+//                System.out.println("Opened Cards Menu");
+//            }
+//
+//            if ((mouseX >= 20 && mouseX <= 220) && (mouseY >= 10 && mouseY <= 70)) {
+//                MainPage.AccountServicesPanel();
+//                System.out.println("Opened Account Service Menu");
+//            }
+//        }
     }
 
     @Override

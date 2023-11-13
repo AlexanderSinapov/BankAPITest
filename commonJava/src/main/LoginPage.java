@@ -6,6 +6,8 @@ import javax.swing.border.Border;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class LoginPage extends JPanel {
 
@@ -22,6 +24,7 @@ public class LoginPage extends JPanel {
     private JLabel emailLabel;
     private JLabel passLabel;
     private Font font;
+    private JButton LoginBtn;
 
     public LoginPage(Window window) {
 
@@ -32,6 +35,7 @@ public class LoginPage extends JPanel {
         this.emailLabel = new JLabel("Email address");
         this.passLabel = new JLabel("Password");
         this.font = new Font("Arial", Font.BOLD, 16);
+        this.LoginBtn = new JButton("Login");
 
         addMouseListener(mouseInputs);
 
@@ -59,31 +63,24 @@ public class LoginPage extends JPanel {
         this.passLabel.setBounds(500, 220, 300, 15);
         this.passLabel.setForeground(Color.WHITE);
 
+        this.LoginBtn.setBounds(580, 320, 100, 60);
+        this.LoginBtn.setBackground(new Color(81, 200, 120));
+        this.LoginBtn.setForeground(Color.WHITE);
+
+        LoginBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                window.getWindowFrame().removeLoginPage();
+                window.getWindowFrame().addMainPage();
+            }
+        });
+
+        add(this.LoginBtn);
         add(this.email);
         add(this.password);
         add(this.emailLabel);
         add(this.passLabel);
         setSize(1280, 720);
         setBackground(new Color(13, 17, 23));
-    }
-
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-
-//        Setting up the Back - UI Button
-        g.setFont(new Font("Arial", Font.BOLD, 16));
-
-        g.setColor(new Color(50, 75, 178));
-        g.fillRoundRect(10, 10, 100, 60, 40, 40);
-        g.setColor(Color.WHITE);
-        g.drawString("⇽ Back", 10 + (100 - g.getFontMetrics().stringWidth("⇽ Back")) / 2, 10 + (60 - g.getFontMetrics().getHeight()) / 2 + g.getFontMetrics().getAscent());
-
-//         Setting up the Login - UI Button
-        g.setColor(new Color(81, 200, 120));
-        g.fillRoundRect(580, 320, 100, 60, 40, 40);
-        g.setColor(Color.WHITE);
-        g.drawString("Login", 580 + (100 - g.getFontMetrics().stringWidth("Login")) / 2, 320 + (60 - g.getFontMetrics().getHeight()) / 2 + g.getFontMetrics().getAscent());
     }
 
     private static class BottomBorder implements Border {

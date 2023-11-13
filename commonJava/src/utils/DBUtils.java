@@ -21,8 +21,8 @@ public class DBUtils {
     }
 
     private static class CardDetails{
-        int pin;
-        int cvc;
+        String pin;
+        String cvc;
         java.util.Date expDate;
         String cardNumber;
 
@@ -63,61 +63,64 @@ public class DBUtils {
 
     public static CardDetails GenerateCardDetails(DebitCard type){
         StringBuilder cardNumber = new StringBuilder();
-        int pin = 0;
-        int cvc = 0;
+        StringBuilder pin = new StringBuilder();
+        StringBuilder cvc = new StringBuilder();
         Calendar c = Calendar.getInstance();
         DateHolder date = new DateHolder();
         java.util.Date expDate;
         Random rand = new Random();
         CardDetails detail = new CardDetails();
 
+        //Generating Card Number
         if (type == DebitCard.Visa){
             cardNumber.append("4");
         }
         else {
             cardNumber.append("5");
         }
-
         cardNumber.append(bankIdentifier);
-
         while (cardNumber.length() < 16){
             cardNumber.append(rand.nextInt(10));
         }
 
-        pin = rand.nextInt(10000);
-        cvc = rand.nextInt(1000);
+        //Generate PIN for card use at POS terminals and ATMs
+        pin.append(rand.nextInt(1, 10));
+        pin.append(rand.nextInt(10));
+        pin.append(rand.nextInt(10));
+        pin.append(rand.nextInt(10));
 
+        //Generate CVC for card use at online POS terminals
+        cvc.append(rand.nextInt(1, 10));
+        cvc.append(rand.nextInt(10));
+        cvc.append(rand.nextInt(10));
+
+        //Calculate expiration date
         date.month = c.get(Calendar.MONTH)+1;
         date.year = c.get(Calendar.YEAR);
-
         c.clear();
         c.set(Calendar.MONTH, date.month);
         c.set(Calendar.YEAR, date.year+5);
-
         expDate = c.getTime();
 
         detail.cardNumber = cardNumber.toString();
-        detail.pin = pin;
-        detail.cvc = cvc;
+        detail.pin = pin.toString();
+        detail.cvc = cvc.toString();
         detail.expDate = expDate;
 
         return detail;
     }
 
     private static boolean CheckCardInDB(CardDetails details) {
-        String sql = String.format("SELECT debit_cards FROM users WHERE debit_cards = '%s'", details.cardNumber);
+        String sql = String.format("SELECT * FROM debitCards WHERE debitCardNumber = '%s'", details.cardNumber);
         ResultSet rs = GetData(sql);
-        JSONArray array = new JSONArray();
 
         try {
             while (rs.next()) {
-                // Assuming that "debit_cards" is a column in the ResultSet
-                String debitCardNumber = rs.getString("debit_cards");
+                return true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            // It's good practice to close the ResultSet and any other database resources
             try {
                 if (rs != null) {
                     rs.close();
@@ -126,8 +129,6 @@ public class DBUtils {
                 e.printStackTrace();
             }
         }
-
-        System.out.println("Debit Card Number not found in Database");
         return false;
     }
 
@@ -227,13 +228,24 @@ public class DBUtils {
 
     public static void InsertDataInDBWithDebitCard(String name, String password, java.util.Date dob, int pin, String phoneNumber, String email, CardDetails details){
         Connection conn = connectDB();
+        JSONArray array = new JSONArray();
         JSONObject obj = new JSONObject();
         obj.put("cardNumber", details.cardNumber);
         obj.put("pin", details.pin);
         obj.put("cvc", details.cvc);
         obj.put("expDateYear", details.expDate.getYear()+1900);
         obj.put("expDateMonth", details.expDate.getMonth());
-        String sql = String.format("insert into users values(null, '%s', '%s', '%s', %d, '%s', '%s', '%s')", name, password, dob.toString(), pin, phoneNumber, email, obj.toString());
+
+        JSONObject obj2= new JSONObject();
+        obj2.put("cardNumber", details.cardNumber);
+        obj2.put("pin", details.pin);
+        obj2.put("cvc", details.cvc);
+        obj2.put("expDateYear", details.expDate.getYear()+1900);
+        obj2.put("expDateMonth", details.expDate.getMonth());
+
+        array.put("card1");
+
+        String sql = String.format("insert into users values(null, '%s', '%s', '%s', %d, '%s', '%s', '%s')", name, password, dob.toString(), pin, phoneNumber, email, array.toString());
 
         try{
             Statement st = conn.createStatement();
@@ -273,6 +285,18 @@ public class DBUtils {
             }
         }
         InsertDebitCard(name, email);
+
+    }
+
+    public static void ExecuteSQL(String sql){
+        Connection conn = connectDB();
+
+        try {
+            Statement st = conn.createStatement();
+            st.execute(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

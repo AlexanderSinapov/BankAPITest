@@ -1,9 +1,11 @@
 package utils;
 import java.sql.*;
 import java.util.Calendar;
+import java.util.Objects;
 import java.util.Random;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONString;
 
 public class DBUtils {
 
@@ -157,7 +159,7 @@ public class DBUtils {
 
     //A method for getting and returning a JSONArray of all data with the same email
     public static JSONArray GetDataByEmail(String inputEmail){
-        String sql = String.format("select * from users where email = %s", inputEmail);
+        String sql = String.format("select * from users where email = '%s'", inputEmail);
 
         ResultSet rs = GetData(sql);
         JSONArray array = new JSONArray();
@@ -168,7 +170,7 @@ public class DBUtils {
                 int id = rs.getInt("id");
                 String name = rs.getString("fullName");
                 String password = rs.getString("password");
-                Date dob = rs.getDate("DOB");
+                String dob = rs.getString("DOB");
                 String phoneNumber = rs.getString("phoneNumber");
                 String email = rs.getString("email");
 
@@ -191,7 +193,7 @@ public class DBUtils {
     //A method for creating a user and inserting to DB
     public static void InsertUserInDB(String name, String password, java.util.Date dob, String phoneNumber, String email){
         Connection conn = connectDB();
-        String sql = String.format("insert into users values(null, '%s', '%s', '%s', '%s', '%s')", name, password, dob.toString(), phoneNumber, email);
+        String sql = String.format("insert into users values(null, '%s', '%s', '%s', '%s', '%s')", name, password, phoneNumber, email, dob.toString());
 
         if(ExecuteSQL(sql)){
             System.out.println("User inserted successfully!");
@@ -228,5 +230,23 @@ public class DBUtils {
             }
         }
         InsertDebitCard(name, email, cardDetails);
+    }
+
+    public static boolean RequestLogin(String email, String password){
+        if (email.isEmpty()){
+            return false;
+        }
+        if(password.isEmpty()){
+            return false;
+        }
+
+        JSONArray data = GetDataByEmail(email);
+
+        if(data != null && !data.isEmpty()){
+            JSONObject obj = data.getJSONObject(0);
+            return Objects.equals(password, obj.getString("password"));
+        } else {
+            return false;
+        }
     }
 }

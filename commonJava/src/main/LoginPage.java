@@ -1,6 +1,7 @@
 package main;
 
 import inputs.MouseInputs;
+import utils.DBUtils;
 
 import javax.swing.border.Border;
 
@@ -69,8 +70,12 @@ public class LoginPage extends JPanel {
 
         LoginBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                window.getWindowFrame().removeLoginPage();
-                window.getWindowFrame().addMainPage();
+                if(DBUtils.RequestLogin(email.getText(), password.getText())){
+                    window.getWindowFrame().removeLoginPage();
+                    window.getWindowFrame().addMainPage();
+                } else {
+                    System.out.println("Login Failed!");
+                }
             }
         });
 

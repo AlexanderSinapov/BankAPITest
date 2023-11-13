@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 public class MouseInputs extends JPanel implements MouseInputListener, MouseMotionListener {
 
     private Window window;
+    private MainPage mainPage;
 
     public MouseInputs(Window window) {
         this.window = window;
@@ -69,7 +70,21 @@ public class MouseInputs extends JPanel implements MouseInputListener, MouseMoti
         }
 
         if (window.getCurrentPage() == Window.Page.MAIN) {
+            if ((mouseX >= 20 && mouseX <= 220) && (mouseY >= 80 && mouseY <= 140)) {
+                try {
+                    MainPage.removeAccountServicesPanel();
+                    MainPage.addCardsMenuLabel();
+                }
+                catch(Exception error) {
+                    System.out.println("asd" + error);
+                }
+                System.out.println("Opened Cards Menu");
+            }
 
+            if ((mouseX >= 20 && mouseX <= 220) && (mouseY >= 10 && mouseY <= 70)) {
+                MainPage.AccountServicesPanel();
+                System.out.println("Opened Account Service Menu");
+            }
         }
     }
 

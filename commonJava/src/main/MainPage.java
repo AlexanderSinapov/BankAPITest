@@ -17,8 +17,9 @@ public class MainPage extends JPanel {
 
     private Font font;
 
-    private JPanel infoPanel;
-    private JLabel accServ;
+    private static JPanel infoPanel;
+    private static JLabel accServ;
+    private static JLabel CardsMenuLabel;
 
     public MainPage(Window window) {
         this.window = window;
@@ -43,21 +44,28 @@ public class MainPage extends JPanel {
         this.font = new Font("Arial", Font.BOLD, 30);;
 
         this.accServ = new JLabel("Account Services");
+        this.CardsMenuLabel = new JLabel("Cards");
 
+//        Puttin in the AccServ Label
         this.accServ.setFont(font);
         this.accServ.setForeground(Color.WHITE);
 
-        AccountServicesPanel();
-
+//        Putting in the CardsMenuLabel
+        this.CardsMenuLabel.setFont(font);
+        this.CardsMenuLabel.setForeground(Color.WHITE);
     }
 
-    public void AccountServicesPanel() {
-        this.infoPanel.add(accServ);
+    public static void AccountServicesPanel() {
+        infoPanel.add(accServ);
     }
 
-    public void removeAccountServicesPanel() {
-        this.infoPanel.remove(accServ);
+    public static void removeAccountServicesPanel() {
+        infoPanel.remove(accServ);
     }
+
+    public static void addCardsMenuLabel() {infoPanel.add(CardsMenuLabel);}
+
+    public static void removeCardsMenuLabel() {infoPanel.remove(CardsMenuLabel);}
 
 
     @Override

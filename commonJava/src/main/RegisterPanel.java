@@ -26,6 +26,7 @@ public class RegisterPanel extends JPanel {
     private JLabel password;
     private JLabel dob;
     private JLabel pn;
+    private JLabel argumentsNotFilled;
 
     private Font font;
 
@@ -38,6 +39,7 @@ public class RegisterPanel extends JPanel {
         this.DOB = new JTextField();
         this.PN = new JTextField();
         this.RegisterBtn = new JButton("Register");
+        this.argumentsNotFilled = new JLabel("You haven't filled everything or \n the arguments already exist");
 
         this.fullName = new JLabel("Full Name");
         this.email = new JLabel("Email");
@@ -104,6 +106,8 @@ public class RegisterPanel extends JPanel {
         this.RegisterBtn.setBackground(new Color(81, 200, 120));
         this.RegisterBtn.setForeground(Color.WHITE);
 
+        this.argumentsNotFilled.setBounds(500, 100, 100, 30);
+        this.argumentsNotFilled.setForeground(Color.RED);
         RegisterBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {if(DBUtils.RequestRegister(FullName.getText(), Email.getText(), Password.getText(), PN.getText(), DOB.getText())){
                     window.getWindowFrame().removeRegisterPage();

@@ -10,13 +10,28 @@ public class MainPage extends JPanel {
     private MouseInputs mouseInputs;
     private Font font;
     private static JPanel infoPanel;
+    private static JPanel cardsPanel;
+    private static JPanel transactionsPanel;
+    private static JPanel taxPaymentsPanel;
     private static JLabel accServ;
     private static JLabel CardsMenuLabel;
-    private JButton accServic;
+    private JButton accServBtn;
+    private JButton transactions;
+    private JButton taxPayments;
+    private JButton cards;
 
     public MainPage(Window window) {
         this.window = window;
         this.mouseInputs = new MouseInputs(window);
+        this.cards = new JButton("Cards");
+        this.taxPayments = new JButton("Tax Payments");
+        this.transactions = new JButton("Transactions");
+        this.accServBtn = new JButton("Account Services");
+
+        this.cardsPanel = new JPanel();
+        this.transactionsPanel = new JPanel();
+        this.taxPaymentsPanel = new JPanel();
+
 
         this.infoPanel = new JPanel();
 
@@ -28,6 +43,10 @@ public class MainPage extends JPanel {
 
         this.infoPanel.setBackground(new Color(13, 17, 37));
         this.infoPanel.setBounds(340, 0, 1280 - 340, 685);
+
+        this.cards.setBackground(new Color(81, 200, 120));
+        this.cards.setBounds(20, 80, 200, 60);
+        this.cards.setForeground(Color.WHITE);
 
         add(this.infoPanel);
 
@@ -46,6 +65,10 @@ public class MainPage extends JPanel {
 //        Putting in the CardsMenuLabel
         this.CardsMenuLabel.setFont(font);
         this.CardsMenuLabel.setForeground(Color.WHITE);
+
+        add(this.cards);
+
+//
     }
 
     public static void AccountServicesPanel() {
@@ -61,34 +84,34 @@ public class MainPage extends JPanel {
     public static void removeCardsMenuLabel() {infoPanel.remove(CardsMenuLabel);}
 
 
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-
-        g.setFont(new Font("Arial", Font.BOLD, 16));
-
-//        Setting up the Account Services Btn
-        g.setColor(new Color(81, 200, 120));
-        g.fillRoundRect(20, 10, 200, 60, 40, 40);
-        g.setColor(Color.WHITE);
-        g.drawString("Account Services", 20 + (200 - g.getFontMetrics().stringWidth("Account Services")) / 2, 10 + (60 - g.getFontMetrics().getHeight()) / 2 + g.getFontMetrics().getAscent());
-
-//        Setting up the Cards Btn
-        g.setColor(new Color(81, 200, 120));
-        g.fillRoundRect(20, 80, 200, 60, 40, 40);
-        g.setColor(Color.WHITE);
-        g.drawString("Cards", 20 + (200 - g.getFontMetrics().stringWidth("Cards")) / 2, 80 + (60 - g.getFontMetrics().getHeight()) / 2 + g.getFontMetrics().getAscent());
-
-//        Setting up the Transactions Btn
-        g.setColor(new Color(81, 200, 120));
-        g.fillRoundRect(20, 150, 200, 60, 40, 40);
-        g.setColor(Color.WHITE);
-        g.drawString("Transactions", 20 + (200 - g.getFontMetrics().stringWidth("Transactions")) / 2, 150 + (60 - g.getFontMetrics().getHeight()) / 2 + g.getFontMetrics().getAscent());
-
-//        Setting up the Tax Payments Btn
-        g.setColor(new Color(81, 200, 120));
-        g.fillRoundRect(20, 220, 200, 60, 40, 40);
-        g.setColor(Color.WHITE);
-        g.drawString("Tax Payments", 20 + (200 - g.getFontMetrics().stringWidth("Tax Payments")) / 2, 220 + (60 - g.getFontMetrics().getHeight()) / 2 + g.getFontMetrics().getAscent());
-    }
+//    @Override
+//    public void paintComponent(Graphics g) {
+//        super.paintComponent(g);
+//
+//        g.setFont(new Font("Arial", Font.BOLD, 16));
+//
+////        Setting up the Account Services Btn
+//        g.setColor(new Color(81, 200, 120));
+//        g.fillRoundRect(20, 10, 200, 60, 40, 40);
+//        g.setColor(Color.WHITE);
+//        g.drawString("Account Services", 20 + (200 - g.getFontMetrics().stringWidth("Account Services")) / 2, 10 + (60 - g.getFontMetrics().getHeight()) / 2 + g.getFontMetrics().getAscent());
+//
+////        Setting up the Cards Btn
+//        g.setColor(new Color(81, 200, 120));
+//        g.fillRoundRect(20, 80, 200, 60, 40, 40);
+//        g.setColor(Color.WHITE);
+//        g.drawString("Cards", 20 + (200 - g.getFontMetrics().stringWidth("Cards")) / 2, 80 + (60 - g.getFontMetrics().getHeight()) / 2 + g.getFontMetrics().getAscent());
+//
+////        Setting up the Transactions Btn
+//        g.setColor(new Color(81, 200, 120));
+//        g.fillRoundRect(20, 150, 200, 60, 40, 40);
+//        g.setColor(Color.WHITE);
+//        g.drawString("Transactions", 20 + (200 - g.getFontMetrics().stringWidth("Transactions")) / 2, 150 + (60 - g.getFontMetrics().getHeight()) / 2 + g.getFontMetrics().getAscent());
+//
+////        Setting up the Tax Payments Btn
+//        g.setColor(new Color(81, 200, 120));
+//        g.fillRoundRect(20, 220, 200, 60, 40, 40);
+//        g.setColor(Color.WHITE);
+//        g.drawString("Tax Payments", 20 + (200 - g.getFontMetrics().stringWidth("Tax Payments")) / 2, 220 + (60 - g.getFontMetrics().getHeight()) / 2 + g.getFontMetrics().getAscent());
+//    }
 }

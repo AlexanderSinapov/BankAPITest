@@ -5,7 +5,6 @@ import java.util.Objects;
 import java.util.Random;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONString;
 
 public class DBUtils {
 
@@ -157,6 +156,29 @@ public class DBUtils {
         return false;
     }
 
+    //A method for checking if an email already exist
+    private static boolean CheckEmail(String email){
+        String sql = String.format("SELECT * FROM users WHERE email = '%s'", email);
+        ResultSet rs = GetData(sql);
+
+        try {
+            while (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
     //A method for getting and returning a JSONArray of all data with the same email
     public static JSONArray GetDataByEmail(String inputEmail){
         String sql = String.format("select * from users where email = '%s'", inputEmail);
@@ -232,6 +254,7 @@ public class DBUtils {
         InsertDebitCard(name, email, cardDetails);
     }
 
+    //A request method for login in the user
     public static boolean RequestLogin(String email, String password){
         if (email.isEmpty()){
             return false;
@@ -245,6 +268,39 @@ public class DBUtils {
         if(data != null && !data.isEmpty()){
             JSONObject obj = data.getJSONObject(0);
             return Objects.equals(password, obj.getString("password"));
+        } else {
+            return false;
+        }
+    }
+
+    //A request method for registering a new user
+    public static boolean RequestRegister(String name, String email, String password, String phoneNumber, String DOB){
+        if(name.isEmpty()) return false;
+        if(email.isEmpty()) return false;
+        if(password.isEmpty()) return false;
+        if(phoneNumber.isEmpty()) return false;
+        if(DOB.isEmpty()) return false;
+        java.util.Date dobInDate = new java.util.Date(DOB);
+        if (!CheckIfAdult(dobInDate)) return false;
+        if(!email.contains("@")) return false;
+
+        if(!CheckEmail(email)){
+            InsertUserInDB(name, password, dobInDate, phoneNumber, email);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //A method for checking if user is above or 18 years old
+    public static boolean CheckIfAdult(java.util.Date dob){
+        System.out.println(dob.toString());
+        int DOBYear = dob.getYear()+1900;
+        int age = Calendar.getInstance().get(Calendar.YEAR) - DOBYear;
+        System.out.println(age);
+
+        if(age >= 18){
+            return true;
         } else {
             return false;
         }

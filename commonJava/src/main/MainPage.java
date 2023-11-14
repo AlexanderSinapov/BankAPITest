@@ -37,7 +37,7 @@ public class MainPage extends JPanel {
         this.cards = new JButton("Cards");
         this.taxPayments = new JButton("Tax Payments");
         this.transactions = new JButton("Transactions");
-        this.accServBtn = new JButton("Account Services");
+        this.accServBtn = new JButton("Account");
         this.addCard = new JButton("+");
 
         this.cardsPanel = new JPanel();

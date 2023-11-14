@@ -5,6 +5,9 @@ import inputs.MouseInputs;
 import javax.swing.*;
 import java.awt.*;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 public class MainPage extends JPanel {
     private Window window;
     private MouseInputs mouseInputs;
@@ -19,41 +22,85 @@ public class MainPage extends JPanel {
     private JButton transactions;
     private JButton taxPayments;
     private JButton cards;
+    private JButton addCard;
+
+    private JLabel cardsLabel;
+    private static JFrame newCardFrame;
 
     public MainPage(Window window) {
         this.window = window;
         this.mouseInputs = new MouseInputs(window);
+        this.newCardFrame = new JFrame();
+        this.font = new Font("Arial", Font.BOLD, 30);
         this.cards = new JButton("Cards");
         this.taxPayments = new JButton("Tax Payments");
         this.transactions = new JButton("Transactions");
         this.accServBtn = new JButton("Account Services");
+        this.addCard = new JButton("+");
 
         this.cardsPanel = new JPanel();
         this.transactionsPanel = new JPanel();
         this.taxPaymentsPanel = new JPanel();
 
-
         this.infoPanel = new JPanel();
+        this.cardsLabel = new JLabel("Your Cards");
 
         addMouseListener(mouseInputs);
 
         requestFocus();
+        cardsPanel.setLayout(null);
 
         setLayout(null);
 
         this.infoPanel.setBackground(new Color(13, 17, 37));
         this.infoPanel.setBounds(340, 0, 1280 - 340, 685);
 
+        this.cardsPanel.setBackground(new Color(13, 17, 37));
+        this.cardsPanel.setBounds(340, 10, 1280 - 340, 685);
+
+        this.addCard.setBackground(new Color(50, 75, 178));
+        this.addCard.setBounds(50, 50, 50, 50);
+        this.addCard.setForeground(Color.WHITE);
+
+        this.cardsLabel.setBounds(340, 0, 300, 30);
+        this.cardsLabel.setForeground(Color.WHITE);
+        this.cardsLabel.setFont(font);
+
         this.cards.setBackground(new Color(81, 200, 120));
         this.cards.setBounds(20, 80, 200, 60);
         this.cards.setForeground(Color.WHITE);
 
+        this.accServBtn.setBackground(new Color(81, 200, 120));
+        this.accServBtn.setBounds(20, 10, 200, 60);
+        this.accServBtn.setForeground(Color.WHITE);
+
+        this.taxPayments.setBackground(new Color(81, 200, 120));
+        this.taxPayments.setBounds(20, 220, 200, 60);
+        this.taxPayments.setForeground(Color.WHITE);
+
+        this.transactions.setBackground(new Color(81, 200, 120));
+        this.transactions.setBounds(20, 150, 200, 60);
+        this.transactions.setForeground(Color.WHITE);
+
+//        this.infoPanel.setVisible(false);
+
+        this.cardsPanel.add(cardsLabel);
+        this.cardsPanel.add(addCard);
+
+        this.newCardFrame.setBackground(new Color(13, 17, 23));
+
         add(this.infoPanel);
+        add(this.cardsPanel);
+        add(this.accServBtn);
+        add(this.taxPayments);
+        add(this.transactions);
+        this.newCardFrame.setLocationRelativeTo(null);
+        this.newCardFrame.pack();
 
         setSize(1280, 720);
         setBackground(new Color(13, 17, 23));
 
-        this.font = new Font("Arial", Font.BOLD, 30);;
+        this.font = new Font("Arial", Font.BOLD, 30);
 
         this.accServ = new JLabel("Account Services");
         this.CardsMenuLabel = new JLabel("Cards");
@@ -68,50 +115,45 @@ public class MainPage extends JPanel {
 
         add(this.cards);
 
+        accServBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                AccountServicesPanel();
+                removeCardsMenuPanel();
+            }
+        });
+
+        cards.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent e) {
+               removeAccountServicesPanel();
+               addCardsMenuLPanel();
+           }
+        });
+
+        addCard.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent e) {
+               newCard();
+           }
+        });
+
+
+        newCardFrame.setVisible(false);
 //
     }
 
     public static void AccountServicesPanel() {
-        infoPanel.add(accServ);
+        infoPanel.setVisible(true);
     }
 
     public static void removeAccountServicesPanel() {
-        infoPanel.remove(accServ);
+        infoPanel.setVisible(false);
     }
 
-    public static void addCardsMenuLabel() {infoPanel.add(CardsMenuLabel);}
+    public static void addCardsMenuLPanel() {cardsPanel.setVisible(true);};
 
-    public static void removeCardsMenuLabel() {infoPanel.remove(CardsMenuLabel);}
+    public static void removeCardsMenuPanel() {cardsPanel.setVisible(false);}
 
-
-//    @Override
-//    public void paintComponent(Graphics g) {
-//        super.paintComponent(g);
-//
-//        g.setFont(new Font("Arial", Font.BOLD, 16));
-//
-////        Setting up the Account Services Btn
-//        g.setColor(new Color(81, 200, 120));
-//        g.fillRoundRect(20, 10, 200, 60, 40, 40);
-//        g.setColor(Color.WHITE);
-//        g.drawString("Account Services", 20 + (200 - g.getFontMetrics().stringWidth("Account Services")) / 2, 10 + (60 - g.getFontMetrics().getHeight()) / 2 + g.getFontMetrics().getAscent());
-//
-////        Setting up the Cards Btn
-//        g.setColor(new Color(81, 200, 120));
-//        g.fillRoundRect(20, 80, 200, 60, 40, 40);
-//        g.setColor(Color.WHITE);
-//        g.drawString("Cards", 20 + (200 - g.getFontMetrics().stringWidth("Cards")) / 2, 80 + (60 - g.getFontMetrics().getHeight()) / 2 + g.getFontMetrics().getAscent());
-//
-////        Setting up the Transactions Btn
-//        g.setColor(new Color(81, 200, 120));
-//        g.fillRoundRect(20, 150, 200, 60, 40, 40);
-//        g.setColor(Color.WHITE);
-//        g.drawString("Transactions", 20 + (200 - g.getFontMetrics().stringWidth("Transactions")) / 2, 150 + (60 - g.getFontMetrics().getHeight()) / 2 + g.getFontMetrics().getAscent());
-//
-////        Setting up the Tax Payments Btn
-//        g.setColor(new Color(81, 200, 120));
-//        g.fillRoundRect(20, 220, 200, 60, 40, 40);
-//        g.setColor(Color.WHITE);
-//        g.drawString("Tax Payments", 20 + (200 - g.getFontMetrics().stringWidth("Tax Payments")) / 2, 220 + (60 - g.getFontMetrics().getHeight()) / 2 + g.getFontMetrics().getAscent());
-//    }
+    public static void newCard() {
+        newCardFrame.setSize(400, 400);
+        newCardFrame.setVisible(true);
+    }
 }

@@ -25,12 +25,14 @@ public class MainPage extends JPanel {
     private JButton addCard;
 
     private JLabel cardsLabel;
-    private static JFrame newCardFrame;
+    private JComboBox<String> cardType;
+    private static JPanel newCard;
+    private String[] cardTypes;
+    private JCheckBox customPin;
 
     public MainPage(Window window) {
         this.window = window;
         this.mouseInputs = new MouseInputs(window);
-        this.newCardFrame = new JFrame();
         this.font = new Font("Arial", Font.BOLD, 30);
         this.cards = new JButton("Cards");
         this.taxPayments = new JButton("Tax Payments");
@@ -41,16 +43,23 @@ public class MainPage extends JPanel {
         this.cardsPanel = new JPanel();
         this.transactionsPanel = new JPanel();
         this.taxPaymentsPanel = new JPanel();
-
+        this.newCard = new JPanel();
         this.infoPanel = new JPanel();
+
         this.cardsLabel = new JLabel("Your Cards");
+
+        this.cardTypes = new String[] {"Visa", "MasterCard"};
+        this.cardType = new JComboBox<>(cardTypes);
+        this.customPin = new JCheckBox("Custom pin");
 
         addMouseListener(mouseInputs);
 
         requestFocus();
         cardsPanel.setLayout(null);
+        newCard.setLayout(null);
 
         setLayout(null);
+        this.newCard.setLayout(null);
 
         this.infoPanel.setBackground(new Color(13, 17, 37));
         this.infoPanel.setBounds(340, 0, 1280 - 340, 685);
@@ -70,6 +79,15 @@ public class MainPage extends JPanel {
         this.cards.setBounds(20, 80, 200, 60);
         this.cards.setForeground(Color.WHITE);
 
+        this.cardType.setBounds(50, 50, 140, 20);
+
+        this.newCard.setBounds(500, 350, 600, 400);
+        this.newCard.setBackground(new Color(13, 17, 23));
+
+        this.customPin.setBounds(50, 100, 150, 30);
+        this.customPin.setBackground(new Color(13, 17, 23));
+        this.customPin.setForeground(Color.WHITE);
+
         this.accServBtn.setBackground(new Color(81, 200, 120));
         this.accServBtn.setBounds(20, 10, 200, 60);
         this.accServBtn.setForeground(Color.WHITE);
@@ -87,16 +105,6 @@ public class MainPage extends JPanel {
         this.cardsPanel.add(cardsLabel);
         this.cardsPanel.add(addCard);
 
-        this.newCardFrame.setBackground(new Color(13, 17, 23));
-
-        add(this.infoPanel);
-        add(this.cardsPanel);
-        add(this.accServBtn);
-        add(this.taxPayments);
-        add(this.transactions);
-        this.newCardFrame.setLocationRelativeTo(null);
-        this.newCardFrame.pack();
-
         setSize(1280, 720);
         setBackground(new Color(13, 17, 23));
 
@@ -113,6 +121,16 @@ public class MainPage extends JPanel {
         this.CardsMenuLabel.setFont(font);
         this.CardsMenuLabel.setForeground(Color.WHITE);
 
+
+        this.newCard.add(cardType);
+        this.newCard.add(customPin);
+        this.newCard.setVisible(false);
+        add(this.newCard);
+        add(this.infoPanel);
+        add(this.cardsPanel);
+        add(this.accServBtn);
+        add(this.taxPayments);
+        add(this.transactions);
         add(this.cards);
 
         accServBtn.addActionListener(new ActionListener() {
@@ -134,9 +152,6 @@ public class MainPage extends JPanel {
                newCard();
            }
         });
-
-
-        newCardFrame.setVisible(false);
 //
     }
 
@@ -153,7 +168,6 @@ public class MainPage extends JPanel {
     public static void removeCardsMenuPanel() {cardsPanel.setVisible(false);}
 
     public static void newCard() {
-        newCardFrame.setSize(400, 400);
-        newCardFrame.setVisible(true);
+        newCard.setVisible(true);
     }
 }

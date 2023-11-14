@@ -62,7 +62,7 @@ public class RegisterPanel extends JPanel {
         this.email.setBounds(500, 140, 300, 15);
         this.email.setForeground(Color.WHITE);
 
-        //        Setting up the name - text input
+        //        Setting up the Email - text input
         this.FullName.setBackground(new Color(13, 17, 26));
         this.FullName.setBorder(new BottomBorder());
         this.FullName.setBounds(500, 160 + 80, 300, 15);
@@ -72,7 +72,7 @@ public class RegisterPanel extends JPanel {
         this.fullName.setBounds(500, 140 + 80, 300, 15);
         this.fullName.setForeground(Color.WHITE);
 
-        //        Setting up the password - text input
+        //        Setting up the Email - text input
         this.Password.setBackground(new Color(13, 17, 26));
         this.Password.setBorder(new BottomBorder());
         this.Password.setBounds(500, 160 + 160, 300, 15);
@@ -82,7 +82,7 @@ public class RegisterPanel extends JPanel {
         this.password.setBounds(500, 140 + 160, 300, 15);
         this.password.setForeground(Color.WHITE);
 
-        //        Setting up the dob - text input
+        //        Setting up the Email - text input
         this.DOB.setBackground(new Color(13, 17, 26));
         this.DOB.setBorder(new BottomBorder());
         this.DOB.setBounds(500, 160 + 240, 300, 15);
@@ -92,7 +92,7 @@ public class RegisterPanel extends JPanel {
         this.dob.setBounds(500, 140 + 240, 300, 15);
         this.dob.setForeground(Color.WHITE);
 
-        //        Setting up the phone number - text input
+        //        Setting up the Email - text input
         this.PN.setBackground(new Color(13, 17, 26));
         this.PN.setBorder(new BottomBorder());
         this.PN.setBounds(500, 160 + 320, 300, 15);
@@ -109,13 +109,13 @@ public class RegisterPanel extends JPanel {
         this.argumentsNotFilled.setBounds(500, 100, 100, 30);
         this.argumentsNotFilled.setForeground(Color.RED);
         RegisterBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {if(DBUtils.RequestRegister(FullName.getText(), Email.getText(), Password.getText(), PN.getText(), DOB.getText())){
+            public void actionPerformed(ActionEvent e) {
+                if(DBUtils.RequestRegister(FullName.getText(), Email.getText(), Password.getText(), PN.getText(), DOB.getText())) {
                     window.getWindowFrame().removeRegisterPage();
                     window.getWindowFrame().addMainPage();
                 } else {
                     System.out.println("Register Failed!");
                 }
-
             }
         });
 

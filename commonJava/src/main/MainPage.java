@@ -38,6 +38,7 @@ public class MainPage extends JPanel {
     private static JTextField companyName;
     private static JCheckBox companyInvoice;
     private String[] taxTypes;
+    private static JTextField cardNumber;
 
     public MainPage(Window window) {
         this.window = window;
@@ -68,6 +69,7 @@ public class MainPage extends JPanel {
         this.companyInvoice = new JCheckBox("I want a private company invoice");
         this.taxPaymentsL = new JLabel("Invoices");
         this.companyName = new JTextField();
+        this.cardNumber = new JTextField();
 
         addMouseListener(mouseInputs);
 
@@ -137,6 +139,10 @@ public class MainPage extends JPanel {
         this.companyName.setBackground(new Color(13, 17, 23));
         this.companyName.setForeground(Color.WHITE);
 
+        this.cardNumber.setBounds(50, 150, 200, 30);
+        this.cardNumber.setBackground(new Color(13, 17, 23));
+        this.cardNumber.setForeground(Color.WHITE);
+
         this.transactions.setBackground(new Color(81, 200, 120));
         this.transactions.setBounds(20, 150, 200, 60);
         this.transactions.setForeground(Color.WHITE);
@@ -168,6 +174,7 @@ public class MainPage extends JPanel {
 
         this.taxPaymentsPanel.setLayout(null);
         this.companyName.setVisible(false);
+        this.cardNumber.setVisible(false);
 
 
         this.newCard.add(cardType);
@@ -178,6 +185,7 @@ public class MainPage extends JPanel {
         this.taxPaymentsPanel.add(taxPaymentsL);
         this.newInvoice.add(companyInvoice);
         this.newInvoice.add(companyName);
+        this.newInvoice.add(cardNumber);
         add(this.newCard);
         add(this.infoPanel);
         add(this.cardsPanel);
@@ -254,5 +262,6 @@ public class MainPage extends JPanel {
 
     public static void companyInvoice(Boolean bool) {
         companyName.setVisible(bool);
+        cardNumber.setVisible(bool);
     }
 }

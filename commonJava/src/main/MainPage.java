@@ -35,8 +35,8 @@ public class MainPage extends JPanel {
     private static JButton taxPaymentsBtn;
     private static JPanel newInvoice;
     private JComboBox invoiceTo;
-    private JTextField companyName;
-    private JCheckBox companyInvoice;
+    private static JTextField companyName;
+    private static JCheckBox companyInvoice;
     private String[] taxTypes;
 
     public MainPage(Window window) {
@@ -65,8 +65,9 @@ public class MainPage extends JPanel {
 
         this.taxTypes = new String[] {"Water Supply", "Power Supply", "Internet", "Television", "Heat & Hot Water"};
         this.invoiceTo = new JComboBox<>(taxTypes);
-        this.companyInvoice = new JCheckBox("I want a private company tax");
+        this.companyInvoice = new JCheckBox("I want a private company invoice");
         this.taxPaymentsL = new JLabel("Invoices");
+        this.companyName = new JTextField();
 
         addMouseListener(mouseInputs);
 
@@ -128,8 +129,13 @@ public class MainPage extends JPanel {
         this.taxPaymentsL.setBounds(340, 0, 300, 30);
         this.taxPaymentsL.setFont(font);
 
-//        this.companyInvoice.setBounds();
-//        thsi.companyInvoice.setBackground();
+        this.companyInvoice.setBounds(50, 80, 200, 20);
+        this.companyInvoice.setBackground(new Color(13, 17, 23));
+        this.companyInvoice.setForeground(Color.WHITE);
+
+        this.companyName.setBounds(50, 110, 200, 30);
+        this.companyName.setBackground(new Color(13, 17, 23));
+        this.companyName.setForeground(Color.WHITE);
 
         this.transactions.setBackground(new Color(81, 200, 120));
         this.transactions.setBounds(20, 150, 200, 60);
@@ -161,6 +167,7 @@ public class MainPage extends JPanel {
         this.newInvoice.setVisible(false);
 
         this.taxPaymentsPanel.setLayout(null);
+        this.companyName.setVisible(false);
 
 
         this.newCard.add(cardType);
@@ -169,6 +176,8 @@ public class MainPage extends JPanel {
         this.taxPaymentsPanel.add(taxPaymentsBtn);
         this.newInvoice.add(invoiceTo);
         this.taxPaymentsPanel.add(taxPaymentsL);
+        this.newInvoice.add(companyInvoice);
+        this.newInvoice.add(companyName);
         add(this.newCard);
         add(this.infoPanel);
         add(this.cardsPanel);
@@ -214,6 +223,16 @@ public class MainPage extends JPanel {
                 NewInvoiceV(true);
            }
         });
+
+        companyInvoice.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent e) {
+               if (companyInvoice.isSelected()) {
+                   companyInvoice(true);
+               } else {
+                   companyInvoice(false);
+               }
+           }
+        });
 //
     }
 
@@ -231,5 +250,9 @@ public class MainPage extends JPanel {
     }
     public static void newInvoice(Boolean bool) {
         taxPaymentsBtn.setVisible(bool);
+    }
+
+    public static void companyInvoice(Boolean bool) {
+        companyName.setVisible(bool);
     }
 }

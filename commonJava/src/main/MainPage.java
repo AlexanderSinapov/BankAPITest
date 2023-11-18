@@ -120,7 +120,7 @@ public class MainPage extends JPanel {
         this.newInvoice.setBackground(new Color(13, 17, 23));
 
         this.taxPaymentsBtn.setBackground(new Color(50, 75, 178));
-        this.taxPaymentsBtn.setBounds(50, 50, 50, 50);
+        this.taxPaymentsBtn.setBounds(50, 60, 50, 50);
         this.taxPaymentsBtn.setForeground(Color.WHITE);
 
         this.taxPaymentsPanel.setBackground(new Color(13, 17, 37));
@@ -128,7 +128,8 @@ public class MainPage extends JPanel {
 
         this.invoiceTo.setBounds(50, 50, 140, 20);
 
-        this.taxPaymentsL.setBounds(340, 0, 300, 30);
+        this.taxPaymentsL.setBounds(350, 10, 300, 30);
+        this.taxPaymentsL.setForeground(Color.white);
         this.taxPaymentsL.setFont(font);
 
         this.companyInvoice.setBounds(50, 80, 200, 20);
@@ -201,6 +202,8 @@ public class MainPage extends JPanel {
                 AccountServicesPanel(true);
                 TaxPaymentsV(false);
                 addCardsMenuLPanel(false);
+                newCard(false);
+                NewInvoiceV(false);
             }
         });
 
@@ -209,12 +212,13 @@ public class MainPage extends JPanel {
                AccountServicesPanel(false);
                TaxPaymentsV(false);
                addCardsMenuLPanel(true);
+               NewInvoiceV(false);
            }
         });
 
         addCard.addActionListener(new ActionListener() {
            public void actionPerformed(ActionEvent e) {
-               newCard();
+               newCard(true);
            }
         });
 
@@ -223,6 +227,7 @@ public class MainPage extends JPanel {
                 AccountServicesPanel(false);
                 addCardsMenuLPanel(false);
                 TaxPaymentsV(true);
+                newCard(false);
            }
         });
 
@@ -253,8 +258,8 @@ public class MainPage extends JPanel {
     public static void TaxPaymentsV(Boolean bool) {taxPaymentsPanel.setVisible(bool);}
     public static void NewInvoiceV(Boolean bool) {newInvoice.setVisible(bool);}
 
-    public static void newCard() {
-        newCard.setVisible(true);
+    public static void newCard(Boolean bool) {
+        newCard.setVisible(bool);
     }
     public static void newInvoice(Boolean bool) {
         taxPaymentsBtn.setVisible(bool);

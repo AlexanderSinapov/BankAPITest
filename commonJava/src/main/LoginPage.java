@@ -13,11 +13,9 @@ import java.awt.event.ActionListener;
 public class LoginPage extends JPanel {
 
     public boolean isCurrentPageLogin = false;
-
-
     private ImageIcon icon;
 
-    private Window window;
+    public Window window;
     private MouseInputs mouseInputs;
 
     public JTextField email;
@@ -70,13 +68,15 @@ public class LoginPage extends JPanel {
 
         LoginBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(DBUtils.RequestLogin(email.getText(), password.getText())){
-                    window.getWindowFrame().removeLoginPage();
-                    window.getWindowFrame().addMainPage();
-                } else {
-                    System.out.println("Login Failed!");
-//                    window.getWindowFrame().removeLoginPage();
-//                    window.getWindowFrame().addMainPage();
+                try {
+                    if(DBUtils.RequestLogin(email.getText(), password.getText())){ //email.getText(), password.getText()))
+                        window.getWindowFrame().removeLoginPage();
+                        window.getWindowFrame().addMainPage();
+                    } else {
+                        System.out.println("Login Failed!");
+                    }
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
                 }
             }
         });

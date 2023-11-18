@@ -110,11 +110,15 @@ public class RegisterPanel extends JPanel {
         this.argumentsNotFilled.setForeground(Color.RED);
         RegisterBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(DBUtils.RequestRegister(FullName.getText(), Email.getText(), Password.getText(), PN.getText(), DOB.getText())) {
-                    window.getWindowFrame().removeRegisterPage();
-                    window.getWindowFrame().addMainPage();
-                } else {
-                    System.out.println("Register Failed!");
+                try {
+                    if(DBUtils.RequestRegister(FullName.getText(), Email.getText(), Password.getText(), DOB.getText(), PN.getText())) {
+                        window.getWindowFrame().removeRegisterPage();
+                        window.getWindowFrame().addLoginPage();
+                    } else {
+                        System.out.println("Register Failed!");
+                    }
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
                 }
             }
         });

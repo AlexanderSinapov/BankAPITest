@@ -2,6 +2,7 @@ package main;
 
 import inputs.MouseInputs;
 
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -39,8 +40,11 @@ public class MainPage extends JPanel {
     private static JCheckBox companyInvoice;
     private String[] taxTypes;
     private static JTextField cardNumber;
+    private static JPanel invoiceInfo;
+    private static JButton invoiceSubmit;
 
     public MainPage(Window window) {
+//        Setting variable values
         this.window = window;
         this.mouseInputs = new MouseInputs(window);
         this.font = new Font("Arial", Font.BOLD, 30);
@@ -50,6 +54,7 @@ public class MainPage extends JPanel {
         this.accServBtn = new JButton("Account");
         this.addCard = new JButton("+");
         this.taxPaymentsBtn = new JButton("+");
+        this.invoiceSubmit = new JButton("Submit");
 
         this.cardsPanel = new JPanel();
         this.transactionsPanel = new JPanel();
@@ -57,6 +62,7 @@ public class MainPage extends JPanel {
         this.newCard = new JPanel();
         this.infoPanel = new JPanel();
         this.newInvoice = new JPanel();
+        this.invoiceInfo = new JPanel();
 
         this.cardsLabel = new JLabel("Your Cards");
 
@@ -84,6 +90,7 @@ public class MainPage extends JPanel {
         this.infoPanel.setBackground(new Color(13, 17, 37));
         this.infoPanel.setBounds(340, 0, 1280 - 340, 685);
 
+//        Setting up the CardCreationUI
         this.cardsPanel.setBackground(new Color(13, 17, 37));
         this.cardsPanel.setBounds(340, 10, 1280 - 340, 685);
 
@@ -112,6 +119,7 @@ public class MainPage extends JPanel {
         this.accServBtn.setBounds(20, 10, 200, 60);
         this.accServBtn.setForeground(Color.WHITE);
 
+//        Setting up the InvoiceUI
         this.taxPayments.setBackground(new Color(81, 200, 120));
         this.taxPayments.setBounds(20, 220, 200, 60);
         this.taxPayments.setForeground(Color.WHITE);
@@ -143,6 +151,10 @@ public class MainPage extends JPanel {
         this.cardNumber.setBounds(50, 150, 200, 30);
         this.cardNumber.setBackground(new Color(13, 17, 23));
         this.cardNumber.setForeground(Color.WHITE);
+
+        this.invoiceSubmit.setBounds(350, 290, 100, 40);
+        this.invoiceSubmit.setBackground(new Color(50, 75, 175));
+        this.invoiceSubmit.setForeground(Color.WHITE);
 
         this.transactions.setBackground(new Color(81, 200, 120));
         this.transactions.setBounds(20, 150, 200, 60);
@@ -187,6 +199,7 @@ public class MainPage extends JPanel {
         this.newInvoice.add(companyInvoice);
         this.newInvoice.add(companyName);
         this.newInvoice.add(cardNumber);
+        this.newInvoice.add(invoiceSubmit);
         add(this.newCard);
         add(this.infoPanel);
         add(this.cardsPanel);
@@ -246,6 +259,8 @@ public class MainPage extends JPanel {
                }
            }
         });
+
+
 //
     }
 
@@ -268,5 +283,13 @@ public class MainPage extends JPanel {
     public static void companyInvoice(Boolean bool) {
         companyName.setVisible(bool);
         cardNumber.setVisible(bool);
+    }
+
+    public static void InvoiceInfo(int x, int y, int width, int height) {
+        invoiceInfo.setBounds(x, y, width, height);
+        invoiceInfo.setBackground(new Color(13, 17, 32));
+        invoiceInfo.setForeground(Color.WHITE);
+
+        taxPaymentsPanel.add(invoiceInfo);
     }
 }

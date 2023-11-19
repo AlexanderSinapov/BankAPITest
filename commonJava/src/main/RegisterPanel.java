@@ -117,7 +117,7 @@ public class RegisterPanel extends JPanel {
         RegisterBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    if(DBUtils.RequestRegister(FullName.getText(), Email.getText(), Password.getText(), DOB.getText(), PN.getText())) {
+                    if(DBUtils.RequestRegister(Email.getText(), Password.getText(), FullName.getText(), DOB.getText(), PN.getText())) {
                         window.getWindowFrame().removeRegisterPage();
                         window.getWindowFrame().addLoginPage();
                     } else {

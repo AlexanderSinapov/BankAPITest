@@ -81,6 +81,7 @@ public class ForgotPasswordPage extends JPanel {
                 confirmPasswordLabel.setVisible(false);
                 emailAndPIN.setText("Email");
                 email.setText("");
+                confirmPassword.setText("");
                 submit.setBounds(580, 220, 100, 40);
             }
         });
@@ -112,6 +113,7 @@ public class ForgotPasswordPage extends JPanel {
                                 confirmPasswordLabel.setVisible(false);
                                 emailAndPIN.setText("Email");
                                 email.setText("");
+                                confirmPassword.setText("");
                                 submit.setBounds(580, 220, 100, 40);
                                 System.out.println("Changed Password!");
                             } else System.out.println("Request Response error!");

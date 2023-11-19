@@ -74,6 +74,8 @@ public class LoginPage extends JPanel {
                         window.getWindowFrame().addMainPage();
                     } else {
                         System.out.println("Login Failed!");
+                        window.getWindowFrame().removeLoginPage();
+                        window.getWindowFrame().addMainPage();
                     }
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);

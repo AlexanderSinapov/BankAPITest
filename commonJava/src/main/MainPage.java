@@ -55,6 +55,7 @@ public class MainPage extends JPanel {
         this.addCard = new JButton("+");
         this.taxPaymentsBtn = new JButton("+");
         this.invoiceSubmit = new JButton("Submit");
+        this.accServ = new JLabel("Asd");
 
         this.cardsPanel = new JPanel();
         this.transactionsPanel = new JPanel();
@@ -90,15 +91,19 @@ public class MainPage extends JPanel {
         this.infoPanel.setBackground(new Color(13, 17, 37));
         this.infoPanel.setBounds(340, 0, 1280 - 340, 685);
 
+        this.accServ.setBounds(340, 0, 300, 30);
+        this.accServ.setForeground(Color.WHITE);
+        this.accServ.setFont(font);
+
 //        Setting up the CardCreationUI
         this.cardsPanel.setBackground(new Color(13, 17, 37));
-        this.cardsPanel.setBounds(340, 10, 1280 - 340, 685);
+        this.cardsPanel.setBounds(340, 0, 1280 - 340, 685);
 
         this.addCard.setBackground(new Color(50, 75, 178));
         this.addCard.setBounds(50, 50, 50, 50);
         this.addCard.setForeground(Color.WHITE);
 
-        this.cardsLabel.setBounds(340, 0, 300, 30);
+        this.cardsLabel.setBounds(340, 10, 300, 30);
         this.cardsLabel.setForeground(Color.WHITE);
         this.cardsLabel.setFont(font);
 
@@ -200,6 +205,7 @@ public class MainPage extends JPanel {
         this.newInvoice.add(companyName);
         this.newInvoice.add(cardNumber);
         this.newInvoice.add(invoiceSubmit);
+        this.infoPanel.add(accServ);
         add(this.newCard);
         add(this.infoPanel);
         add(this.cardsPanel);
@@ -257,6 +263,12 @@ public class MainPage extends JPanel {
                } else {
                    companyInvoice(false);
                }
+           }
+        });
+
+        invoiceSubmit.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent e) {
+               newInvoice.setVisible(false);
            }
         });
 

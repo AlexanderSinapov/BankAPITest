@@ -34,15 +34,26 @@ public class WelcomePage extends JPanel {
 
         LoginBtn.addActionListener(new ActionListener() {
            public void actionPerformed(ActionEvent e) {
-               window.getWindowFrame().removeWelcomePage();
-               window.getWindowFrame().addLoginPage();
+               window.getWindowFrame().welcomePage.setVisible(false);
+               if(!window.getWindowFrame().loginPage.isVisible()){
+                   window.getWindowFrame().loginPage.setVisible(true);
+                   window.getWindowFrame().loginPage.email.setText("");
+                   window.getWindowFrame().loginPage.password.setText("");
+               } else window.getWindowFrame().addLoginPage();
            }
         });
 
         RegisterBtn.addActionListener(new ActionListener() {
            public void actionPerformed(ActionEvent e) {
-               window.getWindowFrame().removeWelcomePage();
-               window.getWindowFrame().addRegisterPage();
+               window.getWindowFrame().welcomePage.setVisible(false);
+               if(!window.getWindowFrame().registerPage.isVisible()){
+                   window.getWindowFrame().registerPage.setVisible(true);
+                   window.getWindowFrame().registerPage.Email.setText("");
+                   window.getWindowFrame().registerPage.Password.setText("");
+                   window.getWindowFrame().registerPage.FullName.setText("");
+                   window.getWindowFrame().registerPage.DOB.setText("");
+                   window.getWindowFrame().registerPage.PN.setText("");
+               } else window.getWindowFrame().addRegisterPage();
            }
         });
 

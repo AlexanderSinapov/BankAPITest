@@ -7,6 +7,7 @@ public class Window extends JPanel {
     private RegisterPanel registerPage;
     private MainPage mainPage;
     private WindowFrame windowFrame;
+    private ForgotPasswordPage fpPage;
 
     private Page currentPage;
 
@@ -22,7 +23,8 @@ public class Window extends JPanel {
         this.loginPage = new LoginPage(this);
         this.registerPage = new RegisterPanel(this);
         this.mainPage = new MainPage(this);
-        this.windowFrame = new WindowFrame(welcomePage, loginPage, registerPage, mainPage);
+        this.fpPage = new ForgotPasswordPage(this);
+        this.windowFrame = new WindowFrame(welcomePage, loginPage, registerPage, mainPage, fpPage);
         this.windowFrame.addWelcomePage();
 
         this.setCurrentPage(Page.WELCOME);

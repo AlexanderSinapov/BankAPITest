@@ -24,6 +24,8 @@ public class LoginPage extends JPanel {
     private JLabel passLabel;
     private Font font;
     private JButton LoginBtn;
+    private JButton BackBtn;
+    private JButton ForgotPassword;
 
     public LoginPage(Window window) {
 
@@ -35,12 +37,25 @@ public class LoginPage extends JPanel {
         this.passLabel = new JLabel("Password");
         this.font = new Font("Arial", Font.BOLD, 16);
         this.LoginBtn = new JButton("Login");
+        this.BackBtn = new JButton("Back");
+        this.ForgotPassword = new JButton("Forgot Password");
 
         addMouseListener(mouseInputs);
 
         requestFocus();
 
         setLayout(null);
+
+        this.ForgotPassword.setBounds(530,280,200, 30);
+        this.ForgotPassword.setBackground(new Color(0,0,0,0));
+        this.ForgotPassword.setOpaque(false);
+        this.ForgotPassword.setContentAreaFilled(false);
+        this.ForgotPassword.setBorderPainted(false);
+        this.ForgotPassword.setForeground(Color.WHITE);
+
+        this.BackBtn.setBounds(10, 10, 80, 50);
+        this.BackBtn.setBackground(new Color(81, 200, 120));
+        this.BackBtn.setForeground(Color.WHITE);
 
 //        Setting up the Email - text input
         this.email.setBackground(new Color(13, 17, 26));
@@ -74,12 +89,25 @@ public class LoginPage extends JPanel {
                         window.getWindowFrame().addMainPage();
                     } else {
                         System.out.println("Login Failed!");
-                        window.getWindowFrame().removeLoginPage();
-                        window.getWindowFrame().addMainPage();
                     }
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
+            }
+        });
+
+        BackBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                window.getWindowFrame().welcomePage.setVisible(true);
+                window.getWindowFrame().loginPage.setVisible(false);
+                window.getWindowFrame().setBackground(new Color(13, 17, 23));
+            }
+        });
+
+        ForgotPassword.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                window.getWindowFrame().loginPage.setVisible(false);
+                window.getWindowFrame().addForgotPage();
             }
         });
 
@@ -88,6 +116,8 @@ public class LoginPage extends JPanel {
         add(this.password);
         add(this.emailLabel);
         add(this.passLabel);
+        add(this.BackBtn);
+        add(this.ForgotPassword);
         setSize(1280, 720);
         setBackground(new Color(13, 17, 23));
     }

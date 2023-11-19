@@ -15,6 +15,7 @@ public class DBUtils {
 
     private static String email;
     private static String authToken;
+    private static String resetToken;
 
     //Path to DB
     //private static final String url = "jdbc:sqlite:commonJava/src/database.db";
@@ -103,6 +104,64 @@ public class DBUtils {
             return true;
         } else return false;
 
+    }
+
+    public static boolean RequestForgotPasswordFirst(String inputEmail) throws Exception {
+        if(inputEmail.isEmpty()) return false;
+        if(!inputEmail.contains("@")) return false;
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .setHeader("Email", inputEmail)
+                .GET()
+                .uri(new URI(baseApiUrl+"/forgotPassword"))
+                .build();
+
+        HttpResponse response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+
+        if(response.statusCode() == 200){
+            JSONArray array = new JSONArray(response.body().toString());
+            JSONObject obj = array.getJSONObject(0);
+            resetToken = obj.getString("resetToken");
+            email = inputEmail;
+            return true;
+        } else return false;
+    }
+
+    public static boolean RequestForgotPasswordSecond(String pin) throws Exception {
+        if(email.isEmpty()) return false;
+        if(!email.contains("@")) return false;
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .setHeader("Email", email)
+                .setHeader("PIN", pin)
+                .setHeader("resetToken", resetToken)
+                .GET()
+                .uri(new URI(baseApiUrl+"/forgotPassword/pin"))
+                .build();
+
+        HttpResponse response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+
+        if(response.statusCode() == 200){
+            return true;
+        } else return false;
+    }
+
+    public static boolean RequestForgotPasswordFinal(String password) throws Exception {
+        if(password.isEmpty()) return false;
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .setHeader("Email", email)
+                .setHeader("resetToken", resetToken)
+                .setHeader("newPassword", password)
+                .GET()
+                .uri(new URI(baseApiUrl+"/forgotPassword/password"))
+                .build();
+
+        HttpResponse response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+
+        if(response.statusCode() == 200){
+            return true;
+        } else return false;
     }
 
 //    public static boolean CheckIfAdult(java.util.Date dob){

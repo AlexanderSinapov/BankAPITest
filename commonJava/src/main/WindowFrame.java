@@ -1,22 +1,25 @@
 package main;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class WindowFrame extends JFrame {
 
-    private WelcomePage welcomePage;
-    private LoginPage loginPage;
-    private RegisterPanel registerPage;
+    public WelcomePage welcomePage;
+    public LoginPage loginPage;
+    public RegisterPanel registerPage;
     private MainPage mainPage;
     private ImageIcon image;
+    private ForgotPasswordPage fpPage;
 
 
-    public WindowFrame(WelcomePage panel, LoginPage loginPage, RegisterPanel registerPage, MainPage mainPage)  {
+    public WindowFrame(WelcomePage panel, LoginPage loginPage, RegisterPanel registerPage, MainPage mainPage, ForgotPasswordPage forgotPassword)  {
 
         this.welcomePage = panel;
         this.loginPage = loginPage;
         this.registerPage = registerPage;
         this.mainPage = mainPage;
+        this.fpPage = forgotPassword;
         image = new ImageIcon("commonJava/Resources/Images/VistaTrustBankLogo.png");
 
         setSize(1280, 720);
@@ -38,6 +41,15 @@ public class WindowFrame extends JFrame {
         revalidate();
     }
 
+    public void addForgotPage(){
+        add(fpPage);
+        revalidate();
+    }
+
+    public void removeForgotPage(){
+        remove(fpPage);
+        revalidate();
+    }
 
     public void removeLoginPage() {
         remove(loginPage);

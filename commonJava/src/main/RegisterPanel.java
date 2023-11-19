@@ -15,11 +15,12 @@ public class RegisterPanel extends JPanel {
     private Window window;
     private MouseInputs mouseInputs;
     private JButton RegisterBtn;
-    private JTextField FullName;
-    private JTextField Email;
-    private JTextField Password;
-    private JTextField DOB;
-    private JTextField PN;
+    private JButton BackBtnRegister;
+    public JTextField FullName;
+    public JTextField Email;
+    public JTextField Password;
+    public JTextField DOB;
+    public JTextField PN;
 
     private JLabel fullName;
     private JLabel email;
@@ -46,11 +47,16 @@ public class RegisterPanel extends JPanel {
         this.password = new JLabel("Password");
         this.dob = new JLabel("Date of Birth");
         this.pn = new JLabel("Phone Number");
+        this.BackBtnRegister = new JButton("Back");
 
         addMouseListener(mouseInputs);
 
         requestFocus();
         setLayout(null);
+
+        this.BackBtnRegister.setBounds(10, 10, 80, 50);
+        this.BackBtnRegister.setBackground(new Color(50, 75, 178));
+        this.BackBtnRegister.setForeground(Color.WHITE);
 
         //        Setting up the Email - text input
         this.Email.setBackground(new Color(13, 17, 26));
@@ -103,7 +109,7 @@ public class RegisterPanel extends JPanel {
         this.pn.setForeground(Color.WHITE);
 
         this.RegisterBtn.setBounds(580, 160 + 400, 100, 60);
-        this.RegisterBtn.setBackground(new Color(81, 200, 120));
+        this.RegisterBtn.setBackground(new Color(50, 75, 178));
         this.RegisterBtn.setForeground(Color.WHITE);
 
         this.argumentsNotFilled.setBounds(500, 100, 100, 30);
@@ -123,6 +129,14 @@ public class RegisterPanel extends JPanel {
             }
         });
 
+        BackBtnRegister.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                window.getWindowFrame().registerPage.setVisible(false);
+                window.getWindowFrame().welcomePage.setVisible(true);
+                window.getWindowFrame().setBackground(new Color(13, 17, 23));
+            }
+        });
+
         add(this.FullName);
         add(this.Email);
         add(this.Password);
@@ -134,6 +148,7 @@ public class RegisterPanel extends JPanel {
         add(this.dob);
         add(this.pn);
         add(this.RegisterBtn);
+        add(this.BackBtnRegister);
         setSize(1280, 720);
         setBackground(new Color(13, 17, 23));
     }

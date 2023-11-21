@@ -59,8 +59,8 @@ public class RegisterPanel extends JPanel {
         this.BackBtnRegister.setForeground(Color.WHITE);
 
         //        Setting up the Email - text input
-        this.Email.setBackground(new Color(13, 17, 26));
-        this.Email.setBorder(new BottomBorder());
+        this.Email.setBackground(new Color(18, 25, 33));
+//        this.Email.setBorder(new BottomBorder());
         this.Email.setBounds(500, 160, 300, 15);
         this.Email.setForeground(Color.WHITE);
 
@@ -69,8 +69,8 @@ public class RegisterPanel extends JPanel {
         this.email.setForeground(Color.WHITE);
 
         //        Setting up the Email - text input
-        this.FullName.setBackground(new Color(13, 17, 26));
-        this.FullName.setBorder(new BottomBorder());
+        this.FullName.setBackground(new Color(18, 25, 33));
+//        this.FullName.setBorder(new BottomBorder());
         this.FullName.setBounds(500, 160 + 80, 300, 15);
         this.FullName.setForeground(Color.WHITE);
 
@@ -79,8 +79,8 @@ public class RegisterPanel extends JPanel {
         this.fullName.setForeground(Color.WHITE);
 
         //        Setting up the Email - text input
-        this.Password.setBackground(new Color(13, 17, 26));
-        this.Password.setBorder(new BottomBorder());
+        this.Password.setBackground(new Color(18, 25, 33));
+//        this.Password.setBorder(new BottomBorder());
         this.Password.setBounds(500, 160 + 160, 300, 15);
         this.Password.setForeground(Color.WHITE);
 
@@ -89,8 +89,8 @@ public class RegisterPanel extends JPanel {
         this.password.setForeground(Color.WHITE);
 
         //        Setting up the Email - text input
-        this.DOB.setBackground(new Color(13, 17, 26));
-        this.DOB.setBorder(new BottomBorder());
+        this.DOB.setBackground(new Color(18, 25, 33));
+//        this.DOB.setBorder(new BottomBorder());
         this.DOB.setBounds(500, 160 + 240, 300, 15);
         this.DOB.setForeground(Color.WHITE);
 
@@ -99,8 +99,8 @@ public class RegisterPanel extends JPanel {
         this.dob.setForeground(Color.WHITE);
 
         //        Setting up the Email - text input
-        this.PN.setBackground(new Color(13, 17, 26));
-        this.PN.setBorder(new BottomBorder());
+        this.PN.setBackground(new Color(18, 25, 33));
+//        this.PN.setBorder(new BottomBorder());
         this.PN.setBounds(500, 160 + 320, 300, 15);
         this.PN.setForeground(Color.WHITE);
 
@@ -119,7 +119,10 @@ public class RegisterPanel extends JPanel {
                 try {
                     if(DBUtils.RequestRegister(Email.getText(), Password.getText(), FullName.getText(), DOB.getText(), PN.getText())) {
                         window.getWindowFrame().removeRegisterPage();
-                        window.getWindowFrame().addLoginPage();
+                        if(!window.getWindowFrame().loginPage.isVisible()){
+                            window.getWindowFrame().loginPage.setVisible(true);
+                        } else window.getWindowFrame().addLoginPage();
+
                     } else {
                         System.out.println("Register Failed!");
                     }

@@ -58,8 +58,8 @@ public class LoginPage extends JPanel {
         this.BackBtn.setForeground(Color.WHITE);
 
 //        Setting up the Email - text input
-        this.email.setBackground(new Color(13, 17, 26));
-        this.email.setBorder(new BottomBorder());
+        this.email.setBackground(new Color(18, 25, 33));
+//        this.email.setBorder(new BottomBorder());
         this.email.setForeground(Color.WHITE);
         this.email.setBounds(500, 160, 300, 15);
 
@@ -68,8 +68,8 @@ public class LoginPage extends JPanel {
         this.emailLabel.setForeground(Color.WHITE);
 
 //        Setting up the Password - text input
-        this.password.setBackground(new Color(13, 17, 26));
-        this.password.setBorder(new BottomBorder());
+        this.password.setBackground(new Color(18, 25, 33));
+//        this.password.setBorder(new BottomBorder());
         this.password.setForeground(Color.WHITE);
         this.password.setBounds(500, 240, 300, 15);
 

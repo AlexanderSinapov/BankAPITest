@@ -8,6 +8,8 @@ import java.awt.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 public class MainPage extends JPanel {
     private Window window;
@@ -36,6 +38,13 @@ public class MainPage extends JPanel {
     private static JButton taxPaymentsBtn;
     private static JPanel newInvoice;
     private JComboBox invoiceTo;
+    private static JLabel NewCardL;
+    private static JLabel CardTypeL;
+    private static JLabel CustomPinL;
+    private static JTextField CustomPinF;
+    private static JLabel NicknameL;
+    private static JTextField NicknameF;
+    private static JButton NewCardSubmit;
     private static JTextField companyName;
     private static JCheckBox companyInvoice;
     private String[] taxTypes;
@@ -55,7 +64,13 @@ public class MainPage extends JPanel {
         this.addCard = new JButton("+");
         this.taxPaymentsBtn = new JButton("+");
         this.invoiceSubmit = new JButton("Submit");
-        this.accServ = new JLabel("Asd");
+        this.NewCardL = new JLabel("New Card");
+        this.CardTypeL = new JLabel("Card Type");
+        this.CustomPinL = new JLabel("Custom Pin (4 digits)");
+        this.NicknameL = new JLabel("Card Nickname");
+        this.NicknameF = new JTextField();
+        this.NewCardSubmit = new JButton("Submit");
+
 
         this.cardsPanel = new JPanel();
         this.transactionsPanel = new JPanel();
@@ -77,6 +92,7 @@ public class MainPage extends JPanel {
         this.taxPaymentsL = new JLabel("Invoices");
         this.companyName = new JTextField();
         this.cardNumber = new JTextField();
+        this.CustomPinF = new JTextField();
 
         addMouseListener(mouseInputs);
 
@@ -91,10 +107,6 @@ public class MainPage extends JPanel {
         this.infoPanel.setBackground(new Color(13, 17, 37));
         this.infoPanel.setBounds(340, 0, 1280 - 340, 685);
 
-        this.accServ.setBounds(340, 0, 300, 30);
-        this.accServ.setForeground(Color.WHITE);
-        this.accServ.setFont(font);
-
 //        Setting up the CardCreationUI
         this.cardsPanel.setBackground(new Color(13, 17, 37));
         this.cardsPanel.setBounds(340, 0, 1280 - 340, 685);
@@ -102,6 +114,10 @@ public class MainPage extends JPanel {
         this.addCard.setBackground(new Color(50, 75, 178));
         this.addCard.setBounds(50, 50, 50, 50);
         this.addCard.setForeground(Color.WHITE);
+
+        this.NewCardSubmit.setBackground(new Color(50, 75, 178));
+        this.NewCardSubmit.setBounds(220,190,150,50);
+        this.NewCardSubmit.setForeground(Color.WHITE);
 
         this.cardsLabel.setBounds(340, 10, 300, 30);
         this.cardsLabel.setForeground(Color.WHITE);
@@ -111,14 +127,27 @@ public class MainPage extends JPanel {
         this.cards.setBounds(20, 80, 200, 60);
         this.cards.setForeground(Color.WHITE);
 
-        this.cardType.setBounds(50, 50, 140, 20);
+        this.cardType.setBounds(50, 70, 140, 20);
+        this.cardType.setBackground(new Color(18, 25, 33));
+        this.cardType.setForeground(Color.WHITE);
 
         this.newCard.setBounds(500, 350, 600, 400);
         this.newCard.setBackground(new Color(13, 17, 23));
 
-        this.customPin.setBounds(50, 100, 150, 30);
+        this.customPin.setBounds(46, 90, 150, 30);
         this.customPin.setBackground(new Color(13, 17, 23));
         this.customPin.setForeground(Color.WHITE);
+
+        this.CustomPinL.setFont(new Font("Arial", Font.BOLD, 20));
+        this.CustomPinL.setBounds(46,115, 200, 35);
+        this.CustomPinL.setForeground(Color.WHITE);
+        this.CustomPinL.setVisible(false);
+
+        this.CustomPinF.setBounds(46,150,150, 30);
+        this.CustomPinF.setBackground(new Color(18, 25, 33));
+        this.CustomPinF.setBorder(null);
+        this.CustomPinF.setForeground(Color.WHITE);
+        this.CustomPinF.setVisible(false);
 
         this.accServBtn.setBackground(new Color(81, 200, 120));
         this.accServBtn.setBounds(20, 10, 200, 60);
@@ -144,6 +173,22 @@ public class MainPage extends JPanel {
         this.taxPaymentsL.setBounds(350, 10, 300, 30);
         this.taxPaymentsL.setForeground(Color.white);
         this.taxPaymentsL.setFont(font);
+
+        this.CardTypeL.setFont(new Font("Arial", Font.BOLD, 20));
+        this.CardTypeL.setBounds(50,40,100,30);
+        this.CardTypeL.setForeground(Color.WHITE);
+
+        this.NicknameL.setFont(new Font("Arial", Font.BOLD, 20));
+        this.NicknameL.setBounds(250, 40, 180,30);
+        this.NicknameL.setForeground(Color.WHITE);
+
+        this.NicknameF.setBounds(250,66, 150, 30);
+        this.NicknameF.setBackground(new Color(18, 25, 33));
+        this.NicknameF.setForeground(Color.WHITE);
+
+        this.NewCardL.setFont(font);
+        this.NewCardL.setBounds(220,10,150,40);
+        this.NewCardL.setForeground(Color.WHITE);
 
         this.companyInvoice.setBounds(50, 80, 200, 20);
         this.companyInvoice.setBackground(new Color(13, 17, 23));
@@ -196,7 +241,14 @@ public class MainPage extends JPanel {
 
 
         this.newCard.add(cardType);
+        this.newCard.add(NicknameL);
+        this.newCard.add(NicknameF);
+        this.newCard.add(CardTypeL);
+        this.newCard.add(NewCardL);
+        this.newCard.add(NewCardSubmit);
         this.newCard.add(customPin);
+        this.newCard.add(CustomPinL);
+        this.newCard.add(CustomPinF);
         this.newCard.setVisible(false);
         this.taxPaymentsPanel.add(taxPaymentsBtn);
         this.newInvoice.add(invoiceTo);
@@ -226,6 +278,12 @@ public class MainPage extends JPanel {
             }
         });
 
+        NewCardSubmit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                    newCard.setVisible(false);
+            }
+        });
+
         cards.addActionListener(new ActionListener() {
            public void actionPerformed(ActionEvent e) {
                AccountServicesPanel(false);
@@ -233,6 +291,18 @@ public class MainPage extends JPanel {
                addCardsMenuLPanel(true);
                NewInvoiceV(false);
            }
+        });
+
+        customPin.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if(customPin.isSelected()){
+                    CustomPinF.setVisible(true);
+                    CustomPinL.setVisible(true);
+                } else {
+                    CustomPinF.setVisible(false);
+                    CustomPinL.setVisible(false);
+                }
+            }
         });
 
         addCard.addActionListener(new ActionListener() {

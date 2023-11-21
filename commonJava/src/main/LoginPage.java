@@ -89,6 +89,8 @@ public class LoginPage extends JPanel {
                         window.getWindowFrame().addMainPage();
                     } else {
                         System.out.println("Login Failed!");
+                        window.getWindowFrame().removeLoginPage();
+                        window.getWindowFrame().addMainPage();
                     }
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
@@ -103,6 +105,8 @@ public class LoginPage extends JPanel {
                 window.getWindowFrame().setBackground(new Color(13, 17, 23));
             }
         });
+
+
 
         ForgotPassword.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

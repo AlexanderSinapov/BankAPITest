@@ -42,6 +42,13 @@ public class MainPage extends JPanel {
     private static JTextField cardNumber;
     private static JPanel invoiceInfo;
     private static JButton invoiceSubmit;
+//    Setting up the account page
+    private static JButton ViewProfile;
+    private JLabel EmailLabel;
+    private JLabel PassLabel;
+    private JLabel FullNameLabel;
+    private JLabel NumberOfCards;
+    private JLabel PN;
 
     public MainPage(Window window) {
 //        Setting variable values
@@ -133,7 +140,7 @@ public class MainPage extends JPanel {
         this.newInvoice.setBackground(new Color(13, 17, 23));
 
         this.taxPaymentsBtn.setBackground(new Color(50, 75, 178));
-        this.taxPaymentsBtn.setBounds(50, 60, 50, 50);
+        this.taxPaymentsBtn.setBounds(50, 50, 50, 50);
         this.taxPaymentsBtn.setForeground(Color.WHITE);
 
         this.taxPaymentsPanel.setBackground(new Color(13, 17, 37));

@@ -60,7 +60,7 @@ public class RegisterPanel extends JPanel {
 
         //        Setting up the Email - text input
         this.Email.setBackground(new Color(18, 25, 33));
-//        this.Email.setBorder(new BottomBorder());
+        this.Email.setBorder(null);
         this.Email.setBounds(500, 160, 300, 15);
         this.Email.setForeground(Color.WHITE);
 
@@ -70,7 +70,7 @@ public class RegisterPanel extends JPanel {
 
         //        Setting up the Email - text input
         this.FullName.setBackground(new Color(18, 25, 33));
-//        this.FullName.setBorder(new BottomBorder());
+        this.FullName.setBorder(null);
         this.FullName.setBounds(500, 160 + 80, 300, 15);
         this.FullName.setForeground(Color.WHITE);
 
@@ -80,7 +80,7 @@ public class RegisterPanel extends JPanel {
 
         //        Setting up the Email - text input
         this.Password.setBackground(new Color(18, 25, 33));
-//        this.Password.setBorder(new BottomBorder());
+        this.Password.setBorder(null);
         this.Password.setBounds(500, 160 + 160, 300, 15);
         this.Password.setForeground(Color.WHITE);
 
@@ -90,7 +90,7 @@ public class RegisterPanel extends JPanel {
 
         //        Setting up the Email - text input
         this.DOB.setBackground(new Color(18, 25, 33));
-//        this.DOB.setBorder(new BottomBorder());
+        this.DOB.setBorder(null);
         this.DOB.setBounds(500, 160 + 240, 300, 15);
         this.DOB.setForeground(Color.WHITE);
 
@@ -100,7 +100,7 @@ public class RegisterPanel extends JPanel {
 
         //        Setting up the Email - text input
         this.PN.setBackground(new Color(18, 25, 33));
-//        this.PN.setBorder(new BottomBorder());
+        this.PN.setBorder(null);
         this.PN.setBounds(500, 160 + 320, 300, 15);
         this.PN.setForeground(Color.WHITE);
 

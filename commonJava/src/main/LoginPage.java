@@ -26,6 +26,10 @@ public class LoginPage extends JPanel {
     private JButton LoginBtn;
     private JButton BackBtn;
     private JButton ForgotPassword;
+    private float alpha = 0.4f;
+    private boolean fadeIn = false;
+
+    private JLabel loginCredentialsIncorrect;
 
     public LoginPage(Window window) {
 
@@ -39,12 +43,16 @@ public class LoginPage extends JPanel {
         this.LoginBtn = new JButton("Login");
         this.BackBtn = new JButton("Back");
         this.ForgotPassword = new JButton("Forgot Password");
+        this.loginCredentialsIncorrect = new JLabel("Your login credentials are incorrect");
 
         addMouseListener(mouseInputs);
 
         requestFocus();
 
         setLayout(null);
+//        setContentPane();
+
+        this.loginCredentialsIncorrect.setVisible(false);
 
         this.ForgotPassword.setBounds(530,280,200, 30);
         this.ForgotPassword.setBackground(new Color(0,0,0,0));
@@ -81,16 +89,24 @@ public class LoginPage extends JPanel {
         this.LoginBtn.setBackground(new Color(81, 200, 120));
         this.LoginBtn.setForeground(Color.WHITE);
 
+        this.loginCredentialsIncorrect.setBackground(new Color(188, 84, 73));
+        this.loginCredentialsIncorrect.setForeground(Color.RED);
+        this.loginCredentialsIncorrect.setBounds(500, 100, 300, 20);
+
         LoginBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
                     if(DBUtils.RequestLogin(email.getText(), password.getText())){ //email.getText(), password.getText()))
                         window.getWindowFrame().removeLoginPage();
                         window.getWindowFrame().addMainPage();
+                        loginCredentialsIncorrect.setVisible(false);
                     } else {
                         System.out.println("Login Failed!");
-                        window.getWindowFrame().removeLoginPage();
-                        window.getWindowFrame().addMainPage();
+                        fadeIn = false;
+//                        window.getWindowFrame().removeLoginPage();
+//                        window.getWindowFrame().addMainPage();
+                        loginCredentialsIncorrect.setVisible(true);
+
                     }
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
@@ -115,6 +131,7 @@ public class LoginPage extends JPanel {
             }
         });
 
+        add(this.loginCredentialsIncorrect);
         add(this.LoginBtn);
         add(this.email);
         add(this.password);
@@ -144,5 +161,39 @@ public class LoginPage extends JPanel {
             return false;
         }
     }
+
+//    public void FadingPanel() {
+//        Timer timer = new Timer(40, new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                if (fadeIn) {
+//                    alpha += 0.1f;
+//                    if (alpha <= 1.0f) {
+//                        alpha = 1.0f;
+//                        fadeIn = false;
+//                    }
+//                } else {
+//                    alpha -= 0.1f;
+//                    if (alpha <= 0.0f) {
+//                        alpha = 0.0f;
+//                        fadeIn = false;
+//                    }
+//                }
+//                repaint();
+//            }
+//        });
+//        timer.start();
+//
+//    }
+//
+//    @Override
+//    public void paintComponent(Graphics g) {
+//        super.paintComponent(g);
+//        Graphics2D g2d = (Graphics2D) g.create();
+//        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+//        g2d.setColor(Color.GREEN);
+//        g2d.fillRect(0, 0, 20, 10);
+//        g2d.dispose();
+//    }
 
 }

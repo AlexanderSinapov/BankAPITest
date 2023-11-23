@@ -2,9 +2,7 @@ package main;
 
 import inputs.MouseInputs;
 import utils.DBUtils;
-
 import javax.swing.border.Border;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,33 +14,26 @@ public class LoginPage extends JPanel {
     private ImageIcon icon;
 
     public Window window;
-    private MouseInputs mouseInputs;
 
     public JTextField email;
     public JTextField password;
-    private JLabel emailLabel;
-    private JLabel passLabel;
-    private Font font;
-    private JButton LoginBtn;
-    private JButton BackBtn;
-    private JButton ForgotPassword;
-    private float alpha = 0.4f;
+    private final float alpha = 0.4f;
     private boolean fadeIn = false;
 
-    private JLabel loginCredentialsIncorrect;
+    private final JLabel loginCredentialsIncorrect;
 
     public LoginPage(Window window) {
 
         this.window = window;
-        this.mouseInputs = new MouseInputs(window);
+        MouseInputs mouseInputs = new MouseInputs(window);
         this.email = new JTextField(20);
         this.password = new JTextField(20);
-        this.emailLabel = new JLabel("Email address");
-        this.passLabel = new JLabel("Password");
-        this.font = new Font("Arial", Font.BOLD, 16);
-        this.LoginBtn = new JButton("Login");
-        this.BackBtn = new JButton("Back");
-        this.ForgotPassword = new JButton("Forgot Password");
+        JLabel emailLabel = new JLabel("Email address");
+        JLabel passLabel = new JLabel("Password");
+        Font font = new Font("Arial", Font.BOLD, 16);
+        JButton loginBtn = new JButton("Login");
+        JButton backBtn = new JButton("Back");
+        JButton forgotPassword = new JButton("Forgot Password");
         this.loginCredentialsIncorrect = new JLabel("Your login credentials are incorrect");
 
         addMouseListener(mouseInputs);
@@ -54,16 +45,16 @@ public class LoginPage extends JPanel {
 
         this.loginCredentialsIncorrect.setVisible(false);
 
-        this.ForgotPassword.setBounds(530,280,200, 30);
-        this.ForgotPassword.setBackground(new Color(0,0,0,0));
-        this.ForgotPassword.setOpaque(false);
-        this.ForgotPassword.setContentAreaFilled(false);
-        this.ForgotPassword.setBorderPainted(false);
-        this.ForgotPassword.setForeground(Color.WHITE);
+        forgotPassword.setBounds(530,280,200, 30);
+        forgotPassword.setBackground(new Color(0,0,0,0));
+        forgotPassword.setOpaque(false);
+        forgotPassword.setContentAreaFilled(false);
+        forgotPassword.setBorderPainted(false);
+        forgotPassword.setForeground(Color.WHITE);
 
-        this.BackBtn.setBounds(10, 10, 80, 50);
-        this.BackBtn.setBackground(new Color(81, 200, 120));
-        this.BackBtn.setForeground(Color.WHITE);
+        backBtn.setBounds(10, 10, 80, 50);
+        backBtn.setBackground(new Color(81, 200, 120));
+        backBtn.setForeground(Color.WHITE);
 
 //        Setting up the Email - text input
         this.email.setBackground(new Color(18, 25, 33));
@@ -71,9 +62,9 @@ public class LoginPage extends JPanel {
         this.email.setForeground(Color.WHITE);
         this.email.setBounds(500, 160, 300, 30);
 
-        this.emailLabel.setFont(this.font);
-        this.emailLabel.setBounds(500, 140, 300, 15);
-        this.emailLabel.setForeground(Color.WHITE);
+        emailLabel.setFont(font);
+        emailLabel.setBounds(500, 140, 300, 15);
+        emailLabel.setForeground(Color.WHITE);
 
 //        Setting up the Password - text input
         this.password.setBackground(new Color(18, 25, 33));
@@ -81,19 +72,19 @@ public class LoginPage extends JPanel {
         this.password.setForeground(Color.WHITE);
         this.password.setBounds(500, 240, 300, 30);
 
-        this.passLabel.setFont(this.font);
-        this.passLabel.setBounds(500, 220, 300, 15);
-        this.passLabel.setForeground(Color.WHITE);
+        passLabel.setFont(font);
+        passLabel.setBounds(500, 220, 300, 15);
+        passLabel.setForeground(Color.WHITE);
 
-        this.LoginBtn.setBounds(580, 320, 100, 60);
-        this.LoginBtn.setBackground(new Color(81, 200, 120));
-        this.LoginBtn.setForeground(Color.WHITE);
+        loginBtn.setBounds(580, 320, 100, 60);
+        loginBtn.setBackground(new Color(81, 200, 120));
+        loginBtn.setForeground(Color.WHITE);
 
         this.loginCredentialsIncorrect.setBackground(new Color(188, 84, 73));
         this.loginCredentialsIncorrect.setForeground(Color.RED);
         this.loginCredentialsIncorrect.setBounds(500, 100, 300, 20);
 
-        LoginBtn.addActionListener(new ActionListener() {
+        loginBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
                     if(DBUtils.RequestLogin(email.getText(), password.getText())){ //email.getText(), password.getText()))
@@ -114,7 +105,7 @@ public class LoginPage extends JPanel {
             }
         });
 
-        BackBtn.addActionListener(new ActionListener() {
+        backBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 window.getWindowFrame().welcomePage.setVisible(true);
                 window.getWindowFrame().loginPage.setVisible(false);
@@ -124,7 +115,7 @@ public class LoginPage extends JPanel {
 
 
 
-        ForgotPassword.addActionListener(new ActionListener() {
+        forgotPassword.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 window.getWindowFrame().loginPage.setVisible(false);
                 window.getWindowFrame().addForgotPage();
@@ -132,13 +123,13 @@ public class LoginPage extends JPanel {
         });
 
         add(this.loginCredentialsIncorrect);
-        add(this.LoginBtn);
+        add(loginBtn);
         add(this.email);
         add(this.password);
-        add(this.emailLabel);
-        add(this.passLabel);
-        add(this.BackBtn);
-        add(this.ForgotPassword);
+        add(emailLabel);
+        add(passLabel);
+        add(backBtn);
+        add(forgotPassword);
         setSize(1280, 720);
         setBackground(new Color(13, 17, 23));
     }

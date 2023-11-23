@@ -13,23 +13,20 @@ public class ForgotPasswordPage extends JPanel {
     private Window window;
     private MouseInputs mouseInputs;
 
-    private JLabel ForgotPasswordLabel;
-    private JLabel emailAndPIN;
-    private JLabel confirmPasswordLabel;
-    private JTextField confirmPassword;
-    private JTextField email;
-    private JButton submit;
-    private Font font;
-    private JButton BackBtn;
+    private final JLabel emailAndPIN;
+    private final JLabel confirmPasswordLabel;
+    private final JTextField confirmPassword;
+    private final JTextField email;
+    private final JButton submit;
 
     public ForgotPasswordPage(Window window){
 
-        this.ForgotPasswordLabel = new JLabel("Forgot Password");
-        this.font = new Font("Arial", Font.BOLD, 20);
+        JLabel forgotPasswordLabel = new JLabel("Forgot Password");
+        Font font = new Font("Arial", Font.BOLD, 20);
         this.emailAndPIN = new JLabel("Email");
         this.email = new JTextField();
         this.submit = new JButton("Submit");
-        this.BackBtn = new JButton("Back");
+        JButton backBtn = new JButton("Back");
         this.confirmPassword = new JTextField();
         this.confirmPasswordLabel = new JLabel("Confirm Password");
 
@@ -39,15 +36,15 @@ public class ForgotPasswordPage extends JPanel {
 
         setLayout(null);
 
-        this.ForgotPasswordLabel.setFont(new Font("Arial", Font.BOLD, 25));
-        this.ForgotPasswordLabel.setBounds(515, 10, 250, 40);
-        this.ForgotPasswordLabel.setForeground(Color.WHITE);
+        forgotPasswordLabel.setFont(new Font("Arial", Font.BOLD, 25));
+        forgotPasswordLabel.setBounds(515, 10, 250, 40);
+        forgotPasswordLabel.setForeground(Color.WHITE);
 
-        this.BackBtn.setBounds(10, 10, 80, 50);
-        this.BackBtn.setBackground(new Color(81, 200, 120));
-        this.BackBtn.setForeground(Color.WHITE);
+        backBtn.setBounds(10, 10, 80, 50);
+        backBtn.setBackground(new Color(81, 200, 120));
+        backBtn.setForeground(Color.WHITE);
 
-        this.emailAndPIN.setFont(this.font);
+        this.emailAndPIN.setFont(font);
         this.emailAndPIN.setBounds(500, 80, 200, 40);
         this.emailAndPIN.setForeground(Color.WHITE);
 
@@ -61,7 +58,7 @@ public class ForgotPasswordPage extends JPanel {
         this.submit.setBackground(new Color(81, 200, 120));
         this.submit.setForeground(Color.WHITE);
 
-        this.confirmPasswordLabel.setFont(this.font);
+        this.confirmPasswordLabel.setFont(font);
         this.confirmPasswordLabel.setBounds(500, 160, 250, 40);
         this.confirmPasswordLabel.setForeground(Color.WHITE);
         this.confirmPasswordLabel.setVisible(false);
@@ -73,7 +70,7 @@ public class ForgotPasswordPage extends JPanel {
         this.confirmPassword.setBorder(null);
         this.confirmPassword.setVisible(false);
 
-        BackBtn.addActionListener(new ActionListener() {
+        backBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 window.getWindowFrame().welcomePage.setVisible(true);
                 window.getWindowFrame().removeForgotPage();
@@ -125,11 +122,11 @@ public class ForgotPasswordPage extends JPanel {
             }
         });
 
-        add(ForgotPasswordLabel);
+        add(forgotPasswordLabel);
         add(emailAndPIN);
         add(email);
         add(submit);
-        add(BackBtn);
+        add(backBtn);
         add(confirmPasswordLabel);
         add(confirmPassword);
         setSize(1280, 720);

@@ -6,7 +6,6 @@ import java.awt.*;
 public class WindowFrame extends JFrame {
 
     public WelcomePage welcomePage;
-    public DebitCardTemplate DebitCard;
     public LoginPage loginPage;
     public RegisterPanel registerPage;
     private MainPage mainPage;
@@ -14,14 +13,13 @@ public class WindowFrame extends JFrame {
     private ForgotPasswordPage fpPage;
 
 
-    public WindowFrame(WelcomePage panel, LoginPage loginPage, RegisterPanel registerPage, MainPage mainPage, ForgotPasswordPage forgotPassword, DebitCardTemplate debitCard)  {
+    public WindowFrame(WelcomePage panel, LoginPage loginPage, RegisterPanel registerPage, MainPage mainPage, ForgotPasswordPage forgotPassword)  {
 
         this.welcomePage = panel;
         this.loginPage = loginPage;
         this.registerPage = registerPage;
         this.mainPage = mainPage;
         this.fpPage = forgotPassword;
-        this.DebitCard = debitCard;
         image = new ImageIcon("commonJava/Resources/Images/VistaTrustBankLogo.png");
 
         setSize(1280, 720);
@@ -36,16 +34,6 @@ public class WindowFrame extends JFrame {
 
     public void removeWelcomePage() {
         remove(welcomePage);
-        revalidate();
-    }
-
-    public void addDebitCard(){
-        add(DebitCard);
-        revalidate();
-    }
-
-    public void removeDebitCard(){
-        remove(DebitCard);
         revalidate();
     }
 

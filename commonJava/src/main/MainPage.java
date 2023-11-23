@@ -308,6 +308,7 @@ public class MainPage extends JPanel {
                TaxPaymentsV(false);
                addCardsMenuLPanel(true);
                NewInvoiceV(false);
+               window.getWindowFrame().addDebitCard();
            }
         });
 

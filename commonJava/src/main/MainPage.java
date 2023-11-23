@@ -59,6 +59,8 @@ public class MainPage extends JPanel {
     private JLabel FullNameLabel;
     private JLabel NumberOfCards;
     private JLabel PN;
+    private static JPanel card;
+    private static JLabel cardLabel;
 
     public MainPage(Window window) {
 //        Setting variable values
@@ -309,6 +311,7 @@ public class MainPage extends JPanel {
                addCardsMenuLPanel(true);
                NewInvoiceV(false);
                window.getWindowFrame().addDebitCard();
+               CardInfo(card, cardLabel, 100, 100, 300, 200, new Color(20, 26, 57), Color.WHITE, font, cardsPanel);
            }
         });
 
@@ -392,5 +395,17 @@ public class MainPage extends JPanel {
         invoiceInfo.setForeground(Color.WHITE);
 
         taxPaymentsPanel.add(invoiceInfo);
+    }
+
+    public void CardInfo(JPanel card, JLabel cardInfo, int x, int y, int width, int height, Color color, Color foreground, Font font, JPanel panel) {
+        card = new JPanel();
+        cardInfo = new JLabel();
+
+        card.setBounds(x, y, width, height);
+        card.setBackground(color);
+        card.setForeground(foreground);
+        card.setFont(font);
+
+        panel.add(card);
     }
 }

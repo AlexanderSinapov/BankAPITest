@@ -31,6 +31,8 @@ public class RegisterPanel extends JPanel {
 
     private Font font;
 
+    private JLabel RegisterCredentialsIncorrect;
+
     public RegisterPanel(Window window) {
         this.window = window;
         this.mouseInputs = new MouseInputs(window);
@@ -48,11 +50,13 @@ public class RegisterPanel extends JPanel {
         this.dob = new JLabel("Date of Birth");
         this.pn = new JLabel("Phone Number");
         this.BackBtnRegister = new JButton("Back");
+        this.RegisterCredentialsIncorrect = new JLabel("Your register credentials are incorrect");
 
         addMouseListener(mouseInputs);
 
         requestFocus();
         setLayout(null);
+        this.RegisterCredentialsIncorrect.setVisible(false);
 
         this.BackBtnRegister.setBounds(10, 10, 80, 50);
         this.BackBtnRegister.setBackground(new Color(50, 75, 178));
@@ -64,7 +68,7 @@ public class RegisterPanel extends JPanel {
         this.Email.setBounds(500, 160, 300, 15);
         this.Email.setForeground(Color.WHITE);
 
-        this.email.setFont(this.font);
+        this.email.setFont(new Font("Arial", Font.BOLD, 16));
         this.email.setBounds(500, 140, 300, 15);
         this.email.setForeground(Color.WHITE);
 
@@ -74,7 +78,7 @@ public class RegisterPanel extends JPanel {
         this.FullName.setBounds(500, 160 + 80, 300, 15);
         this.FullName.setForeground(Color.WHITE);
 
-        this.fullName.setFont(this.font);
+        this.fullName.setFont(new Font("Arial", Font.BOLD, 16));
         this.fullName.setBounds(500, 140 + 80, 300, 15);
         this.fullName.setForeground(Color.WHITE);
 
@@ -84,7 +88,7 @@ public class RegisterPanel extends JPanel {
         this.Password.setBounds(500, 160 + 160, 300, 15);
         this.Password.setForeground(Color.WHITE);
 
-        this.password.setFont(this.font);
+        this.password.setFont(new Font("Arial", Font.BOLD, 16));
         this.password.setBounds(500, 140 + 160, 300, 15);
         this.password.setForeground(Color.WHITE);
 
@@ -94,7 +98,7 @@ public class RegisterPanel extends JPanel {
         this.DOB.setBounds(500, 160 + 240, 300, 15);
         this.DOB.setForeground(Color.WHITE);
 
-        this.dob.setFont(this.font);
+        this.dob.setFont(new Font("Arial", Font.BOLD, 16));
         this.dob.setBounds(500, 140 + 240, 300, 15);
         this.dob.setForeground(Color.WHITE);
 
@@ -104,7 +108,7 @@ public class RegisterPanel extends JPanel {
         this.PN.setBounds(500, 160 + 320, 300, 15);
         this.PN.setForeground(Color.WHITE);
 
-        this.pn.setFont(this.font);
+        this.pn.setFont(new Font("Arial", Font.BOLD, 16));
         this.pn.setBounds(500, 140 + 320, 300, 15);
         this.pn.setForeground(Color.WHITE);
 
@@ -114,6 +118,10 @@ public class RegisterPanel extends JPanel {
 
         this.argumentsNotFilled.setBounds(500, 100, 100, 30);
         this.argumentsNotFilled.setForeground(Color.RED);
+
+        this.RegisterCredentialsIncorrect.setBackground(new Color(188, 84, 73));
+        this.RegisterCredentialsIncorrect.setForeground(Color.RED);
+        this.RegisterCredentialsIncorrect.setBounds(500, 100, 300, 10);
         RegisterBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -121,10 +129,12 @@ public class RegisterPanel extends JPanel {
                         window.getWindowFrame().removeRegisterPage();
                         if(!window.getWindowFrame().loginPage.isVisible()){
                             window.getWindowFrame().loginPage.setVisible(true);
+                            RegisterCredentialsIncorrect.setVisible(false);
                         } else window.getWindowFrame().addLoginPage();
 
                     } else {
                         System.out.println("Register Failed!");
+                        RegisterCredentialsIncorrect.setVisible(true);
                     }
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
@@ -140,6 +150,7 @@ public class RegisterPanel extends JPanel {
             }
         });
 
+        add(this.RegisterCredentialsIncorrect);
         add(this.FullName);
         add(this.Email);
         add(this.Password);

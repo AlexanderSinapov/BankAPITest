@@ -13,7 +13,7 @@ public class DBUtils {
 
     private static String baseApiUrl = String.format("http://%s:8545/api", getIPv4Address());
 
-    private static String email;
+    private static String emailSession;
     private static String authToken;
     private static String resetToken;
 
@@ -101,6 +101,7 @@ public class DBUtils {
             JSONArray array = new JSONArray(response.body().toString());
             JSONObject obj = array.getJSONObject(0);
             authToken = obj.getString("authToken");
+            emailSession = email;
             return true;
         } else return false;
 
@@ -122,17 +123,17 @@ public class DBUtils {
             JSONArray array = new JSONArray(response.body().toString());
             JSONObject obj = array.getJSONObject(0);
             resetToken = obj.getString("resetToken");
-            email = inputEmail;
+            emailSession = inputEmail;
             return true;
         } else return false;
     }
 
     public static boolean RequestForgotPasswordSecond(String pin) throws Exception {
-        if(email.isEmpty()) return false;
-        if(!email.contains("@")) return false;
+        if(emailSession.isEmpty()) return false;
+        if(!emailSession.contains("@")) return false;
 
         HttpRequest request = HttpRequest.newBuilder()
-                .setHeader("Email", email)
+                .setHeader("Email", emailSession)
                 .setHeader("PIN", pin)
                 .setHeader("resetToken", resetToken)
                 .GET()
@@ -150,7 +151,7 @@ public class DBUtils {
         if(password.isEmpty()) return false;
 
         HttpRequest request = HttpRequest.newBuilder()
-                .setHeader("Email", email)
+                .setHeader("Email", emailSession)
                 .setHeader("resetToken", resetToken)
                 .setHeader("newPassword", password)
                 .GET()
@@ -160,8 +161,36 @@ public class DBUtils {
         HttpResponse response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 
         if(response.statusCode() == 200){
+            emailSession = "";
             return true;
         } else return false;
+    }
+
+    public static boolean RequestNewCard(String type, String nickname, String customPin){
+        if(nickname.isEmpty()) nickname = type +" Card";
+        if(customPin.isEmpty()) customPin = "null";
+
+        try {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .setHeader("Email", emailSession)
+                    .setHeader("authToken", authToken)
+                    .setHeader("PIN", customPin)
+                    .setHeader("nickname", nickname)
+                    .setHeader("CardType", type)
+                    .GET()
+                    .uri(new URI(baseApiUrl + "/cards/add"))
+                    .build();
+
+            HttpResponse response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+
+            if(response.statusCode() == 200){
+                return true;
+            } else return false;
+
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
 //    public static boolean CheckIfAdult(java.util.Date dob){

@@ -1,6 +1,7 @@
 package main;
 
 import inputs.MouseInputs;
+import utils.DBUtils;
 
 
 import javax.swing.*;
@@ -191,6 +192,7 @@ public class MainPage extends JPanel {
 
         this.NicknameF.setBounds(250,66, 150, 30);
         this.NicknameF.setBackground(new Color(18, 25, 33));
+        this.NicknameF.setBorder(null);
         this.NicknameF.setForeground(Color.WHITE);
 
         this.NewCardL.setFont(font);
@@ -288,6 +290,15 @@ public class MainPage extends JPanel {
         NewCardSubmit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                     newCard.setVisible(false);
+            }
+        });
+
+        NewCardSubmit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if(DBUtils.RequestNewCard(cardType.getSelectedItem().toString(), NicknameF.getText(), CustomPinF.getText())){
+                    newCard.setVisible(false);
+                    System.out.println("New Card Added");
+                } else System.out.println("Action Failed!");
             }
         });
 

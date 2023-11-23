@@ -69,7 +69,7 @@ public class LoginPage extends JPanel {
         this.email.setBackground(new Color(18, 25, 33));
         this.email.setBorder(null);
         this.email.setForeground(Color.WHITE);
-        this.email.setBounds(500, 160, 300, 15);
+        this.email.setBounds(500, 160, 300, 30);
 
         this.emailLabel.setFont(this.font);
         this.emailLabel.setBounds(500, 140, 300, 15);
@@ -79,7 +79,7 @@ public class LoginPage extends JPanel {
         this.password.setBackground(new Color(18, 25, 33));
         this.password.setBorder(null);
         this.password.setForeground(Color.WHITE);
-        this.password.setBounds(500, 240, 300, 15);
+        this.password.setBounds(500, 240, 300, 30);
 
         this.passLabel.setFont(this.font);
         this.passLabel.setBounds(500, 220, 300, 15);

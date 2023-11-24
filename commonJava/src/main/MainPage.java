@@ -40,6 +40,10 @@ public class MainPage extends JPanel {
     private JLabel PN;
     private static JPanel card;
     private static JLabel cardLabel;
+    private static JButton legitCardBtn;
+    private static JButton isLegitCardBtn;
+    private static JTextField legitCardTF;
+    private static JPanel legitCardP;
 
     public MainPage(Window window) {
 //        Setting variable values

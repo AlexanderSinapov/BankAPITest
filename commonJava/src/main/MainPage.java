@@ -62,6 +62,9 @@ public class MainPage extends JPanel {
         JLabel nicknameL = new JLabel("Card Nickname");
         NicknameF = new JTextField();
         JButton newCardSubmit = new JButton("Submit");
+        legitCardBtn = new JButton("Check card");
+        isLegitCardBtn = new JButton("Check card number");
+        legitCardTF = new JTextField();
 
 
         cardsPanel = new JPanel();
@@ -71,6 +74,7 @@ public class MainPage extends JPanel {
         infoPanel = new JPanel();
         newInvoice = new JPanel();
         invoiceInfo = new JPanel();
+        legitCardP = new JPanel();
 
         JLabel cardsLabel = new JLabel("Your Cards");
 
@@ -203,6 +207,11 @@ public class MainPage extends JPanel {
         transactions.setBounds(20, 150, 200, 60);
         transactions.setForeground(Color.WHITE);
 
+//        Legit Card UI
+        legitCardBtn.setBackground(new Color(81, 200, 120));
+        legitCardBtn.setBounds(20, 260, 200, 60);
+        legitCardBtn.setForeground(Color.WHITE);
+
 //        this.infoPanel.setVisible(false);
 
         cardsPanel.add(cardsLabel);
@@ -260,6 +269,7 @@ public class MainPage extends JPanel {
         add(taxPayments);
         add(transactions);
         add(cards);
+        add(legitCardBtn);
 
         accServBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

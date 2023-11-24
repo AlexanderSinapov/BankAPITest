@@ -79,6 +79,7 @@ public class LoginPage extends JPanel {
         loginBtn.setBounds(580, 320, 100, 60);
         loginBtn.setBackground(new Color(81, 200, 120));
         loginBtn.setForeground(Color.WHITE);
+        loginBtn.setFont(new Font("Lucida Sans", Font.PLAIN, 20));
 
         this.loginCredentialsIncorrect.setBackground(new Color(188, 84, 73));
         this.loginCredentialsIncorrect.setForeground(Color.RED);

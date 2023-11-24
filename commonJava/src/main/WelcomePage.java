@@ -73,6 +73,6 @@ public class WelcomePage extends JPanel {
 //        Setting up the Welcome Text
         g.setFont(new Font("Arial", Font.BOLD, 30));
         g.setColor(Color.WHITE);
-        g.drawString("Welcome to VistaTrust - Bank", (1280 - g.getFontMetrics().stringWidth("Welcome to VistaTrust - Bank")) / 2, (520 - g.getFontMetrics().getHeight()) / 2);
+        g.drawString("Welcome", (1280 - g.getFontMetrics().stringWidth("Welcome")) / 2, (520 - g.getFontMetrics().getHeight()) / 2);
     }
 }

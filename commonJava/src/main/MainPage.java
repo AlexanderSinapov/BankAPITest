@@ -109,11 +109,11 @@ public class MainPage extends JPanel {
         setLayout(null);
         newCard.setLayout(null);
 
-        infoPanel.setBackground(new Color(13, 17, 37));
+        infoPanel.setBackground(new Color(226, 208, 190));
         infoPanel.setBounds(340, 0, 1280 - 340, 685);
 
 //        Setting up the CardCreationUI
-        cardsPanel.setBackground(new Color(13, 17, 37));
+        cardsPanel.setBackground(new Color(226, 208, 190));
         cardsPanel.setBounds(340, 0, 1280 - 340, 685);
 
         addCard.setBackground(new Color(50, 75, 178));
@@ -170,7 +170,7 @@ public class MainPage extends JPanel {
         taxPaymentsBtn.setBounds(50, 50, 50, 50);
         taxPaymentsBtn.setForeground(Color.WHITE);
 
-        taxPaymentsPanel.setBackground(new Color(13, 17, 37));
+        taxPaymentsPanel.setBackground(new Color(226, 208, 190));
         taxPaymentsPanel.setBounds(340, 0, 1280 - 340, 685);
 
         invoiceTo.setBounds(50, 50, 140, 20);
@@ -218,8 +218,16 @@ public class MainPage extends JPanel {
 
 //        Legit Card UI
         legitCardBtn.setBackground(new Color(81, 200, 120));
-        legitCardBtn.setBounds(20, 260, 200, 60);
+        legitCardBtn.setBounds(20, 290, 200, 60);
         legitCardBtn.setForeground(Color.WHITE);
+
+        legitCardTF.setBackground(new Color(18, 25, 33));
+        legitCardTF.setBounds(50, 50, 300, 30);
+        legitCardTF.setForeground(Color.WHITE);
+
+        legitCardP.setBounds(340, 0, 1280 - 340, 685);
+        legitCardP.setBackground(new Color(226, 208, 190));
+        legitCardP.setForeground(Color.WHITE);
 
 //        this.infoPanel.setVisible(false);
 
@@ -261,6 +269,9 @@ public class MainPage extends JPanel {
         newCard.add(CustomPinL);
         newCard.add(CustomPinF);
         newCard.setVisible(false);
+        legitCardP.setVisible(false);
+        legitCardP.add(legitCardTF);
+        legitCardP.add(isLegitCardBtn);
         taxPaymentsPanel.add(taxPaymentsBtn);
         newInvoice.add(invoiceTo);
         taxPaymentsPanel.add(taxPaymentsL);
@@ -287,6 +298,7 @@ public class MainPage extends JPanel {
                 addCardsMenuLPanel(false);
                 newCard(false);
                 NewInvoiceV(false);
+                legitCardP.setVisible(false);
             }
         });
 
@@ -311,6 +323,7 @@ public class MainPage extends JPanel {
                TaxPaymentsV(false);
                addCardsMenuLPanel(true);
                NewInvoiceV(false);
+               legitCardP.setVisible(false);
                int height = 100;
                for(int i = 0; i < DBUtils.cards.length() && i < 2; i++, height += 220){
                    JSONObject obj = DBUtils.cards.getJSONObject(i);
@@ -357,6 +370,7 @@ public class MainPage extends JPanel {
                 addCardsMenuLPanel(false);
                 TaxPaymentsV(true);
                 newCard(false);
+                legitCardP.setVisible(false);
            }
         });
 
@@ -375,6 +389,12 @@ public class MainPage extends JPanel {
         invoiceSubmit.addActionListener(new ActionListener() {
            public void actionPerformed(ActionEvent e) {
                newInvoice.setVisible(false);
+           }
+        });
+
+        legitCardBtn.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent e) {
+               legitCardP.setVisible(false);
            }
         });
 

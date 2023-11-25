@@ -11,11 +11,13 @@ import java.net.http.HttpResponse;
 
 public class DBUtils {
 
-    private static final String baseApiUrl = String.format("http://%s:8545/api", getIPv4Address());
+    private static final String baseApiUrl = String.format("http://%s:8545/api", "20.67.242.144");
 
     private static String emailSession;
     private static String authToken;
     private static String resetToken;
+
+    public static JSONArray cards;
 
     //Path to DB
     //private static final String url = "jdbc:sqlite:commonJava/src/database.db";

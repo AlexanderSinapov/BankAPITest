@@ -1,6 +1,7 @@
 package main;
 
 import inputs.MouseInputs;
+import org.json.JSONObject;
 import utils.DBUtils;
 
 
@@ -44,6 +45,14 @@ public class MainPage extends JPanel {
     private static JButton isLegitCardBtn;
     private static JTextField legitCardTF;
     private static JPanel legitCardP;
+
+    private class  CardDetails{
+        String CardHolder;
+        String ExpDate;
+        String CardNick;
+        String CardNumber;
+        String Balance;
+    }
 
     public MainPage(Window window) {
 //        Setting variable values
@@ -302,9 +311,20 @@ public class MainPage extends JPanel {
                TaxPaymentsV(false);
                addCardsMenuLPanel(true);
                NewInvoiceV(false);
-               CardInfo(220, 100, 400, 200, new Color(20, 26, 57), Color.WHITE, font, cardsPanel, "commonJava/Resources/Images/MCLogo.png");
-               CardInfo(220, 320, 400, 200, new Color(20, 26, 57), Color.WHITE, font, cardsPanel, "commonJava/Resources/Images/VisaLogo.png");
+               int height = 100;
+               for(int i = 0; i < DBUtils.cards.length() && i < 2; i++, height += 220){
+                   JSONObject obj = DBUtils.cards.getJSONObject(i);
+                   CardDetails details = new CardDetails();
+                   details.CardNumber = (String) obj.get("number");
+                   details.CardHolder = (String) obj.get("name");
+                   details.ExpDate = obj.get("month") + "/" + obj.get("year");
+                   details.CardNick = (String) obj.get("nickname");
+                   if(details.CardNumber.startsWith("4")){
+                       CardInfo(height, "commonJava/Resources/Images/VisaLogo.png", details);
+                   } else CardInfo(height, "commonJava/Resources/Images/MCLogo.png", details);
+                   System.out.println(obj.toString());
 
+               }
            }
         });
 
@@ -391,11 +411,11 @@ public class MainPage extends JPanel {
         taxPaymentsPanel.add(invoiceInfo);
     }
 
-    public void CardInfo(int x, int y, int width, int height, Color color, Color foreground, Font font, JPanel panel, String logoPath) {
-        JLabel nick = new JLabel("Card Nickname");
-        JLabel number = new JLabel("Card Number");
-        JLabel holder = new JLabel("Card Holder");
-        JLabel expDate = new JLabel("Expiration Date");
+    public void CardInfo(int y, String logoPath, CardDetails details) {
+        JLabel nick = new JLabel(details.CardNick);
+        JLabel number = new JLabel(details.CardNumber);
+        JLabel holder = new JLabel(details.CardHolder);
+        JLabel expDate = new JLabel(details.ExpDate);
         JPanel DebitCard = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -405,15 +425,15 @@ public class MainPage extends JPanel {
             }
         };
 
-        nick.setBounds(20,20,150,30);
+        nick.setBounds(20,20,300,30);
         nick.setFont(new Font("Ariel", Font.BOLD, 20));
         nick.setForeground(Color.WHITE);
 
-        number.setBounds(20,45,130,25);
+        number.setBounds(20,45,180,25);
         number.setFont(new Font("Ariel", Font.BOLD, 16));
         number.setForeground(Color.WHITE);
 
-        holder.setBounds(20,85,120,25);
+        holder.setBounds(20,85,200,25);
         holder.setFont(new Font("Ariel", Font.BOLD, 16));
         holder.setForeground(Color.WHITE);
 
@@ -421,16 +441,16 @@ public class MainPage extends JPanel {
         expDate.setFont(new Font("Ariel", Font.BOLD, 16));
         expDate.setForeground(Color.WHITE);
 
-        DebitCard.setBounds(x, y, width, height);
-        DebitCard.setBackground(color);
-        DebitCard.setForeground(foreground);
-        DebitCard.setFont(font);
+        DebitCard.setBounds(220, y, 400, 200);
+        DebitCard.setBackground(new Color(20, 26, 57));
+        DebitCard.setForeground(Color.WHITE);
+        DebitCard.setFont(this.font);
 
         DebitCard.add(number);
         DebitCard.add(holder);
         DebitCard.add(nick);
         DebitCard.add(expDate);
         DebitCard.setLayout(null);
-        panel.add(DebitCard);
+        cardsPanel.add(DebitCard);
     }
 }

@@ -45,6 +45,8 @@ public class MainPage extends JPanel {
     private static JButton isLegitCardBtn;
     private static JTextField legitCardTF;
     private static JPanel legitCardP;
+    private static JButton logOut;
+    private static ImageIcon profileImg = new ImageIcon("commonJava/Resources/Images/profile-icon.png");
 
     private class  CardDetails{
         String CardHolder;
@@ -74,6 +76,7 @@ public class MainPage extends JPanel {
         legitCardBtn = new JButton("Check card");
         isLegitCardBtn = new JButton("Check card number");
         legitCardTF = new JTextField();
+        logOut  = new JButton(profileImg + "Logout");
 
 
         cardsPanel = new JPanel();
@@ -100,6 +103,7 @@ public class MainPage extends JPanel {
         CustomPinF = new JTextField();
 
         addMouseListener(mouseInputs);
+//        setVisible(false);
 
         requestFocus();
         cardsPanel.setLayout(null);
@@ -234,6 +238,11 @@ public class MainPage extends JPanel {
         cardsPanel.add(cardsLabel);
         cardsPanel.add(addCard);
 
+//        Setting up the logout btn
+        logOut.setBackground(new Color(81, 200, 120));
+        logOut.setBounds(20, 590, 200, 60);
+        logOut.setForeground(Color.WHITE);
+
         setSize(1280, 720);
         setBackground(new Color(13, 17, 23));
 
@@ -290,6 +299,7 @@ public class MainPage extends JPanel {
         add(transactions);
         add(cards);
         add(legitCardBtn);
+        add(logOut);
 
         accServBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -395,6 +405,14 @@ public class MainPage extends JPanel {
         legitCardBtn.addActionListener(new ActionListener() {
            public void actionPerformed(ActionEvent e) {
                legitCardP.setVisible(false);
+           }
+        });
+
+        logOut.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent e) {
+//               setVisible(false);
+               window.getWindowFrame().removeMainPage();
+               window.getWindowFrame().loginPage.setVisible(true);
            }
         });
 

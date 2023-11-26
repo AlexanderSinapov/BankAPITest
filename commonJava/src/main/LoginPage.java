@@ -90,14 +90,14 @@ public class LoginPage extends JPanel {
                 try {
                     if(DBUtils.RequestLogin(email.getText(), password.getText())){ //email.getText(), password.getText()))
                         DBUtils.cards = DBUtils.RequestGetCards();
-                        window.getWindowFrame().removeLoginPage();
+                        window.getWindowFrame().loginPage.setVisible(false);
                         window.getWindowFrame().addMainPage();
                         loginCredentialsIncorrect.setVisible(false);
                     } else {
                         System.out.println("Login Failed!");
                         fadeIn = false;
-                        window.getWindowFrame().removeLoginPage();
-                        window.getWindowFrame().addMainPage();
+//                        window.getWindowFrame().loginPage.setVisible(false);
+//                        window.getWindowFrame().addMainPage();
                         loginCredentialsIncorrect.setVisible(true);
 
                     }

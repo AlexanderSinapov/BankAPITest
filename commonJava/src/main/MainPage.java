@@ -18,6 +18,7 @@ public class MainPage extends JPanel {
     private static JPanel infoPanel;
     private static JPanel cardsPanel;
     private static JPanel taxPaymentsPanel;
+    private static JScrollPane TaxScrollPane;
 
     private final JComboBox<String> cardType;
     private static JPanel newCard;
@@ -74,6 +75,7 @@ public class MainPage extends JPanel {
         legitCardBtn = new JButton("Check card");
         isLegitCardBtn = new JButton("Check card number");
         legitCardTF = new JTextField();
+        //taxPaymentsViewport = new JPanel();
 
 
         cardsPanel = new JPanel();
@@ -357,6 +359,22 @@ public class MainPage extends JPanel {
                 addCardsMenuLPanel(false);
                 TaxPaymentsV(true);
                 newCard(false);
+               int height = 100;
+               for(int i = 0; i < 2; i++, height += 80){
+                    InvoiceInfo(height, "Water Bill", "18.00");
+                    InvoiceInfo(height, "Power Bill", "16.99");
+
+//                   JSONObject obj = DBUtils.cards.getJSONObject(i);
+//                   CardDetails details = new CardDetails();
+//                   details.CardNumber = (String) obj.get("number");
+//                   details.CardHolder = (String) obj.get("name");
+//                   details.ExpDate = obj.get("month") + "/" + obj.get("year");
+//                   details.CardNick = (String) obj.get("nickname");
+//                   if(details.CardNumber.startsWith("4")){
+//                       InvoiceInfo(height, "Power Bill");
+//                   } else InvoiceInfo(height, "Water Bill");
+
+               }
            }
         });
 
@@ -403,14 +421,6 @@ public class MainPage extends JPanel {
         cardNumber.setVisible(bool);
     }
 
-    public static void InvoiceInfo(int x, int y, int width, int height) {
-        invoiceInfo.setBounds(x, y, width, height);
-        invoiceInfo.setBackground(new Color(13, 17, 32));
-        invoiceInfo.setForeground(Color.WHITE);
-
-        taxPaymentsPanel.add(invoiceInfo);
-    }
-
     public void CardInfo(int y, String logoPath, CardDetails details) {
         JLabel nick = new JLabel(details.CardNick);
         JLabel number = new JLabel(details.CardNumber);
@@ -452,5 +462,30 @@ public class MainPage extends JPanel {
         DebitCard.add(expDate);
         DebitCard.setLayout(null);
         cardsPanel.add(DebitCard);
+    }
+
+    public void InvoiceInfo(int y, String name, String price) {
+        JLabel nick = new JLabel(name);
+        JLabel paid = new JLabel(price);
+        JPanel DebitCard = new JPanel();
+
+        nick.setBounds(20,20,300,20);
+        nick.setFont(new Font("Ariel", Font.BOLD, 20));
+        nick.setForeground(Color.WHITE);
+
+        paid.setBounds(300,20,150,20);
+        paid.setFont(new Font("Ariel", Font.BOLD, 20));
+        paid.setForeground(Color.WHITE);
+
+
+        //DebitCard.setBounds(220, y, 400, 60);
+        DebitCard.setBackground(new Color(20, 26, 57));
+        DebitCard.setForeground(Color.WHITE);
+        DebitCard.setFont(this.font);
+
+        DebitCard.add(nick);
+        DebitCard.add(paid);
+        DebitCard.setLayout(null);
+        //taxPaymentsViewport.add(DebitCard);
     }
 }

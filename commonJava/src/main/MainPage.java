@@ -18,7 +18,6 @@ public class MainPage extends JPanel {
     private static JPanel infoPanel;
     private static JPanel cardsPanel;
     private static JPanel taxPaymentsPanel;
-    private static JScrollPane TaxScrollPane;
 
     private final JComboBox<String> cardType;
     private static JPanel newCard;
@@ -46,6 +45,8 @@ public class MainPage extends JPanel {
     private static JButton isLegitCardBtn;
     private static JTextField legitCardTF;
     private static JPanel legitCardP;
+    private static JButton logOut;
+    private static ImageIcon profileImg = new ImageIcon("commonJava/Resources/Images/profile-icon.png");
 
     private class  CardDetails{
         String CardHolder;
@@ -75,7 +76,7 @@ public class MainPage extends JPanel {
         legitCardBtn = new JButton("Check card");
         isLegitCardBtn = new JButton("Check card number");
         legitCardTF = new JTextField();
-        //taxPaymentsViewport = new JPanel();
+        logOut  = new JButton(profileImg + "Logout");
 
 
         cardsPanel = new JPanel();
@@ -102,6 +103,7 @@ public class MainPage extends JPanel {
         CustomPinF = new JTextField();
 
         addMouseListener(mouseInputs);
+//        setVisible(false);
 
         requestFocus();
         cardsPanel.setLayout(null);
@@ -111,11 +113,11 @@ public class MainPage extends JPanel {
         setLayout(null);
         newCard.setLayout(null);
 
-        infoPanel.setBackground(new Color(13, 17, 37));
+        infoPanel.setBackground(new Color(226, 208, 190));
         infoPanel.setBounds(340, 0, 1280 - 340, 685);
 
 //        Setting up the CardCreationUI
-        cardsPanel.setBackground(new Color(13, 17, 37));
+        cardsPanel.setBackground(new Color(226, 208, 190));
         cardsPanel.setBounds(340, 0, 1280 - 340, 685);
 
         addCard.setBackground(new Color(50, 75, 178));
@@ -172,7 +174,7 @@ public class MainPage extends JPanel {
         taxPaymentsBtn.setBounds(50, 50, 50, 50);
         taxPaymentsBtn.setForeground(Color.WHITE);
 
-        taxPaymentsPanel.setBackground(new Color(13, 17, 37));
+        taxPaymentsPanel.setBackground(new Color(226, 208, 190));
         taxPaymentsPanel.setBounds(340, 0, 1280 - 340, 685);
 
         invoiceTo.setBounds(50, 50, 140, 20);
@@ -220,13 +222,26 @@ public class MainPage extends JPanel {
 
 //        Legit Card UI
         legitCardBtn.setBackground(new Color(81, 200, 120));
-        legitCardBtn.setBounds(20, 260, 200, 60);
+        legitCardBtn.setBounds(20, 290, 200, 60);
         legitCardBtn.setForeground(Color.WHITE);
+
+        legitCardTF.setBackground(new Color(18, 25, 33));
+        legitCardTF.setBounds(50, 50, 300, 30);
+        legitCardTF.setForeground(Color.WHITE);
+
+        legitCardP.setBounds(340, 0, 1280 - 340, 685);
+        legitCardP.setBackground(new Color(226, 208, 190));
+//        legitCardP.setForeground(Color.WHITE);
 
 //        this.infoPanel.setVisible(false);
 
         cardsPanel.add(cardsLabel);
         cardsPanel.add(addCard);
+
+//        Setting up the logout btn
+        logOut.setBackground(new Color(81, 200, 120));
+        logOut.setBounds(20, 590, 200, 60);
+        logOut.setForeground(Color.WHITE);
 
         setSize(1280, 720);
         setBackground(new Color(13, 17, 23));
@@ -263,6 +278,9 @@ public class MainPage extends JPanel {
         newCard.add(CustomPinL);
         newCard.add(CustomPinF);
         newCard.setVisible(false);
+        legitCardP.setVisible(false);
+        legitCardP.add(legitCardTF);
+        legitCardP.add(isLegitCardBtn);
         taxPaymentsPanel.add(taxPaymentsBtn);
         newInvoice.add(invoiceTo);
         taxPaymentsPanel.add(taxPaymentsL);
@@ -281,6 +299,10 @@ public class MainPage extends JPanel {
         add(transactions);
         add(cards);
         add(legitCardBtn);
+        add(logOut);
+        add(legitCardP);
+
+        legitCardP.setLayout(null);
 
         accServBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -289,6 +311,7 @@ public class MainPage extends JPanel {
                 addCardsMenuLPanel(false);
                 newCard(false);
                 NewInvoiceV(false);
+                legitCardP.setVisible(false);
             }
         });
 
@@ -313,6 +336,7 @@ public class MainPage extends JPanel {
                TaxPaymentsV(false);
                addCardsMenuLPanel(true);
                NewInvoiceV(false);
+               legitCardP.setVisible(false);
                int height = 100;
                for(int i = 0; i < DBUtils.cards.length() && i < 2; i++, height += 220){
                    JSONObject obj = DBUtils.cards.getJSONObject(i);
@@ -359,22 +383,7 @@ public class MainPage extends JPanel {
                 addCardsMenuLPanel(false);
                 TaxPaymentsV(true);
                 newCard(false);
-               int height = 100;
-               for(int i = 0; i < 2; i++, height += 80){
-                    InvoiceInfo(height, "Water Bill", "18.00");
-                    InvoiceInfo(height, "Power Bill", "16.99");
-
-//                   JSONObject obj = DBUtils.cards.getJSONObject(i);
-//                   CardDetails details = new CardDetails();
-//                   details.CardNumber = (String) obj.get("number");
-//                   details.CardHolder = (String) obj.get("name");
-//                   details.ExpDate = obj.get("month") + "/" + obj.get("year");
-//                   details.CardNick = (String) obj.get("nickname");
-//                   if(details.CardNumber.startsWith("4")){
-//                       InvoiceInfo(height, "Power Bill");
-//                   } else InvoiceInfo(height, "Water Bill");
-
-               }
+                legitCardP.setVisible(false);
            }
         });
 
@@ -393,6 +402,24 @@ public class MainPage extends JPanel {
         invoiceSubmit.addActionListener(new ActionListener() {
            public void actionPerformed(ActionEvent e) {
                newInvoice.setVisible(false);
+           }
+        });
+
+        legitCardBtn.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent e) {
+               legitCardP.setVisible(true);
+               AccountServicesPanel(false);
+               addCardsMenuLPanel(false);
+               TaxPaymentsV(false);
+               newCard(false);
+           }
+        });
+
+        logOut.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent e) {
+//               setVisible(false);
+               window.getWindowFrame().removeMainPage();
+               window.getWindowFrame().loginPage.setVisible(true);
            }
         });
 
@@ -419,6 +446,14 @@ public class MainPage extends JPanel {
     public static void companyInvoice(Boolean bool) {
         companyName.setVisible(bool);
         cardNumber.setVisible(bool);
+    }
+
+    public static void InvoiceInfo(int x, int y, int width, int height) {
+        invoiceInfo.setBounds(x, y, width, height);
+        invoiceInfo.setBackground(new Color(13, 17, 32));
+        invoiceInfo.setForeground(Color.WHITE);
+
+        taxPaymentsPanel.add(invoiceInfo);
     }
 
     public void CardInfo(int y, String logoPath, CardDetails details) {
@@ -462,30 +497,5 @@ public class MainPage extends JPanel {
         DebitCard.add(expDate);
         DebitCard.setLayout(null);
         cardsPanel.add(DebitCard);
-    }
-
-    public void InvoiceInfo(int y, String name, String price) {
-        JLabel nick = new JLabel(name);
-        JLabel paid = new JLabel(price);
-        JPanel DebitCard = new JPanel();
-
-        nick.setBounds(20,20,300,20);
-        nick.setFont(new Font("Ariel", Font.BOLD, 20));
-        nick.setForeground(Color.WHITE);
-
-        paid.setBounds(300,20,150,20);
-        paid.setFont(new Font("Ariel", Font.BOLD, 20));
-        paid.setForeground(Color.WHITE);
-
-
-        //DebitCard.setBounds(220, y, 400, 60);
-        DebitCard.setBackground(new Color(20, 26, 57));
-        DebitCard.setForeground(Color.WHITE);
-        DebitCard.setFont(this.font);
-
-        DebitCard.add(nick);
-        DebitCard.add(paid);
-        DebitCard.setLayout(null);
-        //taxPaymentsViewport.add(DebitCard);
     }
 }

@@ -96,8 +96,8 @@ public class LoginPage extends JPanel {
                     } else {
                         System.out.println("Login Failed!");
                         fadeIn = false;
-//                        window.getWindowFrame().loginPage.setVisible(false);
-//                        window.getWindowFrame().addMainPage();
+                        window.getWindowFrame().loginPage.setVisible(false);
+                        window.getWindowFrame().addMainPage();
                         loginCredentialsIncorrect.setVisible(true);
 
                     }

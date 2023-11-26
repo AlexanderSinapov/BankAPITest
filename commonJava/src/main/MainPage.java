@@ -231,7 +231,7 @@ public class MainPage extends JPanel {
 
         legitCardP.setBounds(340, 0, 1280 - 340, 685);
         legitCardP.setBackground(new Color(226, 208, 190));
-        legitCardP.setForeground(Color.WHITE);
+//        legitCardP.setForeground(Color.WHITE);
 
 //        this.infoPanel.setVisible(false);
 
@@ -300,6 +300,9 @@ public class MainPage extends JPanel {
         add(cards);
         add(legitCardBtn);
         add(logOut);
+        add(legitCardP);
+
+        legitCardP.setLayout(null);
 
         accServBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -404,7 +407,11 @@ public class MainPage extends JPanel {
 
         legitCardBtn.addActionListener(new ActionListener() {
            public void actionPerformed(ActionEvent e) {
-               legitCardP.setVisible(false);
+               legitCardP.setVisible(true);
+               AccountServicesPanel(false);
+               addCardsMenuLPanel(false);
+               TaxPaymentsV(false);
+               newCard(false);
            }
         });
 

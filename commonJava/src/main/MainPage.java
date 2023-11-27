@@ -248,7 +248,7 @@ public class MainPage extends JPanel {
 
         this.font = new Font("Arial", Font.BOLD, 30);
 
-        JLabel accServ = new JLabel("Account Services");
+        JLabel accServ = new JLabel("Account Details");
         JLabel cardsMenuLabel = new JLabel("Cards");
 
 //        Puttin in the AccServ Label
@@ -281,22 +281,11 @@ public class MainPage extends JPanel {
         legitCardP.setVisible(false);
         legitCardP.add(legitCardTF);
         legitCardP.add(isLegitCardBtn);
-        taxPaymentsPanel.add(taxPaymentsBtn);
-        newInvoice.add(invoiceTo);
-        taxPaymentsPanel.add(taxPaymentsL);
-        newInvoice.add(companyInvoice);
-        newInvoice.add(companyName);
-        newInvoice.add(cardNumber);
-        newInvoice.add(invoiceSubmit);
         infoPanel.add(accServ);
         add(newCard);
         add(infoPanel);
         add(cardsPanel);
-        add(newInvoice);
-        add(taxPaymentsPanel);
         add(accServBtn);
-        add(taxPayments);
-        add(transactions);
         add(cards);
         add(legitCardBtn);
         add(logOut);

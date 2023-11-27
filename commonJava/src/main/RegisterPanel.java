@@ -42,62 +42,62 @@ public class RegisterPanel extends JPanel {
         this.RegisterCredentialsIncorrect.setVisible(false);
 
         backBtnRegister.setBounds(10, 10, 80, 50);
-        backBtnRegister.setBackground(new Color(50, 75, 178));
-        backBtnRegister.setForeground(Color.WHITE);
+        backBtnRegister.setBackground(new Color(81, 200, 120));
+        backBtnRegister.setForeground(Color.BLACK);
 
         //        Setting up the Email - text input
-        this.Email.setBackground(new Color(18, 25, 33));
+        this.Email.setBackground(new Color(239, 239, 239));
         this.Email.setBorder(null);
         this.Email.setBounds(500, 160, 300, 30);
-        this.Email.setForeground(Color.WHITE);
+        this.Email.setForeground(Color.BLACK);
 
         email.setFont(new Font("Arial", Font.BOLD, 16));
         email.setBounds(500, 140, 300, 15);
-        email.setForeground(Color.WHITE);
+        email.setForeground(Color.BLACK);
 
         //        Setting up the Email - text input
-        this.FullName.setBackground(new Color(18, 25, 33));
+        this.FullName.setBackground(new Color(239, 239, 239));
         this.FullName.setBorder(null);
         this.FullName.setBounds(500, 160 + 80, 300, 30);
-        this.FullName.setForeground(Color.WHITE);
+        this.FullName.setForeground(Color.BLACK);
 
         fullName.setFont(new Font("Arial", Font.BOLD, 16));
         fullName.setBounds(500, 140 + 80, 300, 15);
-        fullName.setForeground(Color.WHITE);
+        fullName.setForeground(Color.BLACK);
 
         //        Setting up the Email - text input
-        this.Password.setBackground(new Color(18, 25, 33));
+        this.Password.setBackground(new Color(239, 239, 239));
         this.Password.setBorder(null);
         this.Password.setBounds(500, 160 + 160, 300, 30);
-        this.Password.setForeground(Color.WHITE);
+        this.Password.setForeground(Color.BLACK);
 
         password.setFont(new Font("Arial", Font.BOLD, 16));
         password.setBounds(500, 140 + 160, 300, 15);
-        password.setForeground(Color.WHITE);
+        password.setForeground(Color.BLACK);
 
         //        Setting up the Email - text input
-        this.DOB.setBackground(new Color(18, 25, 33));
+        this.DOB.setBackground(new Color(239, 239, 239));
         this.DOB.setBorder(null);
         this.DOB.setBounds(500, 160 + 240, 300, 30);
-        this.DOB.setForeground(Color.WHITE);
+        this.DOB.setForeground(Color.BLACK);
 
         dob.setFont(new Font("Arial", Font.BOLD, 16));
         dob.setBounds(500, 140 + 240, 300, 15);
-        dob.setForeground(Color.WHITE);
+        dob.setForeground(Color.BLACK);
 
         //        Setting up the Email - text input
-        this.PN.setBackground(new Color(18, 25, 33));
+        this.PN.setBackground(new Color(239, 239, 239));
         this.PN.setBorder(null);
         this.PN.setBounds(500, 160 + 320, 300, 30);
-        this.PN.setForeground(Color.WHITE);
+        this.PN.setForeground(Color.BLACK);
 
         pn.setFont(new Font("Arial", Font.BOLD, 16));
         pn.setBounds(500, 140 + 320, 300, 15);
-        pn.setForeground(Color.WHITE);
+        pn.setForeground(Color.BLACK);
 
         registerBtn.setBounds(580, 160 + 400, 100, 60);
-        registerBtn.setBackground(new Color(50, 75, 178));
-        registerBtn.setForeground(Color.WHITE);
+        registerBtn.setBackground(new Color(81, 200, 120));
+        registerBtn.setForeground(Color.BLACK);
 
         argumentsNotFilled.setBounds(500, 100, 100, 30);
         argumentsNotFilled.setForeground(Color.RED);
@@ -129,7 +129,6 @@ public class RegisterPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 window.getWindowFrame().registerPage.setVisible(false);
                 window.getWindowFrame().welcomePage.setVisible(true);
-                window.getWindowFrame().setBackground(new Color(13, 17, 23));
             }
         });
 
@@ -147,5 +146,5 @@ public class RegisterPanel extends JPanel {
         add(registerBtn);
         add(backBtnRegister);
         setSize(1280, 720);
-        setBackground(new Color(13, 17, 23));
+        setBackground(new Color(255, 255, 255));
     }}

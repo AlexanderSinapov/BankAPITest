@@ -18,19 +18,26 @@ public class WelcomePage extends JPanel {
         this.window = window;
         this.mouseInputs = new MouseInputs(window);
         this.LoginBtn = new JButton("Login");
+        JLabel WelcomeL = new JLabel("Welcome");
         this.RegisterBtn = new JButton("Register");
         addMouseListener(mouseInputs);
 
         requestFocus();
         setLayout(null);
 
+        WelcomeL.setBounds(505, 200,300, 80);
+        WelcomeL.setFont(MainPage.loadFont("commonJava/Resources/Fonts/Roboto-Medium.ttf", Font.BOLD, 60));
+        WelcomeL.setForeground(Color.BLACK);
+
         this.LoginBtn.setBounds(480, 320,150, 60 );
+        this.LoginBtn.setIcon(new ImageIcon("commonJava/Resources/Images/login_FILL0_wght400_GRAD0_opsz24.png"));
         this.LoginBtn.setBackground(new Color(81, 200, 120));
-        this.LoginBtn.setForeground(Color.WHITE);
+        this.LoginBtn.setForeground(Color.BLACK);
 
         this.RegisterBtn.setBounds(650, 320, 150, 60);
-        this.RegisterBtn.setBackground(new Color(50, 75, 178));
-        this.RegisterBtn.setForeground(Color.WHITE);
+        this.RegisterBtn.setIcon(new ImageIcon("commonJava/Resources/Images/person_add_FILL0_wght400_GRAD0_opsz24.png"));
+        this.RegisterBtn.setBackground(new Color(81, 200, 120));
+        this.RegisterBtn.setForeground(Color.BLACK);
 
         LoginBtn.addActionListener(new ActionListener() {
            public void actionPerformed(ActionEvent e) {
@@ -59,20 +66,9 @@ public class WelcomePage extends JPanel {
 
         add(this.LoginBtn);
         add(this.RegisterBtn);
+        add(WelcomeL);
         setSize(1280, 720);
-        setBackground(new Color(13, 17, 23));
+        setBackground(new Color(255, 255, 255));
 
-    }
-
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-
-        g.setFont(new Font("Arial", Font.BOLD, 16));
-
-//        Setting up the Welcome Text
-        g.setFont(new Font("Arial", Font.BOLD, 30));
-        g.setColor(Color.WHITE);
-        g.drawString("Welcome", (1280 - g.getFontMetrics().stringWidth("Welcome")) / 2, (520 - g.getFontMetrics().getHeight()) / 2);
     }
 }

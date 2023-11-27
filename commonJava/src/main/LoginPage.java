@@ -50,35 +50,35 @@ public class LoginPage extends JPanel {
         forgotPassword.setOpaque(false);
         forgotPassword.setContentAreaFilled(false);
         forgotPassword.setBorderPainted(false);
-        forgotPassword.setForeground(Color.WHITE);
+        forgotPassword.setForeground(Color.BLACK);
 
         backBtn.setBounds(10, 10, 80, 50);
         backBtn.setBackground(new Color(81, 200, 120));
-        backBtn.setForeground(Color.WHITE);
+        backBtn.setForeground(Color.BLACK);
 
 //        Setting up the Email - text input
-        this.email.setBackground(new Color(18, 25, 33));
+        this.email.setBackground(new Color(239, 239, 239));
         this.email.setBorder(null);
-        this.email.setForeground(Color.WHITE);
+        this.email.setForeground(Color.BLACK);
         this.email.setBounds(500, 160, 300, 30);
 
         emailLabel.setFont(font);
         emailLabel.setBounds(500, 140, 300, 15);
-        emailLabel.setForeground(Color.WHITE);
+        emailLabel.setForeground(Color.BLACK);
 
 //        Setting up the Password - text input
-        this.password.setBackground(new Color(18, 25, 33));
+        this.password.setBackground(new Color(239, 239, 239));
         this.password.setBorder(null);
-        this.password.setForeground(Color.WHITE);
+        this.password.setForeground(Color.BLACK);
         this.password.setBounds(500, 240, 300, 30);
 
         passLabel.setFont(font);
         passLabel.setBounds(500, 220, 300, 15);
-        passLabel.setForeground(Color.WHITE);
+        passLabel.setForeground(Color.BLACK);
 
         loginBtn.setBounds(580, 320, 100, 60);
         loginBtn.setBackground(new Color(81, 200, 120));
-        loginBtn.setForeground(Color.WHITE);
+        loginBtn.setForeground(Color.BLACK);
         loginBtn.setFont(new Font("Lucida Sans", Font.PLAIN, 20));
 
         this.loginCredentialsIncorrect.setBackground(new Color(188, 84, 73));
@@ -89,7 +89,6 @@ public class LoginPage extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 try {
                     if(DBUtils.RequestLogin(email.getText(), password.getText())){ //email.getText(), password.getText()))
-                        DBUtils.cards = DBUtils.RequestGetCards();
                         window.getWindowFrame().loginPage.setVisible(false);
                         window.getWindowFrame().addMainPage();
                         loginCredentialsIncorrect.setVisible(false);
@@ -111,7 +110,6 @@ public class LoginPage extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 window.getWindowFrame().welcomePage.setVisible(true);
                 window.getWindowFrame().loginPage.setVisible(false);
-                window.getWindowFrame().setBackground(new Color(13, 17, 23));
             }
         });
 
@@ -133,7 +131,7 @@ public class LoginPage extends JPanel {
         add(backBtn);
         add(forgotPassword);
         setSize(1280, 720);
-        setBackground(new Color(13, 17, 23));
+        setBackground(new Color(255, 255, 255));
     }
 
     private static class BottomBorder implements Border {

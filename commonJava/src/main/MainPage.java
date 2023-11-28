@@ -44,6 +44,9 @@ public class MainPage extends JPanel {
     private static JTextField legitCardTF;
     private static JPanel legitCardP;
     private static JButton logOut;
+    private static JButton removeCard = new JButton();
+
+//    private static JButton removeCard;
 
     private class  CardDetails{
         String CardHolder;
@@ -75,6 +78,8 @@ public class MainPage extends JPanel {
         isLegitCardBtn = new JButton("Check card number");
         legitCardTF = new JTextField();
         logOut  = new JButton("Logout");
+//        JButton removeCard = new JButton();
+
 
 
         cardsPanel = new JPanel();
@@ -324,8 +329,8 @@ public class MainPage extends JPanel {
                        details.ExpDate = obj.get("month") + "/" + obj.get("year");
                        details.CardNick = (String) obj.get("nickname");
                        if(details.CardNumber.startsWith("4")){
-                           CardInfo(height, "commonJava/Resources/Images/VisaLogo.png", details);
-                       } else CardInfo(height, "commonJava/Resources/Images/MCLogo.png", details);
+                           CardInfo(height, "commonJava/Resources/Images/VisaLogo.png", details, removeCard);
+                       } else CardInfo(height, "commonJava/Resources/Images/MCLogo.png", details, removeCard);
                    }
                }
            }
@@ -411,12 +416,13 @@ public class MainPage extends JPanel {
         newCard.setVisible(bool);
     }
 
-    public void CardInfo(int y, String logoPath, CardDetails details) {
+    public void CardInfo(int y, String logoPath, CardDetails details, JButton removeCard) {
+//        this.removeCard = removeCard;
         JLabel nick = new JLabel(details.CardNick);
         JLabel number = new JLabel(details.CardNumber);
         JLabel holder = new JLabel(details.CardHolder);
         JLabel expDate = new JLabel(details.ExpDate);
-        JButton removeCard = new JButton();
+        removeCard = new JButton();
         JPanel DebitCard = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -457,6 +463,7 @@ public class MainPage extends JPanel {
                     cardsPanel.remove(DebitCard);
                     cardsPanel.revalidate();
                     cardsPanel.repaint();
+                    System.out.println("asd");
                 }
             }
         });
@@ -520,8 +527,8 @@ public class MainPage extends JPanel {
                 details.ExpDate = obj.get("month") + "/" + obj.get("year");
                 details.CardNick = (String) obj.get("nickname");
                 if(details.CardNumber.startsWith("4")){
-                    CardInfo(height, "commonJava/Resources/Images/VisaLogo.png", details);
-                } else CardInfo(height, "commonJava/Resources/Images/MCLogo.png", details);
+                    CardInfo(height, "commonJava/Resources/Images/VisaLogo.png", details, removeCard);
+                } else CardInfo(height, "commonJava/Resources/Images/MCLogo.png", details, removeCard);
             }
         }
     }

@@ -91,6 +91,8 @@ public class LoginPage extends JPanel {
                     if(DBUtils.RequestLogin(email.getText(), password.getText())){ //email.getText(), password.getText()))
                         window.getWindowFrame().loginPage.setVisible(false);
                         window.getWindowFrame().addMainPage();
+                        MainPage.cardsPanel.setVisible(true);
+                        window.getWindowFrame().mainPage.refreshCardsPanel();
                         loginCredentialsIncorrect.setVisible(false);
                     } else {
                         System.out.println("Login Failed!");

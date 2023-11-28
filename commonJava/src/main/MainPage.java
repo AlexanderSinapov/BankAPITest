@@ -3,52 +3,37 @@ package main;
 import inputs.MouseInputs;
 import org.json.JSONObject;
 import utils.DBUtils;
-
-
 import javax.swing.*;
 import java.awt.*;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class MainPage extends JPanel {
     private Font font;
     private static JPanel infoPanel;
-    private static JPanel cardsPanel;
+    public static JPanel cardsPanel;
     private final JComboBox<String> cardType;
     private static JPanel newCard;
     private static JCheckBox customPin;
     private static JLabel CustomPinL;
     private static JTextField CustomPinF;
     private static JTextField NicknameF;
-    private static JTextField cardNumber;
     //    Setting up the account page
-    private static JButton ViewProfile;
     private JLabel EmailLabel;
-    private JLabel PassLabel;
     private JLabel FullNameLabel;
     private JLabel NumberOfCards;
+    private JLabel DateOfBirth;
     private JLabel PN;
-    private static JPanel card;
     public static Font TopPanelFont = loadFont("commonJava/Resources/Fonts/Roboto-Medium.ttf", Font.BOLD, 30);
-    private static JPanel TopPanel;
-    private static JLabel cardLabel;
-    private static JButton legitCardBtn;
     private static JButton addCard;
-    private static JButton isLegitCardBtn;
     private static JTextField legitCardTF;
     private static JPanel legitCardP;
-    private static JButton logOut;
-    private static JButton removeCard = new JButton();
 
-//    private static JButton removeCard;
-
-    private class  CardDetails{
+    private static class  CardDetails{
         String CardHolder;
         String ExpDate;
         String CardNick;
@@ -74,16 +59,13 @@ public class MainPage extends JPanel {
         JLabel nicknameL = new JLabel("Card Nickname");
         NicknameF = new JTextField();
         JButton newCardSubmit = new JButton("Submit");
-        legitCardBtn = new JButton("Check card");
-        isLegitCardBtn = new JButton("Check card number");
+        JButton legitCardBtn = new JButton("Check card");
+        JButton isLegitCardBtn = new JButton("Check card number");
         legitCardTF = new JTextField();
-        logOut  = new JButton("Logout");
-//        JButton removeCard = new JButton();
-
-
+        JButton logOut = new JButton("Logout");
 
         cardsPanel = new JPanel();
-        TopPanel = new JPanel();
+        JPanel topPanel = new JPanel();
         newCard = new JPanel();
         infoPanel = new JPanel();
         legitCardP = new JPanel();
@@ -91,25 +73,19 @@ public class MainPage extends JPanel {
         String[] cardTypes = new String[]{"Visa", "MasterCard"};
         this.cardType = new JComboBox<>(cardTypes);
         customPin = new JCheckBox("Custom pin");
-
-        String[] taxTypes = new String[]{"Water Supply", "Power Supply", "Internet", "Television", "Heat & Hot Water"};
-        JComboBox<String> invoiceTo = new JComboBox<>(taxTypes);
-        JLabel taxPaymentsL = new JLabel("Invoices");
-        cardNumber = new JTextField();
+        JTextField cardNumber = new JTextField();
         CustomPinF = new JTextField();
 
-        addMouseListener(mouseInputs);
-//        setVisible(false);
-
-        requestFocus();
         cardsPanel.setLayout(null);
         newCard.setLayout(null);
-
-        setLayout(null);
         newCard.setLayout(null);
+        legitCardP.setLayout(null);
+        setLayout(null);
 
-        infoPanel.setBackground(new Color(239, 239, 239));
-        SetMainPanelBounds(infoPanel);
+        addMouseListener(mouseInputs);
+        requestFocus();
+
+        ;
 
 //        Setting up the CardCreationUI
         cardsPanel.setBackground(new Color(239, 239, 239));
@@ -122,7 +98,7 @@ public class MainPage extends JPanel {
 
         newCardSubmit.setBackground(new Color(44, 140, 153));
         newCardSubmit.setBounds(220,190,150,50);
-        newCardSubmit.setForeground(Color.WHITE);
+        newCardSubmit.setForeground(Color.BLACK);
 
         cards.setBackground(null);
         cards.setBorder(null);
@@ -136,6 +112,10 @@ public class MainPage extends JPanel {
 
         newCard.setBounds(500, 350, 600, 400);
         newCard.setBackground(new Color(255, 255, 255));
+
+        newCardL.setFont(font);
+        newCardL.setBounds(220,10,150,40);
+        newCardL.setForeground(Color.BLACK);
 
         customPin.setBounds(46, 90, 150, 30);
         customPin.setBackground(new Color(255, 255, 255));
@@ -152,12 +132,6 @@ public class MainPage extends JPanel {
         CustomPinF.setForeground(Color.BLACK);
         CustomPinF.setVisible(false);
 
-        accServBtn.setBackground(null);
-        accServBtn.setBorder(null);
-        accServBtn.setIcon(new ImageIcon("commonJava/Resources/Images/account_circle_FILL0_wght400_GRAD0_opsz24.png"));
-        accServBtn.setBounds(20, 10, 200, 60);
-        accServBtn.setForeground(Color.BLACK);
-
         cardTypeL.setFont(new Font("Arial", Font.BOLD, 20));
         cardTypeL.setBounds(50,40,100,30);
         cardTypeL.setForeground(Color.BLACK);
@@ -171,13 +145,16 @@ public class MainPage extends JPanel {
         NicknameF.setBorder(null);
         NicknameF.setForeground(Color.BLACK);
 
-        newCardL.setFont(font);
-        newCardL.setBounds(220,10,150,40);
-        newCardL.setForeground(Color.BLACK);
+        accServBtn.setBackground(null);
+        accServBtn.setBorder(null);
+        accServBtn.setIcon(new ImageIcon("commonJava/Resources/Images/account_circle_FILL0_wght400_GRAD0_opsz24.png"));
+        accServBtn.setBounds(20, 10, 200, 60);
+        accServBtn.setForeground(Color.BLACK);
 
-        cardNumber.setBounds(50, 150, 200, 30);
-        cardNumber.setBackground(new Color(13, 17, 23));
-        cardNumber.setForeground(Color.WHITE);
+        infoPanel.setBackground(new Color(239, 239, 239));
+        SetMainPanelBounds(infoPanel);
+
+
 
 //        Legit Card UI
         legitCardBtn.setBackground(null);
@@ -190,6 +167,10 @@ public class MainPage extends JPanel {
         legitCardTF.setBounds(300, 60, 300, 30);
         legitCardTF.setBorder(null);
         legitCardTF.setForeground(Color.BLACK);
+
+        cardNumber.setBounds(50, 150, 200, 30);
+        cardNumber.setBackground(new Color(13, 17, 23));
+        cardNumber.setForeground(Color.WHITE);
 
         LegitCardL.setFont(new Font("Arial", Font.BOLD, 20));
         LegitCardL.setBounds(300, 30, 200, 30);
@@ -208,11 +189,7 @@ public class MainPage extends JPanel {
         legitCardP.add(LegitCardB);
         legitCardP.add(LegitCardMSG);
 
-//        this.infoPanel.setVisible(false);
-
-        cardsPanel.add(addCard);
-
-//        Setting up the logout btn
+        // Setting Log Out button
         logOut.setBackground(null);
         logOut.setBorder(null);
         logOut.setIcon(new ImageIcon("commonJava/Resources/Images/logout_FILL0_wght400_GRAD0_opsz24.png"));
@@ -232,19 +209,20 @@ public class MainPage extends JPanel {
 
         cardNumber.setVisible(false);
 
-        TopPanel.setBounds(240,0, 1280 - 240, 70);
-        TopPanel.setBackground(new Color(255, 255, 255));
-        TopPanel.setLayout(null);
+        topPanel.setBounds(240,0, 1280 - 240, 70);
+        topPanel.setBackground(new Color(255, 255, 255));
+        topPanel.setLayout(null);
 
         TopPanelL.setBounds(20, 10, 300, 50);
         TopPanelL.setForeground(new Color(0, 0, 0));
         TopPanelL.setFont(TopPanelFont);
-        TopPanel.add(TopPanelL);
+        topPanel.add(TopPanelL);
 
         cards.setHorizontalAlignment(JLabel.LEFT);
         accServBtn.setHorizontalAlignment(JLabel.LEFT);
         legitCardBtn.setHorizontalAlignment(JLabel.LEFT);
         logOut.setHorizontalAlignment(JLabel.LEFT);
+
 
         AddMouseListenerButton(cards);
         AddMouseListenerButton(accServBtn);
@@ -264,6 +242,7 @@ public class MainPage extends JPanel {
         legitCardP.setVisible(false);
         legitCardP.add(legitCardTF);
         legitCardP.add(isLegitCardBtn);
+        cardsPanel.add(addCard);
         add(newCard);
         add(infoPanel);
         add(cardsPanel);
@@ -272,10 +251,10 @@ public class MainPage extends JPanel {
         add(legitCardBtn);
         add(logOut);
         add(legitCardP);
-        add(TopPanel);
+        add(topPanel);
 
-        legitCardP.setLayout(null);
-        cardsPanel.setVisible(true);
+
+
 
         accServBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -312,8 +291,8 @@ public class MainPage extends JPanel {
                        cardsPanel.remove(component);
                    }
                }
-               cardsPanel.repaint();
                cardsPanel.revalidate();
+               cardsPanel.repaint();
                TopPanelL.setText("Your Cards");
                DBUtils.cards = DBUtils.RequestGetCards();
                AccountServicesPanel(false);
@@ -329,10 +308,12 @@ public class MainPage extends JPanel {
                        details.ExpDate = obj.get("month") + "/" + obj.get("year");
                        details.CardNick = (String) obj.get("nickname");
                        if(details.CardNumber.startsWith("4")){
-                           CardInfo(height, "commonJava/Resources/Images/VisaLogo.png", details, removeCard);
-                       } else CardInfo(height, "commonJava/Resources/Images/MCLogo.png", details, removeCard);
+                           CardInfo(height, "commonJava/Resources/Images/VisaLogo.png", details);
+                       } else CardInfo(height, "commonJava/Resources/Images/MCLogo.png", details);
                    }
                }
+               cardsPanel.revalidate();
+               cardsPanel.repaint();
            }
         });
 
@@ -416,13 +397,12 @@ public class MainPage extends JPanel {
         newCard.setVisible(bool);
     }
 
-    public void CardInfo(int y, String logoPath, CardDetails details, JButton removeCard) {
-//        this.removeCard = removeCard;
+    public void CardInfo(int y, String logoPath, CardDetails details) {
         JLabel nick = new JLabel(details.CardNick);
         JLabel number = new JLabel(details.CardNumber);
         JLabel holder = new JLabel(details.CardHolder);
         JLabel expDate = new JLabel(details.ExpDate);
-        removeCard = new JButton();
+        JButton removeCard = new JButton();
         JPanel DebitCard = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -463,7 +443,6 @@ public class MainPage extends JPanel {
                     cardsPanel.remove(DebitCard);
                     cardsPanel.revalidate();
                     cardsPanel.repaint();
-                    System.out.println("asd");
                 }
             }
         });
@@ -472,7 +451,7 @@ public class MainPage extends JPanel {
         DebitCard.add(removeCard);
         DebitCard.add(holder);
         DebitCard.add(nick);
-        DebitCard.add(expDate);
+        DebitCard.add(expDate); 
         DebitCard.setLayout(null);
         cardsPanel.add(DebitCard);
     }
@@ -481,7 +460,6 @@ public class MainPage extends JPanel {
         button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                //button.setForeground(new Color(69, 69, 69)); // Set text color when mouse over
                 button.setBackground(new Color(89, 222, 132)); // Set text color when mouse over
             }
 
@@ -506,7 +484,7 @@ public class MainPage extends JPanel {
         }
     }
 
-    private void refreshCardsPanel(){
+    public void refreshCardsPanel(){
         Component[] components = cardsPanel.getComponents();
         for (Component component : components) {
             if (component instanceof JButton && component != addCard) {
@@ -514,8 +492,8 @@ public class MainPage extends JPanel {
                 cardsPanel.remove(component);
             }
         }
-        cardsPanel.repaint();
         cardsPanel.revalidate();
+        cardsPanel.repaint();
         DBUtils.cards = DBUtils.RequestGetCards();
         int height = 100;
         if(DBUtils.cards != null){
@@ -527,10 +505,12 @@ public class MainPage extends JPanel {
                 details.ExpDate = obj.get("month") + "/" + obj.get("year");
                 details.CardNick = (String) obj.get("nickname");
                 if(details.CardNumber.startsWith("4")){
-                    CardInfo(height, "commonJava/Resources/Images/VisaLogo.png", details, removeCard);
-                } else CardInfo(height, "commonJava/Resources/Images/MCLogo.png", details, removeCard);
+                    CardInfo(height, "commonJava/Resources/Images/VisaLogo.png", details);
+                } else CardInfo(height, "commonJava/Resources/Images/MCLogo.png", details);
             }
         }
+        cardsPanel.revalidate();
+        cardsPanel.repaint();
     }
 
     private static void ResetNewCard(){

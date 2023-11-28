@@ -34,11 +34,6 @@ public class Window extends JPanel {
     public WindowFrame getWindowFrame() {
         return windowFrame;
     }
-
-    public Page getCurrentPage() {
-        return currentPage;
-    }
-
     public void setCurrentPage(Page page) {
         this.currentPage = page;
     }

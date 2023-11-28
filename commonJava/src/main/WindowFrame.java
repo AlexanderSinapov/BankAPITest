@@ -8,7 +8,7 @@ public class WindowFrame extends JFrame {
     public WelcomePage welcomePage;
     public LoginPage loginPage;
     public RegisterPanel registerPage;
-    private MainPage mainPage;
+    public MainPage mainPage;
     private ImageIcon image;
     private ForgotPasswordPage fpPage;
 

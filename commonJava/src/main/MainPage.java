@@ -32,9 +32,9 @@ public class MainPage extends JPanel {
     private static JLabel DateOfBirthTitle;
     private static JLabel PN;
     private static JLabel PNTitle;
-    public static Font TopPanelFont = loadFont("commonJava/Resources/Fonts/Roboto-Medium.ttf", Font.BOLD, 30);
-    private static Font infoPanelDataFont = loadFont("commonJava/Resources/Fonts/Roboto-Medium.ttf", Font.BOLD, 16);
-    private static Font infoPanelLabelFont = loadFont("commonJava/Resources/Fonts/Roboto-Medium.ttf", Font.BOLD, 20);
+    public static Font TopPanelFont = loadFont("out/production/BankAPITest/Fonts/Roboto-Medium.ttf", Font.BOLD, 30);
+    private static Font infoPanelDataFont = loadFont("out/production/BankAPITest/Fonts/Roboto-Medium.ttf", Font.BOLD, 16);
+    private static Font infoPanelLabelFont = loadFont("out/production/BankAPITest/Roboto-Medium.ttf", Font.BOLD, 20);
     private static JButton addCard;
     private static JTextField legitCardTF;
     private static JPanel legitCardP;
@@ -99,7 +99,7 @@ public class MainPage extends JPanel {
         SetMainPanelBounds(cardsPanel);
 
         addCard.setBackground(new Color(44, 140, 153));
-        addCard.setIcon(new ImageIcon("commonJava/Resources/Images/add_circle_FILL0_wght400_GRAD0_opsz24.png"));
+        addCard.setIcon(new ImageIcon("out/production/BankAPITest/Images/add_circle_FILL0_wght400_GRAD0_opsz24.png"));
         addCard.setBounds(50, 50, 50, 50);
         addCard.setForeground(Color.WHITE);
 
@@ -109,7 +109,7 @@ public class MainPage extends JPanel {
 
         cards.setBackground(null);
         cards.setBorder(null);
-        cards.setIcon(new ImageIcon("commonJava/Resources/Images/credit_card_FILL0_wght400_GRAD0_opsz24.png"));
+        cards.setIcon(new ImageIcon("out/production/BankAPITest/Images/credit_card_FILL0_wght400_GRAD0_opsz24.png"));
         cards.setBounds(20, 80, 200, 60);
         cards.setForeground(Color.BLACK);
 
@@ -154,7 +154,7 @@ public class MainPage extends JPanel {
 
         accServBtn.setBackground(null);
         accServBtn.setBorder(null);
-        accServBtn.setIcon(new ImageIcon("commonJava/Resources/Images/account_circle_FILL0_wght400_GRAD0_opsz24.png"));
+        accServBtn.setIcon(new ImageIcon("out/production/BankAPITest/Images/account_circle_FILL0_wght400_GRAD0_opsz24.png"));
         accServBtn.setBounds(20, 10, 200, 60);
         accServBtn.setForeground(Color.BLACK);
 
@@ -167,7 +167,7 @@ public class MainPage extends JPanel {
 //        Legit Card UI
         legitCardBtn.setBackground(null);
         legitCardBtn.setBorder(null);
-        legitCardBtn.setIcon(new ImageIcon("commonJava/Resources/Images/credit_score_FILL0_wght400_GRAD0_opsz24.png"));
+        legitCardBtn.setIcon(new ImageIcon("out/production/BankAPITest/Images/credit_score_FILL0_wght400_GRAD0_opsz24.png"));
         legitCardBtn.setBounds(20, 150, 200, 60);
         legitCardBtn.setForeground(Color.BLACK);
 
@@ -200,7 +200,7 @@ public class MainPage extends JPanel {
         // Setting Log Out button
         logOut.setBackground(null);
         logOut.setBorder(null);
-        logOut.setIcon(new ImageIcon("commonJava/Resources/Images/logout_FILL0_wght400_GRAD0_opsz24.png"));
+        logOut.setIcon(new ImageIcon("out/production/BankAPITest/Images/logout_FILL0_wght400_GRAD0_opsz24.png"));
         logOut.setBounds(20, 590, 200, 60);
         logOut.setForeground(Color.BLACK);
 
@@ -489,7 +489,7 @@ public class MainPage extends JPanel {
         DebitCard.add(removeCard);
         DebitCard.add(holder);
         DebitCard.add(nick);
-        DebitCard.add(expDate); 
+        DebitCard.add(expDate);
         DebitCard.setLayout(null);
         cardsPanel.add(DebitCard);
 

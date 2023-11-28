@@ -26,16 +26,16 @@ public class WelcomePage extends JPanel {
         setLayout(null);
 
         WelcomeL.setBounds(505, 200,300, 80);
-        WelcomeL.setFont(MainPage.loadFont("commonJava/Resources/Fonts/Roboto-Medium.ttf", Font.BOLD, 60));
+        WelcomeL.setFont(MainPage.loadFont("out/production/BankAPITest/Fonts/Roboto-Medium.ttf", Font.BOLD, 60));
         WelcomeL.setForeground(Color.BLACK);
 
         this.LoginBtn.setBounds(480, 320,150, 60 );
-        this.LoginBtn.setIcon(new ImageIcon("commonJava/Resources/Images/login_FILL0_wght400_GRAD0_opsz24.png"));
+        this.LoginBtn.setIcon(new ImageIcon("out/production/BankAPITest/Images/login_FILL0_wght400_GRAD0_opsz24.png"));
         this.LoginBtn.setBackground(new Color(81, 200, 120));
         this.LoginBtn.setForeground(Color.BLACK);
 
         this.RegisterBtn.setBounds(650, 320, 150, 60);
-        this.RegisterBtn.setIcon(new ImageIcon("commonJava/Resources/Images/person_add_FILL0_wght400_GRAD0_opsz24.png"));
+        this.RegisterBtn.setIcon(new ImageIcon("out/production/BankAPITest/Images/person_add_FILL0_wght400_GRAD0_opsz24.png"));
         this.RegisterBtn.setBackground(new Color(81, 200, 120));
         this.RegisterBtn.setForeground(Color.BLACK);
 

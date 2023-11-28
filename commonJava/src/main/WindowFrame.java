@@ -1,7 +1,6 @@
 package main;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class WindowFrame extends JFrame {
 
@@ -22,7 +21,7 @@ public class WindowFrame extends JFrame {
         this.registerPage = registerPage;
         this.mainPage = mainPage;
         this.fpPage = forgotPassword;
-        image = new ImageIcon("commonJava/Resources/Images/VistaTrustBankLogo.png");
+        image = new ImageIcon("Images/VistaTrustBankLogo.png");
 
         // Configure JFrame settings
         setSize(1280, 720);

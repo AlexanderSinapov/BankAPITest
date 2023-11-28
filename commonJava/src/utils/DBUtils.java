@@ -13,39 +13,12 @@ public class DBUtils {
 
     private static final String baseApiUrl = String.format("http://%s:8545/api", getIPv4Address());
 
-    private static String emailSession;
-    private static String authToken;
+    public static String emailSession;
+    public static String authToken;
     private static String resetToken;
+    public static JSONObject userData;
 
     public static JSONArray cards = new JSONArray();
-
-    //Path to DB
-    //private static final String url = "jdbc:sqlite:commonJava/src/database.db";
-
-    //Unique bank identifier
-    //private static final String bankIdentifier = "158";
-
-    //Holder for month and year data
-//    private static class DateHolder{
-//        int month;
-//        int year;
-//    }
-
-    //Card details class which holds the most used and needed data to process a request
-    //Also instead of having to send 4 variables you only need to send 1 variable
-//    public static class CardDetails{
-//        int pin;
-//        int cvc;
-//        int expMonth;
-//        int expYear;
-//        String cardNumber;
-//    }
-
-    //The 2 different debit card types
-//    public enum DebitCard{
-//        Visa,
-//        MasterCard
-//    }
 
     public static String getIPv4Address() {
         try {
@@ -206,6 +179,31 @@ public class DBUtils {
             if(response.statusCode() == 200){
                 try {
                     return new JSONArray(response.body());
+                } catch (Exception e){
+                    return null;
+                }
+            } else return null;
+
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static JSONObject RequestGetData(){
+        try {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .setHeader("Email", emailSession)
+                    .setHeader("authToken", authToken)
+                    .GET()
+                    .uri(new URI(baseApiUrl + "/getdata"))
+                    .build();
+
+            HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+
+            if(response.statusCode() == 200){
+                try {
+                    return new JSONObject(response.body());
                 } catch (Exception e){
                     return null;
                 }

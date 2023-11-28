@@ -41,7 +41,6 @@ public class LoginPage extends JPanel {
         requestFocus();
 
         setLayout(null);
-//        setContentPane();
 
         this.loginCredentialsIncorrect.setVisible(false);
 
@@ -88,17 +87,23 @@ public class LoginPage extends JPanel {
         loginBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    if(DBUtils.RequestLogin(email.getText(), password.getText())){ //email.getText(), password.getText()))
+                    if(DBUtils.RequestLogin(email.getText(), password.getText())){
+                        DBUtils.userData = DBUtils.RequestGetData();
+                        MainPage.SetUserData();
+
+                        DBUtils.cards = DBUtils.RequestGetCards();
+                        MainPage.SetCards();
+
+                        email.setText("");
+                        password.setText("");
+
+                        loginCredentialsIncorrect.setVisible(false);
                         window.getWindowFrame().loginPage.setVisible(false);
                         window.getWindowFrame().addMainPage();
                         MainPage.cardsPanel.setVisible(true);
-                        window.getWindowFrame().mainPage.refreshCardsPanel();
-                        loginCredentialsIncorrect.setVisible(false);
                     } else {
                         System.out.println("Login Failed!");
                         fadeIn = false;
-//                        window.getWindowFrame().loginPage.setVisible(false);
-//                        window.getWindowFrame().addMainPage();
                         loginCredentialsIncorrect.setVisible(true);
 
                     }

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class MainPage extends JPanel {
-    private Font font;
+    private static Font font;
     private static JPanel infoPanel;
     public static JPanel cardsPanel;
     private final JComboBox<String> cardType;
@@ -24,12 +24,17 @@ public class MainPage extends JPanel {
     private static JTextField CustomPinF;
     private static JTextField NicknameF;
     //    Setting up the account page
-    private JLabel EmailLabel;
-    private JLabel FullNameLabel;
-    private JLabel NumberOfCards;
-    private JLabel DateOfBirth;
-    private JLabel PN;
+    private static JLabel EmailLabel;
+    private static JLabel EmailLabelTitle;
+    private static JLabel FullNameLabel;
+    private static JLabel FullNameLabelTitle;
+    private static JLabel DateOfBirth;
+    private static JLabel DateOfBirthTitle;
+    private static JLabel PN;
+    private static JLabel PNTitle;
     public static Font TopPanelFont = loadFont("commonJava/Resources/Fonts/Roboto-Medium.ttf", Font.BOLD, 30);
+    private static Font infoPanelDataFont = loadFont("commonJava/Resources/Fonts/Roboto-Medium.ttf", Font.BOLD, 16);
+    private static Font infoPanelLabelFont = loadFont("commonJava/Resources/Fonts/Roboto-Medium.ttf", Font.BOLD, 20);
     private static JButton addCard;
     private static JTextField legitCardTF;
     private static JPanel legitCardP;
@@ -81,17 +86,16 @@ public class MainPage extends JPanel {
 
         cardsPanel.setLayout(null);
         newCard.setLayout(null);
-        newCard.setLayout(null);
+        infoPanel.setLayout(null);
         legitCardP.setLayout(null);
         setLayout(null);
 
         addMouseListener(mouseInputs);
         requestFocus();
 
-        ;
-
 //        Setting up the CardCreationUI
         cardsPanel.setBackground(new Color(239, 239, 239));
+        cardsPanel.add(addCard);
         SetMainPanelBounds(cardsPanel);
 
         addCard.setBackground(new Color(44, 140, 153));
@@ -155,6 +159,7 @@ public class MainPage extends JPanel {
         accServBtn.setForeground(Color.BLACK);
 
         infoPanel.setBackground(new Color(239, 239, 239));
+        infoPanel.setVisible(false);
         SetMainPanelBounds(infoPanel);
 
 
@@ -242,10 +247,11 @@ public class MainPage extends JPanel {
         newCard.add(CustomPinL);
         newCard.add(CustomPinF);
         newCard.setVisible(false);
+
         legitCardP.setVisible(false);
         legitCardP.add(legitCardTF);
         legitCardP.add(isLegitCardBtn);
-        cardsPanel.add(addCard);
+
         add(newCard);
         add(infoPanel);
         add(cardsPanel);
@@ -366,7 +372,13 @@ public class MainPage extends JPanel {
 
         logOut.addActionListener(new ActionListener() {
            public void actionPerformed(ActionEvent e) {
-//               setVisible(false);
+               if(DBUtils.cards != null) DBUtils.cards.clear();
+               DBUtils.emailSession = "";
+               DBUtils.authToken = "";
+               infoPanel.removeAll();
+               ClearCards();
+               legitCardTF.setText("");
+               LegitCardMSG.setVisible(false);
                window.getWindowFrame().removeMainPage();
                window.getWindowFrame().loginPage.setVisible(true);
            }
@@ -400,7 +412,24 @@ public class MainPage extends JPanel {
         newCard.setVisible(bool);
     }
 
-    public void CardInfo(int y, String logoPath, CardDetails details) {
+    public static void SetCards(){
+        int height = 100;
+        if(DBUtils.cards != null){
+            for(int i = 0; i < DBUtils.cards.length() && i < 2; i++, height += 220){
+                JSONObject obj = DBUtils.cards.getJSONObject(i);
+                CardDetails details = new CardDetails();
+                details.CardNumber = (String) obj.get("number");
+                details.CardHolder = (String) obj.get("name");
+                details.ExpDate = obj.get("month") + "/" + obj.get("year");
+                details.CardNick = (String) obj.get("nickname");
+                if(details.CardNumber.startsWith("4")){
+                    CardInfo(height, "commonJava/Resources/Images/VisaLogo.png", details);
+                } else CardInfo(height, "commonJava/Resources/Images/MCLogo.png", details);
+            }
+        }
+    }
+
+    public static void CardInfo(int y, String logoPath, CardDetails details) {
         JLabel nick = new JLabel(details.CardNick);
         JLabel number = new JLabel(details.CardNumber);
         JLabel holder = new JLabel(details.CardHolder);
@@ -440,7 +469,7 @@ public class MainPage extends JPanel {
         DebitCard.setBounds(220, y, 400, 200);
         DebitCard.setBackground(new Color(13, 17, 23));
         DebitCard.setForeground(Color.WHITE);
-        DebitCard.setFont(this.font);
+        DebitCard.setFont(font);
 
         JPanel finalDebitCard = DebitCard;
         removeCard.addActionListener(new ActionListener() {
@@ -533,4 +562,68 @@ public class MainPage extends JPanel {
         CustomPinF.setText("");
     }
 
+    public static void ClearCards(){
+        Component[] components = cardsPanel.getComponents();
+        for (Component component : components) {
+            if (component instanceof JButton && component != addCard) {
+                // Remove all components that are JButton and not the specificButton
+                cardsPanel.remove(component);
+            }
+        }
+        cardsPanel.revalidate();
+        cardsPanel.repaint();
+    }
+
+    public static void SetUserData(){
+        FullNameLabel = new JLabel(String.valueOf(DBUtils.userData.get("name")));
+        EmailLabel = new JLabel(String.valueOf(DBUtils.userData.get("email")));
+        DateOfBirth = new JLabel(String.valueOf(DBUtils.userData.get("dob")));
+        PN = new JLabel(String.valueOf(DBUtils.userData.get("phoneNumber")));
+        FullNameLabelTitle = new JLabel("Full Name");
+        EmailLabelTitle = new JLabel("Email");
+        DateOfBirthTitle = new JLabel("Date of Birth");
+        PNTitle = new JLabel("Phone Number");
+
+        FullNameLabel.setBounds(30, 30, 300, 40);
+        FullNameLabel.setForeground(Color.BLACK);
+
+        EmailLabel.setBounds(30, 80, 300, 40);
+        EmailLabel.setForeground(Color.BLACK);
+
+        DateOfBirth.setBounds(30, 130, 150, 40);
+        DateOfBirth.setForeground(Color.BLACK);
+
+        PN.setBounds(30, 180, 250, 40);
+        PN.setForeground(Color.BLACK);
+
+        FullNameLabelTitle.setBounds(30, 10, 300, 40);
+        FullNameLabelTitle.setForeground(Color.BLACK);
+
+        EmailLabelTitle.setBounds(30, 60, 300, 40);
+        EmailLabelTitle.setForeground(Color.BLACK);
+
+        DateOfBirthTitle.setBounds(30, 110, 150, 40);
+        DateOfBirthTitle.setForeground(Color.BLACK);
+
+        PNTitle.setBounds(30, 160, 250, 40);
+        PNTitle.setForeground(Color.BLACK);
+
+        FullNameLabel.setFont(infoPanelDataFont);
+        EmailLabel.setFont(infoPanelDataFont);
+        DateOfBirth.setFont(infoPanelDataFont);
+        PN.setFont(infoPanelDataFont);
+        FullNameLabelTitle.setFont(infoPanelLabelFont);
+        EmailLabelTitle.setFont(infoPanelLabelFont);
+        DateOfBirthTitle.setFont(infoPanelLabelFont);
+        PNTitle.setFont(infoPanelLabelFont);
+
+        infoPanel.add(EmailLabel);
+        infoPanel.add(FullNameLabel);
+        infoPanel.add(DateOfBirth);
+        infoPanel.add(PN);
+        infoPanel.add(EmailLabelTitle);
+        infoPanel.add(FullNameLabelTitle);
+        infoPanel.add(DateOfBirthTitle);
+        infoPanel.add(PNTitle);
+    }
 }

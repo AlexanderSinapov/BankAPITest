@@ -38,35 +38,35 @@ public class ForgotPasswordPage extends JPanel {
 
         forgotPasswordLabel.setFont(new Font("Arial", Font.BOLD, 25));
         forgotPasswordLabel.setBounds(515, 10, 250, 40);
-        forgotPasswordLabel.setForeground(Color.WHITE);
+        forgotPasswordLabel.setForeground(Color.BLACK);
 
         backBtn.setBounds(10, 10, 80, 50);
         backBtn.setBackground(new Color(81, 200, 120));
-        backBtn.setForeground(Color.WHITE);
+        backBtn.setForeground(Color.BLACK);
 
         this.emailAndPIN.setFont(font);
         this.emailAndPIN.setBounds(500, 80, 200, 40);
-        this.emailAndPIN.setForeground(Color.WHITE);
+        this.emailAndPIN.setForeground(Color.BLACK);
 
         this.email.setFont(new Font("Arial", Font.PLAIN, 20));
         this.email.setBounds(500,121,250,40);
-        this.email.setBackground(new Color(18, 25, 33));
-        this.email.setForeground(Color.WHITE);
+        this.email.setBackground(new Color(239, 239, 239));
+        this.email.setForeground(Color.BLACK);
         this.email.setBorder(null);
 
         this.submit.setBounds(580, 220, 100, 40);
         this.submit.setBackground(new Color(81, 200, 120));
-        this.submit.setForeground(Color.WHITE);
+        this.submit.setForeground(Color.BLACK);
 
         this.confirmPasswordLabel.setFont(font);
         this.confirmPasswordLabel.setBounds(500, 160, 250, 40);
-        this.confirmPasswordLabel.setForeground(Color.WHITE);
+        this.confirmPasswordLabel.setForeground(Color.BLACK);
         this.confirmPasswordLabel.setVisible(false);
 
         this.confirmPassword.setFont(new Font("Arial", Font.PLAIN, 20));
         this.confirmPassword.setBounds(500,201,250,40);
-        this.confirmPassword.setBackground(new Color(18, 25, 33));
-        this.confirmPassword.setForeground(Color.WHITE);
+        this.confirmPassword.setBackground(new Color(239, 239, 239));
+        this.confirmPassword.setForeground(Color.black);
         this.confirmPassword.setBorder(null);
         this.confirmPassword.setVisible(false);
 
@@ -130,6 +130,6 @@ public class ForgotPasswordPage extends JPanel {
         add(confirmPasswordLabel);
         add(confirmPassword);
         setSize(1280, 720);
-        setBackground(new Color(13, 17, 23));
+        setBackground(new Color(255,255, 255));
     }
 }

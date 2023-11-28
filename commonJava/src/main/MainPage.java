@@ -41,6 +41,11 @@ public class MainPage extends JPanel {
         String Balance;
     }
 
+    public class DebitCardType {
+        static JPanel Visa;
+        static JPanel MasterCard;
+    }
+
     public MainPage(Window window) {
 //        Setting variable values
         MouseInputs mouseInputs = new MouseInputs(window);
@@ -308,8 +313,8 @@ public class MainPage extends JPanel {
                        details.ExpDate = obj.get("month") + "/" + obj.get("year");
                        details.CardNick = (String) obj.get("nickname");
                        if(details.CardNumber.startsWith("4")){
-                           CardInfo(height, "commonJava/Resources/Images/VisaLogo.png", details);
-                       } else CardInfo(height, "commonJava/Resources/Images/MCLogo.png", details);
+                           CardInfo(height, "commonJava/Resources/Images/VisaLogo.png", details, DebitCardType.Visa);
+                       } else CardInfo(height, "commonJava/Resources/Images/MCLogo.png", details, DebitCardType.Visa);
                    }
                }
                cardsPanel.revalidate();
@@ -397,13 +402,13 @@ public class MainPage extends JPanel {
         newCard.setVisible(bool);
     }
 
-    public void CardInfo(int y, String logoPath, CardDetails details) {
+    public void CardInfo(int y, String logoPath, CardDetails details, JPanel DebitCard) {
         JLabel nick = new JLabel(details.CardNick);
         JLabel number = new JLabel(details.CardNumber);
         JLabel holder = new JLabel(details.CardHolder);
         JLabel expDate = new JLabel(details.ExpDate);
         JButton removeCard = new JButton();
-        JPanel DebitCard = new JPanel() {
+        DebitCard = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -437,10 +442,11 @@ public class MainPage extends JPanel {
         DebitCard.setForeground(Color.WHITE);
         DebitCard.setFont(this.font);
 
+        JPanel finalDebitCard = DebitCard;
         removeCard.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(DBUtils.RequestCloseCard(details.CardNumber)){
-                    cardsPanel.remove(DebitCard);
+                    cardsPanel.remove(finalDebitCard);
                     cardsPanel.revalidate();
                     cardsPanel.repaint();
                 }
@@ -505,8 +511,8 @@ public class MainPage extends JPanel {
                 details.ExpDate = obj.get("month") + "/" + obj.get("year");
                 details.CardNick = (String) obj.get("nickname");
                 if(details.CardNumber.startsWith("4")){
-                    CardInfo(height, "commonJava/Resources/Images/VisaLogo.png", details);
-                } else CardInfo(height, "commonJava/Resources/Images/MCLogo.png", details);
+                    CardInfo(height, "commonJava/Resources/Images/VisaLogo.png", details, DebitCardType.MasterCard);
+                } else CardInfo(height, "commonJava/Resources/Images/MCLogo.png", details, DebitCardType.MasterCard);
             }
         }
         cardsPanel.revalidate();

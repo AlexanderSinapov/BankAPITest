@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class MainPage extends JPanel {
@@ -41,10 +42,7 @@ public class MainPage extends JPanel {
         String Balance;
     }
 
-    public class DebitCardType {
-        static JPanel Visa;
-        static JPanel MasterCard;
-    }
+    private static ArrayList<JPanel> cardList = new ArrayList();
 
     public MainPage(Window window) {
 //        Setting variable values
@@ -313,8 +311,8 @@ public class MainPage extends JPanel {
                        details.ExpDate = obj.get("month") + "/" + obj.get("year");
                        details.CardNick = (String) obj.get("nickname");
                        if(details.CardNumber.startsWith("4")){
-                           CardInfo(height, "commonJava/Resources/Images/VisaLogo.png", details, DebitCardType.Visa);
-                       } else CardInfo(height, "commonJava/Resources/Images/MCLogo.png", details, DebitCardType.Visa);
+                           CardInfo(height, "commonJava/Resources/Images/VisaLogo.png", details);
+                       } else CardInfo(height, "commonJava/Resources/Images/MCLogo.png", details);
                    }
                }
                cardsPanel.revalidate();
@@ -402,18 +400,20 @@ public class MainPage extends JPanel {
         newCard.setVisible(bool);
     }
 
-    public void CardInfo(int y, String logoPath, CardDetails details, JPanel DebitCard) {
+    public void CardInfo(int y, String logoPath, CardDetails details) {
         JLabel nick = new JLabel(details.CardNick);
         JLabel number = new JLabel(details.CardNumber);
         JLabel holder = new JLabel(details.CardHolder);
         JLabel expDate = new JLabel(details.ExpDate);
         JButton removeCard = new JButton();
-        DebitCard = new JPanel() {
+        JPanel DebitCard = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 Image img = new ImageIcon(logoPath).getImage();
                 g.drawImage(img, 295, 125, this);
+                System.out.println("Card added");
+                System.out.println(cardList);
             }
         };
 
@@ -446,9 +446,12 @@ public class MainPage extends JPanel {
         removeCard.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(DBUtils.RequestCloseCard(details.CardNumber)){
-                    cardsPanel.remove(finalDebitCard);
-                    cardsPanel.revalidate();
+                    cardsPanel.remove(DebitCard);
+                    cardList.remove(DebitCard); // Remove from the list
+//                    cardsPanel.revalidate();
                     cardsPanel.repaint();
+                    System.out.println(cardList);
+                    System.out.println("Card removed");
                 }
             }
         });
@@ -460,6 +463,9 @@ public class MainPage extends JPanel {
         DebitCard.add(expDate); 
         DebitCard.setLayout(null);
         cardsPanel.add(DebitCard);
+
+        cardList.add(DebitCard);  // Add the card to the list
+//        cardsPanel.add(DebitCard);
     }
 
     public static void AddMouseListenerButton(JButton button){
@@ -511,8 +517,8 @@ public class MainPage extends JPanel {
                 details.ExpDate = obj.get("month") + "/" + obj.get("year");
                 details.CardNick = (String) obj.get("nickname");
                 if(details.CardNumber.startsWith("4")){
-                    CardInfo(height, "commonJava/Resources/Images/VisaLogo.png", details, DebitCardType.MasterCard);
-                } else CardInfo(height, "commonJava/Resources/Images/MCLogo.png", details, DebitCardType.MasterCard);
+                    CardInfo(height, "commonJava/Resources/Images/VisaLogo.png", details);
+                } else CardInfo(height, "commonJava/Resources/Images/MCLogo.png", details);
             }
         }
         cardsPanel.revalidate();

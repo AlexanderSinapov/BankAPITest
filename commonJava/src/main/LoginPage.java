@@ -16,7 +16,7 @@ public class LoginPage extends JPanel {
     public Window window;
 
     public JTextField email;
-    public JTextField password;
+    public JPasswordField password;
     private final float alpha = 0.4f;
     private boolean fadeIn = false;
 
@@ -27,7 +27,7 @@ public class LoginPage extends JPanel {
         this.window = window;
         MouseInputs mouseInputs = new MouseInputs(window);
         this.email = new JTextField(20);
-        this.password = new JTextField(20);
+        this.password = new JPasswordField(20);
         JLabel emailLabel = new JLabel("Email address");
         JLabel passLabel = new JLabel("Password");
         Font font = new Font("Arial", Font.BOLD, 16);

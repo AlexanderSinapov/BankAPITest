@@ -11,7 +11,7 @@ public class RegisterPanel extends JPanel {
     public boolean isCurrentPageRegister = false;
     public JTextField FullName;
     public JTextField Email;
-    public JTextField Password;
+    public JPasswordField Password;
     public JTextField DOB;
     public JTextField PN;
 
@@ -21,7 +21,7 @@ public class RegisterPanel extends JPanel {
         MouseInputs mouseInputs = new MouseInputs(window);
         this.FullName = new JTextField();
         this.Email = new JTextField();
-        this.Password = new JTextField();
+        this.Password = new JPasswordField();
         this.DOB = new JTextField();
         this.PN = new JTextField();
         JButton registerBtn = new JButton("Register");

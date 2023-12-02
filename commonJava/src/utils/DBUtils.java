@@ -11,7 +11,7 @@ import java.net.http.HttpResponse;
 public class DBUtils {
 
     // Base URL for API requests
-    private static final String baseApiUrl = String.format("http://%s:8545/api", getIPv4Address());
+    private static final String baseApiUrl = String.format("http://%s:8545/api", "20.67.242.144");
 
     // Variables to store session information and user data
     public static String emailSession;

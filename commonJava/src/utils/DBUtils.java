@@ -243,6 +243,33 @@ public class DBUtils {
         }
     }
 
+    public static boolean RequestLogout() {
+        try {
+            // Build and send the request
+            HttpRequest request = HttpRequest.newBuilder()
+                    .setHeader("Email", emailSession)
+                    .setHeader("authToken", authToken)
+                    .GET()
+                    .uri(new URI(baseApiUrl + "/logout/submit"))
+                    .build();
+
+            HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Check the response status code
+            if (response.statusCode() == 200) {
+                try {
+                    return true;
+                } catch (Exception e) {
+                    return false;
+                }
+            } else return false;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     // Method to send a request to check a card
     public static boolean RequestCheckCard(String cardNumber) {
         try {

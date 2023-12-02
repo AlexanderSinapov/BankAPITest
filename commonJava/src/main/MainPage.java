@@ -39,14 +39,15 @@ public class MainPage extends JPanel {
     private static JTextField legitCardTF;
     private static JPanel legitCardP;
 
-    private static class  CardDetails{
+    private static class CardDetails {
         String CardHolder;
         String ExpDate;
         String CardNick;
         String CardNumber;
         String Balance;
     }
-    private static class  CardDetailsMstr{
+
+    private static class CardDetailsMstr {
         String CardHolder;
         String ExpDate;
         String CardNick;
@@ -111,7 +112,7 @@ public class MainPage extends JPanel {
         addCard.setForeground(Color.WHITE);
 
         newCardSubmit.setBackground(new Color(44, 140, 153));
-        newCardSubmit.setBounds(220,190,150,50);
+        newCardSubmit.setBounds(220, 190, 150, 50);
         newCardSubmit.setForeground(Color.BLACK);
 
         cards.setBackground(null);
@@ -128,7 +129,7 @@ public class MainPage extends JPanel {
         newCard.setBackground(new Color(255, 255, 255));
 
         newCardL.setFont(font);
-        newCardL.setBounds(220,10,150,40);
+        newCardL.setBounds(220, 10, 150, 40);
         newCardL.setForeground(Color.BLACK);
 
         customPin.setBounds(46, 90, 150, 30);
@@ -136,25 +137,25 @@ public class MainPage extends JPanel {
         customPin.setForeground(Color.BLACK);
 
         CustomPinL.setFont(new Font("Arial", Font.BOLD, 20));
-        CustomPinL.setBounds(46,115, 200, 35);
+        CustomPinL.setBounds(46, 115, 200, 35);
         CustomPinL.setForeground(Color.BLACK);
         CustomPinL.setVisible(false);
 
-        CustomPinF.setBounds(46,150,150, 30);
+        CustomPinF.setBounds(46, 150, 150, 30);
         CustomPinF.setBackground(new Color(239, 239, 239));
         CustomPinF.setBorder(null);
         CustomPinF.setForeground(Color.BLACK);
         CustomPinF.setVisible(false);
 
         cardTypeL.setFont(new Font("Arial", Font.BOLD, 20));
-        cardTypeL.setBounds(50,40,100,30);
+        cardTypeL.setBounds(50, 40, 100, 30);
         cardTypeL.setForeground(Color.BLACK);
 
         nicknameL.setFont(new Font("Arial", Font.BOLD, 20));
-        nicknameL.setBounds(250, 40, 180,30);
+        nicknameL.setBounds(250, 40, 180, 30);
         nicknameL.setForeground(Color.BLACK);
 
-        NicknameF.setBounds(250,66, 150, 30);
+        NicknameF.setBounds(250, 66, 150, 30);
         NicknameF.setBackground(new Color(239, 239, 239));
         NicknameF.setBorder(null);
         NicknameF.setForeground(Color.BLACK);
@@ -168,7 +169,6 @@ public class MainPage extends JPanel {
         infoPanel.setBackground(new Color(239, 239, 239));
         infoPanel.setVisible(false);
         SetMainPanelBounds(infoPanel);
-
 
 
 //        Legit Card UI
@@ -224,7 +224,7 @@ public class MainPage extends JPanel {
 
         cardNumber.setVisible(false);
 
-        topPanel.setBounds(240,0, 1280 - 240, 70);
+        topPanel.setBounds(240, 0, 1280 - 240, 70);
         topPanel.setBackground(new Color(255, 255, 255));
         topPanel.setLayout(null);
 
@@ -270,8 +270,6 @@ public class MainPage extends JPanel {
         add(topPanel);
 
 
-
-
         accServBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 AccountServicesPanel(true);
@@ -284,13 +282,13 @@ public class MainPage extends JPanel {
 
         newCardSubmit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                    newCard.setVisible(false);
+                newCard.setVisible(false);
             }
         });
 
         newCardSubmit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(DBUtils.RequestNewCard(Objects.requireNonNull(cardType.getSelectedItem()).toString(), NicknameF.getText(), CustomPinF.getText(), customPin.isSelected())){
+                if (DBUtils.RequestNewCard(Objects.requireNonNull(cardType.getSelectedItem()).toString(), NicknameF.getText(), CustomPinF.getText(), customPin.isSelected())) {
                     newCard.setVisible(false);
                     System.out.println("New Card Added");
                     refreshCardsPanel();
@@ -299,43 +297,43 @@ public class MainPage extends JPanel {
         });
 
         cards.addActionListener(new ActionListener() {
-           public void actionPerformed(ActionEvent e) {
-               Component[] components = cardsPanel.getComponents();
-               for (Component component : components) {
-                   if (component instanceof JButton && component != addCard) {
-                       // Remove all components that are JButton and not the specificButton
-                       cardsPanel.remove(component);
-                   }
-               }
-               cardsPanel.revalidate();
-               cardsPanel.repaint();
-               TopPanelL.setText("Your Cards");
-               DBUtils.cards = DBUtils.RequestGetCards();
-               AccountServicesPanel(false);
-               addCardsMenuLPanel(true);
-               legitCardP.setVisible(false);
-               int height = 100;
-               if(DBUtils.cards != null){
-                   for(int i = 0; i < DBUtils.cards.length() && i < 2; i++, height += 220){
-                       JSONObject obj = DBUtils.cards.getJSONObject(i);
-                       CardDetails details = new CardDetails();
-                       details.CardNumber = (String) obj.get("number");
-                       details.CardHolder = (String) obj.get("name");
-                       details.ExpDate = obj.get("month") + "/" + obj.get("year");
-                       details.CardNick = (String) obj.get("nickname");
-                       if(details.CardNumber.startsWith("4")){
-                           CardInfo(height, "Images/VisaLogo.png", details, true);
-                       } else CardInfo(height, "Images/MCLogo.png", details, false);
-                   }
-               }
-               cardsPanel.revalidate();
-               cardsPanel.repaint();
-           }
+            public void actionPerformed(ActionEvent e) {
+                Component[] components = cardsPanel.getComponents();
+                for (Component component : components) {
+                    if (component instanceof JButton && component != addCard) {
+                        // Remove all components that are JButton and not the specificButton
+                        cardsPanel.remove(component);
+                    }
+                }
+                cardsPanel.revalidate();
+                cardsPanel.repaint();
+                TopPanelL.setText("Your Cards");
+                DBUtils.cards = DBUtils.RequestGetCards();
+                AccountServicesPanel(false);
+                addCardsMenuLPanel(true);
+                legitCardP.setVisible(false);
+                int height = 100;
+                if (DBUtils.cards != null) {
+                    for (int i = 0; i < DBUtils.cards.length() && i < 2; i++, height += 220) {
+                        JSONObject obj = DBUtils.cards.getJSONObject(i);
+                        CardDetails details = new CardDetails();
+                        details.CardNumber = (String) obj.get("number");
+                        details.CardHolder = (String) obj.get("name");
+                        details.ExpDate = obj.get("month") + "/" + obj.get("year");
+                        details.CardNick = (String) obj.get("nickname");
+                        if (details.CardNumber.startsWith("4")) {
+                            CardInfo(height, "Images/VisaLogo.png", details);
+                        } else CardInfo(height, "Images/MCLogo.png", details);
+                    }
+                }
+                cardsPanel.revalidate();
+                cardsPanel.repaint();
+            }
         });
 
         customPin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(customPin.isSelected()){
+                if (customPin.isSelected()) {
                     CustomPinF.setVisible(true);
                     CustomPinL.setVisible(true);
                 } else {
@@ -347,55 +345,57 @@ public class MainPage extends JPanel {
         });
 
         addCard.addActionListener(new ActionListener() {
-           public void actionPerformed(ActionEvent e) {
-               if(newCard.isVisible()){
-                   newCard(false);
-                   ResetNewCard();
-               } else newCard(true);
+            public void actionPerformed(ActionEvent e) {
+                if (newCard.isVisible()) {
+                    newCard(false);
+                    ResetNewCard();
+                } else newCard(true);
 
-           }
+            }
         });
 
         taxPayments.addActionListener(new ActionListener() {
-           public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {
                 AccountServicesPanel(false);
                 addCardsMenuLPanel(false);
                 newCard(false);
                 legitCardP.setVisible(false);
-           }
+            }
         });
 
         legitCardBtn.addActionListener(new ActionListener() {
-           public void actionPerformed(ActionEvent e) {
-               legitCardP.setVisible(true);
-               AccountServicesPanel(false);
-               addCardsMenuLPanel(false);
-               newCard(false);
-               TopPanelL.setText("Check Card");
-               LegitCardMSG.setVisible(false);
-               legitCardTF.setText("");
-           }
+            public void actionPerformed(ActionEvent e) {
+                legitCardP.setVisible(true);
+                AccountServicesPanel(false);
+                addCardsMenuLPanel(false);
+                newCard(false);
+                TopPanelL.setText("Check Card");
+                LegitCardMSG.setVisible(false);
+                legitCardTF.setText("");
+            }
         });
 
         logOut.addActionListener(new ActionListener() {
-           public void actionPerformed(ActionEvent e) {
-               if(DBUtils.cards != null) DBUtils.cards.clear();
-               DBUtils.emailSession = "";
-               DBUtils.authToken = "";
-               infoPanel.removeAll();
-               ClearCards();
-               legitCardTF.setText("");
-               LegitCardMSG.setVisible(false);
-               window.getWindowFrame().removeMainPage();
-               window.getWindowFrame().loginPage.setVisible(true);
-           }
+            public void actionPerformed(ActionEvent e) {
+                if(DBUtils.RequestLogout()) {
+                    if (DBUtils.cards != null) DBUtils.cards.clear();
+                    DBUtils.emailSession = "";
+                    DBUtils.authToken = "";
+                    infoPanel.removeAll();
+                    ClearCards();
+                    legitCardTF.setText("");
+                    LegitCardMSG.setVisible(false);
+                    window.getWindowFrame().removeMainPage();
+                    window.getWindowFrame().loginPage.setVisible(true);
+                }
+            }
         });
 
         LegitCardB.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String cardNumber = legitCardTF.getText().replaceAll("\\s+", "");
 
-                if(DBUtils.RequestCheckCard(legitCardTF.getText()) || isValidCardNumber(cardNumber)){
+                if (DBUtils.RequestCheckCard(legitCardTF.getText()) || isValidCardNumber(cardNumber)) {
                     LegitCardMSG.setText("Card is valid!");
                     if (isValidCardNumber(cardNumber)) {
                         LegitCardMSG.setText("Card is valid by Luhn algorithm!");
@@ -418,30 +418,34 @@ public class MainPage extends JPanel {
         infoPanel.setVisible(bool);
     }
 
-    public static void addCardsMenuLPanel(Boolean bool) {cardsPanel.setVisible(bool);};
+    public static void addCardsMenuLPanel(Boolean bool) {
+        cardsPanel.setVisible(bool);
+    }
+
+    ;
 
     public static void newCard(Boolean bool) {
         newCard.setVisible(bool);
     }
 
-    public static void SetCards(){
+    public static void SetCards() {
         int height = 100;
-        if(DBUtils.cards != null){
-            for(int i = 0; i < DBUtils.cards.length() && i < 2; i++, height += 220){
+        if (DBUtils.cards != null) {
+            for (int i = 0; i < DBUtils.cards.length() && i < 2; i++, height += 220) {
                 JSONObject obj = DBUtils.cards.getJSONObject(i);
                 CardDetails details = new CardDetails();
                 details.CardNumber = (String) obj.get("number");
                 details.CardHolder = (String) obj.get("name");
                 details.ExpDate = obj.get("month") + "/" + obj.get("year");
                 details.CardNick = (String) obj.get("nickname");
-                if(details.CardNumber.startsWith("4")){
-                    CardInfo(height, "Images/VisaLogo.png", details, true);
-                } else CardInfo(height, "Images/MCLogo.png", details, false);
+                if (details.CardNumber.startsWith("4")) {
+                    CardInfo(height, "Images/VisaLogo.png", details);
+                } else CardInfo(height, "Images/MCLogo.png", details);
             }
         }
     }
 
-    public static void CardInfo(int y, String logoPath, CardDetails details, boolean isFirstCard) {
+    public static void CardInfo(int y, String logoPath, CardDetails details) {
         JLabel nick = new JLabel(details.CardNick);
         JLabel number = new JLabel(details.CardNumber);
         JLabel holder = new JLabel(details.CardHolder);
@@ -458,114 +462,54 @@ public class MainPage extends JPanel {
             }
         };
 
-        JLabel nick2 = new JLabel(details.CardNick);
-        JLabel number2 = new JLabel(details.CardNumber);
-        JLabel holder2 = new JLabel(details.CardHolder);
-        JLabel expDate2 = new JLabel(details.ExpDate);
-        JButton removeCard2 = new JButton();
-        JPanel DebitCard2 = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Image img = new ImageIcon(logoPath).getImage();
-                g.drawImage(img, 295, 125, this);
+        nick.setBounds(20, 20, 300, 30);
+        nick.setFont(new Font("Ariel", Font.BOLD, 20));
+        nick.setForeground(Color.WHITE);
+
+        removeCard.setBounds(360, 10, 30, 30);
+        removeCard.setIcon(new ImageIcon("Images/do_not_disturb_on_FILL0_wght400_GRAD0_opsz24.png"));
+        removeCard.setBackground(null);
+
+        number.setBounds(20, 45, 180, 25);
+        number.setFont(new Font("Ariel", Font.BOLD, 16));
+        number.setForeground(Color.WHITE);
+
+        holder.setBounds(20, 85, 200, 25);
+        holder.setFont(new Font("Ariel", Font.BOLD, 16));
+        holder.setForeground(Color.WHITE);
+
+        expDate.setBounds(20, 65, 120, 25);
+        expDate.setFont(new Font("Ariel", Font.BOLD, 16));
+        expDate.setForeground(Color.WHITE);
+
+        DebitCard.setBounds(220, y, 400, 200);
+        DebitCard.setBackground(new Color(13, 17, 23));
+        DebitCard.setForeground(Color.WHITE);
+        DebitCard.setFont(font);
+
+        JPanel finalDebitCard = DebitCard;
+        removeCard.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (DBUtils.RequestCloseCard(details.CardNumber)) {
+                    cardsPanel.remove(DebitCard);
+                    cardList.remove(DebitCard); // Remove from the list
+//                    cardsPanel.revalidate();
+                    cardsPanel.repaint();
+                    System.out.println(cardList);
+                    System.out.println("Card removed");
+                }
             }
-        };
+        });
 
-        if (isFirstCard) {
-            nick.setBounds(20, 20, 300, 30);
-            DebitCard.setBounds(220, y, 400, 200);
-            nick.setBounds(20,20,300,30);
-            nick.setFont(new Font("Ariel", Font.BOLD, 20));
-            nick.setForeground(Color.WHITE);
+        DebitCard.add(number);
+        DebitCard.add(removeCard);
+        DebitCard.add(holder);
+        DebitCard.add(nick);
+        DebitCard.add(expDate);
+        DebitCard.setLayout(null);
+        cardsPanel.add(DebitCard);
 
-            removeCard.setBounds(360, 10, 30, 30);
-            removeCard.setIcon(new ImageIcon("Images/do_not_disturb_on_FILL0_wght400_GRAD0_opsz24.png"));
-            removeCard.setBackground(null);
-
-            number.setBounds(20,45,180,25);
-            number.setFont(new Font("Ariel", Font.BOLD, 16));
-            number.setForeground(Color.WHITE);
-
-            holder.setBounds(20,85,200,25);
-            holder.setFont(new Font("Ariel", Font.BOLD, 16));
-            holder.setForeground(Color.WHITE);
-
-            expDate.setBounds(20,65,120,25);
-            expDate.setFont(new Font("Ariel", Font.BOLD, 16));
-            expDate.setForeground(Color.WHITE);
-
-            DebitCard.setBounds(220, y, 400, 200);
-            DebitCard.setBackground(new Color(13, 17, 23));
-            DebitCard.setForeground(Color.WHITE);
-            DebitCard.setFont(font);
-            removeCard.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (DBUtils.RequestCloseCard(details.CardNumber)) {
-                        cardsPanel.remove(DebitCard);
-                        cardList.remove(DebitCard);
-                        cardsPanel.repaint();
-                        System.out.println(cardList);
-                        System.out.println("Card removed");
-                    }
-                }
-            });
-            DebitCard.add(number);
-            DebitCard.add(removeCard);
-            DebitCard.add(holder);
-            DebitCard.add(nick);
-            DebitCard.add(expDate);
-            DebitCard.setLayout(null);
-            cardsPanel.add(DebitCard);
-            cardList.add(DebitCard);
-        } else {
-            nick2.setBounds(20, 20, 300, 30);
-            DebitCard2.setBounds(220, y, 400, 200);
-            nick2.setBounds(20,20,300,30);
-            nick2.setFont(new Font("Ariel", Font.BOLD, 20));
-            nick2.setForeground(Color.WHITE);
-
-            removeCard2.setBounds(360, 10, 30, 30);
-            removeCard2.setIcon(new ImageIcon("Images/do_not_disturb_on_FILL0_wght400_GRAD0_opsz24.png"));
-            removeCard2.setBackground(null);
-
-            number2.setBounds(20,45,180,25);
-            number2.setFont(new Font("Ariel", Font.BOLD, 16));
-            number2.setForeground(Color.WHITE);
-
-            holder2.setBounds(20,85,200,25);
-            holder2.setFont(new Font("Ariel", Font.BOLD, 16));
-            holder2.setForeground(Color.WHITE);
-
-            expDate2.setBounds(20,65,120,25);
-            expDate2.setFont(new Font("Ariel", Font.BOLD, 16));
-            expDate2.setForeground(Color.WHITE);
-
-            DebitCard.setBounds(220, y, 400, 200);
-            DebitCard.setBackground(new Color(13, 17, 23));
-            DebitCard.setForeground(Color.WHITE);
-            DebitCard.setFont(font);
-            removeCard2.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (DBUtils.RequestCloseCard(details.CardNumber)) {
-                        cardsPanel.remove(DebitCard2);
-                        cardList.remove(DebitCard2);
-                        cardsPanel.repaint();
-                        System.out.println(cardList);
-                        System.out.println("Card removed");
-                    }
-                }
-            });
-
-            DebitCard2.add(number);
-            DebitCard2.add(removeCard);
-            DebitCard2.add(holder);
-            DebitCard2.add(nick);
-            DebitCard2.add(expDate);
-            DebitCard2.setLayout(null);
-            cardsPanel.add(DebitCard2);
-            cardList.add(DebitCard2);
-        }
+        cardList.add(DebitCard);
     }
 
     public static void AddMouseListenerButton(JButton button){
@@ -617,8 +561,8 @@ public class MainPage extends JPanel {
                 details.ExpDate = obj.get("month") + "/" + obj.get("year");
                 details.CardNick = obj.get("nickname").toString();
                 if(details.CardNumber.startsWith("4")){
-                    CardInfo(height, "Images/VisaLogo.png", details, true);
-                } else CardInfo(height, "Images/MCLogo.png", details, false);
+                    CardInfo(height, "Images/VisaLogo.png", details);
+                } else CardInfo(height, "Images/MCLogo.png", details);
             }
         }
         cardsPanel.revalidate();

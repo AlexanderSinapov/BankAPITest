@@ -391,7 +391,7 @@ public class MainPage extends JPanel {
                 if(DBUtils.RequestCheckCard(legitCardTF.getText()) || isValidCardNumber(cardNumber)){
                     LegitCardMSG.setText("Card is valid!");
                     if (isValidCardNumber(cardNumber)) {
-                        LegitCardMSG.setText("Card is valid by Luhn algotirhm!");
+                        LegitCardMSG.setText("Card is valid by Luhn algorithm!");
                     }
                     LegitCardMSG.setForeground(Color.GREEN);
                     LegitCardMSG.setVisible(true);

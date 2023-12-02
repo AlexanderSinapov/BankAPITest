@@ -386,7 +386,9 @@ public class MainPage extends JPanel {
 
         LegitCardB.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(DBUtils.RequestCheckCard(legitCardTF.getText())){
+                String cardNumber = legitCardTF.getText().replaceAll("\\s+", "");
+
+                if(DBUtils.RequestCheckCard(legitCardTF.getText()) || isValidCardNumber(cardNumber)){
                     LegitCardMSG.setText("Card is valid!");
                     LegitCardMSG.setForeground(Color.GREEN);
                     LegitCardMSG.setVisible(true);
@@ -625,5 +627,27 @@ public class MainPage extends JPanel {
         infoPanel.add(FullNameLabelTitle);
         infoPanel.add(DateOfBirthTitle);
         infoPanel.add(PNTitle);
+    }
+
+    // Function to check the validity of a card number using the Luhn algorithm
+    private boolean isValidCardNumber(String cardNumber) {
+        int sum = 0;
+        boolean alternate = false;
+
+        for (int i = cardNumber.length() - 1; i >= 0; i--) {
+            int digit = Character.getNumericValue(cardNumber.charAt(i));
+
+            if (alternate) {
+                digit *= 2;
+                if (digit > 9) {
+                    digit -= 9;
+                }
+            }
+
+            sum += digit;
+            alternate = !alternate;
+        }
+
+        return (sum % 10 == 0);
     }
 }
